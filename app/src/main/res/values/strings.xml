@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PayItForward</string>
+    <string name="remember_password">Remember Password</string>
+    <string name="log_in">Log In</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="password">Password</string>
+</resources>
