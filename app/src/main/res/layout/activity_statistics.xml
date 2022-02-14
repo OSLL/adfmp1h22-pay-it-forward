@@ -7,14 +7,77 @@
     tools:context=".StatisticsActivity">
 
     <LinearLayout
+        android:id="@+id/time"
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:layout_height="30dp"
+        android:background="@drawable/rounded_button_light_pink"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/Day"
+            android:layout_width="95dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/d"/>
+
+        <View
+            android:id="@+id/sep_1"
+            android:layout_width="1dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center_vertical"
+            android:visibility="gone"
+            android:background="#C4C4C4"/>
+
+        <TextView
+            android:id="@+id/Week"
+            android:layout_width="95dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@drawable/rounded_button_pink"
+            android:text="@string/w"/>
+
+        <View
+            android:id="@+id/sep_2"
+            android:layout_width="1dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center_vertical"
+            android:visibility="gone"
+            android:background="#C4C4C4"/>
+
+        <TextView
+            android:id="@+id/Month"
+            android:layout_width="95dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/m"/>
+
+        <View
+            android:id="@+id/sep_3"
+            android:layout_width="1dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center_vertical"
+            android:background="#C4C4C4"/>
+
+        <TextView
+            android:id="@+id/Year"
+            android:layout_width="95dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/y"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/chart"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/time">
 
         <com.scichart.charting.visuals.SciChartSurface
             android:id="@+id/surface"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="300dp"
             android:layout_alignParentTop="true" />
 
     </LinearLayout>
@@ -24,7 +87,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/chart"
-        android:background="#28C4C4C4"
+        android:background="#00C4C4C4"
         android:minHeight="50dp"
         android:orientation="horizontal">
 

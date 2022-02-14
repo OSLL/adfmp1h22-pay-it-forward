@@ -2,7 +2,10 @@ package com.example.payitforward
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.view.animation.DecelerateInterpolator
+import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import com.scichart.charting.model.dataSeries.IXyDataSeries
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.charting.visuals.axes.IAxis
@@ -25,6 +28,52 @@ class StatisticsActivity : AppCompatActivity() {
     }
 
     private fun initChart() {
+        val day: TextView = findViewById(R.id.Day)
+        val week: TextView = findViewById(R.id.Week)
+        val month: TextView = findViewById(R.id.Month)
+        val year: TextView = findViewById(R.id.Year)
+        val sep_1: View = findViewById(R.id.sep_1)
+        val sep_2: View = findViewById(R.id.sep_2)
+        val sep_3: View = findViewById(R.id.sep_3)
+        var lastTime = week
+
+        day.setOnClickListener {
+            sep_1.visibility = View.GONE
+            sep_2.visibility = View.VISIBLE
+            sep_3.visibility = View.VISIBLE
+            day.background = ResourcesCompat.getDrawable(resources, R.drawable.rounded_button_pink, null)
+            lastTime.background = null
+            lastTime = day
+        }
+
+        week.setOnClickListener {
+            sep_1.visibility = View.GONE
+            sep_2.visibility = View.GONE
+            sep_3.visibility = View.VISIBLE
+            week.background = ResourcesCompat.getDrawable(resources, R.drawable.rounded_button_pink, null)
+            lastTime.background = null
+            lastTime = week
+        }
+
+        month.setOnClickListener {
+            sep_1.visibility = View.VISIBLE
+            sep_2.visibility = View.GONE
+            sep_3.visibility = View.GONE
+            month.background = ResourcesCompat.getDrawable(resources, R.drawable.rounded_button_pink, null)
+            lastTime.background = null
+            lastTime = month
+        }
+
+        year.setOnClickListener {
+            sep_1.visibility = View.VISIBLE
+            sep_2.visibility = View.VISIBLE
+            sep_3.visibility = View.GONE
+            year.background = ResourcesCompat.getDrawable(resources, R.drawable.rounded_button_pink, null)
+            lastTime.background = null
+            lastTime = year
+        }
+
+
         val surface: SciChartSurface = findViewById(R.id.surface)
         SciChartBuilder.init(this)
         val sciChartBuilder = SciChartBuilder.instance()

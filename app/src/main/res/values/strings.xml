@@ -9,4 +9,8 @@
     <string name="message">Message</string>
     <string name="_00_00">00:00</string>
     <string name="search">search</string>
+    <string name="y">Y</string>
+    <string name="m">M</string>
+    <string name="w">W</string>
+    <string name="d">D</string>
 </resources>
