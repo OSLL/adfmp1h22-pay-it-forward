@@ -6,4 +6,7 @@
     <string name="password">Password</string>
     <string name="i_agree_to_the_terms_of_services_and_privacy_policy">I agree to the Terms of Services and Privacy Policy.</string>
     <string name="google">Google</string>
+    <string name="message">Message</string>
+    <string name="_00_00">00:00</string>
+    <string name="search">search</string>
 </resources>
