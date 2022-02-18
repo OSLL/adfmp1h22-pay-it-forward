@@ -1,10 +1,10 @@
 package com.example.payitforward
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.scichart.charting.model.dataSeries.IXyDataSeries
 import com.scichart.charting.visuals.SciChartSurface
