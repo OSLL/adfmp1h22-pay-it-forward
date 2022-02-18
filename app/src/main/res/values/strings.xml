@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PayItForward</string>
+    <string name="app_name">Pay It Forward</string>
     <string name="remember_password">Remember Password</string>
     <string name="log_in">Log In</string>
     <string name="forgot_password">Forgot Password</string>
@@ -16,5 +16,29 @@
     <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="points">Points</string>
-    <string name="deadline">Deadline</string>
+    <string name="deadline">Deadline:</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="take">Take</string>
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
+    <string name="all">All</string>
+    <string name="get">Get</string>
+    <string name="give">Give</string>
+    <string name="buy_cake_and_deliver">Buy cake and deliver</string>
+    <string name="deadline">Deadline:</string>
+    <string name="_25_03_2022">25.03.2022</string>
+    <string name="_10">10</string>
+    <string name="buy_cake_and_deliver">Buy cake and deliver</string>
+    <string name="_25_03_2022">25.03.2022</string>
+    <string name="_10">10</string>
+    <string name="vasiliy_pupkin">Vasiliy Pupkin</string>
+    <string name="author">Author:</string>
+    <string name="my_friend_in_another_city_has_a_birthday_please_buy_him_a_cake">My friend in another city has a birthday, please buy him a cake</string>
+    <string name="_25_03_2022">25.03.2022</string>
+    <string name="buy_cake_and_deliver">Buy cake and deliver</string>
+    <string name="_10">10</string>
+    <string name="author">Author:</string>
+    <string name="vasiliy_pupkin">Vasiliy Pupkin</string>
+    <string name="my_friend_in_another_city_has_a_birthday_please_buy_him_a_cake">My friend in another city has a birthday, please buy him a cake</string>
 </resources>

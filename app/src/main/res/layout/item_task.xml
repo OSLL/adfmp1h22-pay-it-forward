@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/gray"
+    android:padding="8dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/taskImageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/taskName"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/taskImageView"
+        android:maxLines="1"
+        android:text="@string/buy_cake_and_deliver"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/deadlineTextView"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/taskName"
+        android:layout_toEndOf="@id/taskImageView"
+        android:text="@string/deadline"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/deadlineDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/taskName"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@id/deadlineTextView"
+        android:maxLines="1"
+        android:text="@string/_25_03_2022"
+        android:textColor="@color/black" />
+
+    <ImageView
+        android:id="@+id/coinsImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_toStartOf="@id/coinsTextView"
+        android:src="@drawable/coins" />
+
+    <TextView
+        android:id="@+id/coinsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/_10"
+        android:textColor="@color/black"
+        android:textSize="25sp" />
+
+</RelativeLayout>

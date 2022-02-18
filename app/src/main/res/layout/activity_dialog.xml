@@ -19,9 +19,9 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
         android:background="#28C4C4C4"
         android:orientation="horizontal">
 
@@ -29,23 +29,23 @@
             android:id="@+id/addMessageImageView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="#00C4C4C4"
             android:layout_marginLeft="16dp"
-            ads:srcCompat="@drawable/icons_add"/>
+            android:background="#00C4C4C4"
+            ads:srcCompat="@drawable/icons_add" />
 
         <EditText
             android:id="@+id/messageEditText"
             android:layout_width="0dp"
-            android:layout_margin="16dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_button_gray"
             android:layout_gravity="center_vertical"
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button_gray"
             android:hint="@string/message"
-            android:layout_weight="1"/>
+            android:paddingLeft="16dp"
+            android:paddingTop="5dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="5dp" />
 
         <ImageButton
             android:id="@+id/sendButton"
@@ -55,7 +55,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="15dp"
             android:background="#00C4C4C4"
-            ads:srcCompat="@drawable/icons_up_arrow_30"/>
+            ads:srcCompat="@drawable/icons_up_arrow_30" />
 
     </LinearLayout>
 
@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true" />
 
 
 </RelativeLayout>
