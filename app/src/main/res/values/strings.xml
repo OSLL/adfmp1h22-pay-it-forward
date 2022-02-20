@@ -35,7 +35,6 @@
     <string name="create_deed">Create deed</string>
     <string name="done">Done</string>
     <string name="chat">Chat</string>
-    <string name="statistics">Statistics</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -47,4 +46,6 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="statistics">Statistics</string>
+    <string name="settings">Settings</string>
 </resources>
