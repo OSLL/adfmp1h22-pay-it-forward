@@ -50,6 +50,7 @@
             android:layout_width="95dp"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:layout_weight="1"
             android:text="@string/d"/>
 
         <View
@@ -66,6 +67,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:background="@drawable/rounded_button_pink"
+            android:layout_weight="1"
             android:text="@string/w"/>
 
         <View
@@ -81,6 +83,7 @@
             android:layout_width="95dp"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:layout_weight="1"
             android:text="@string/m"/>
 
         <View
@@ -95,21 +98,23 @@
             android:layout_width="95dp"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:layout_weight="1"
             android:text="@string/y"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/chart"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:layout_below="@+id/time">
 
-        <com.scichart.charting.visuals.SciChartSurface
-            android:id="@+id/surface"
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_alignParentTop="true" />
+            android:layout_height="300dp" />
 
     </LinearLayout>
 

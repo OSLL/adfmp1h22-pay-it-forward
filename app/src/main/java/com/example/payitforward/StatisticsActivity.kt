@@ -2,33 +2,58 @@ package com.example.payitforward
 
 import android.os.Bundle
 import android.view.View
-import android.view.animation.DecelerateInterpolator
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
-import com.scichart.charting.model.dataSeries.IXyDataSeries
-import com.scichart.charting.visuals.SciChartSurface
-import com.scichart.charting.visuals.axes.IAxis
-import com.scichart.charting.visuals.renderableSeries.FastColumnRenderableSeries
-import com.scichart.charting.visuals.renderableSeries.data.XSeriesRenderPassData
-import com.scichart.charting.visuals.renderableSeries.paletteProviders.IFillPaletteProvider
-import com.scichart.charting.visuals.renderableSeries.paletteProviders.PaletteProviderBase
-import com.scichart.core.framework.UpdateSuspender
-import com.scichart.core.model.IntegerValues
-import com.scichart.drawing.utility.ColorUtil
-import com.scichart.extensions.builders.SciChartBuilder
-import java.util.*
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.utils.ColorTemplate
 
 
 class StatisticsActivity : AppCompatActivity() {
+
+    data class Score(
+        val name:String,
+        val score: Int,
+    )
+
+    private lateinit var barChart: BarChart
+    private var scoreList = ArrayList<Score>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_statistics)
         supportActionBar?.hide()
-        initChart()
+
+        initSelector()
+
+        barChart = findViewById(R.id.barChart)
+        scoreList = getScoreList()
+
+        initBarChart()
+
+        val entries: ArrayList<BarEntry> = ArrayList()
+
+        for (i in scoreList.indices) {
+            val score = scoreList[i]
+            entries.add(BarEntry(i.toFloat(), score.score.toFloat()))
+        }
+
+        val barDataSet = BarDataSet(entries, "")
+        barDataSet.setColors(*ColorTemplate.COLORFUL_COLORS)
+
+        val data = BarData(barDataSet)
+        barChart.data = data
+
+        barChart.invalidate()
     }
 
-    private fun initChart() {
+    private fun initSelector() {
         val day: TextView = findViewById(R.id.Day)
         val week: TextView = findViewById(R.id.Week)
         val month: TextView = findViewById(R.id.Month)
@@ -74,67 +99,50 @@ class StatisticsActivity : AppCompatActivity() {
             lastTime = year
         }
 
-
-        val surface: SciChartSurface = findViewById(R.id.surface)
-        SciChartBuilder.init(this)
-        val sciChartBuilder = SciChartBuilder.instance()
-
-        val xAxis: IAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).build()
-        val yAxis: IAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.0, 0.1).build()
-
-        val dataSeries: IXyDataSeries<Int, Int> = sciChartBuilder.newXyDataSeries(
-            Int::class.javaObjectType,
-            Int::class.javaObjectType
-        ).build()
-        val yValues = intArrayOf(50, 35, 61, 58, 50, 50, 40, 53, 55, 23, 45, 12, 59, 60)
-
-        for (i in yValues.indices) {
-            dataSeries.append(i, yValues[i])
-        }
-
-        val rSeries = sciChartBuilder.newColumnSeries()
-            .withStrokeStyle(-0xdcdcdd, 0.4f)
-            .withDataPointWidth(0.7)
-            .withLinearGradientColors(ColorUtil.LightSteelBlue, ColorUtil.SteelBlue)
-            .withDataSeries(dataSeries)
-            .withPaletteProvider(ColumnsPaletteProvider())
-            .build()
-
-        UpdateSuspender.using(surface) {
-            Collections.addAll(surface.xAxes, xAxis)
-            Collections.addAll(surface.yAxes, yAxis)
-            Collections.addAll(surface.renderableSeries, rSeries)
-            Collections.addAll(
-                surface.chartModifiers,
-                sciChartBuilder.newModifierGroupWithDefaultModifiers().build()
-            )
-            sciChartBuilder.newAnimator(rSeries).withWaveTransformation()
-                .withInterpolator(DecelerateInterpolator())
-                .withDuration(3000).withStartDelay(350).start()
-        }
     }
-}
 
-private class ColumnsPaletteProvider:
-    PaletteProviderBase<FastColumnRenderableSeries>(FastColumnRenderableSeries::class.java),
-    IFillPaletteProvider {
+    inner class MyAxisFormatter : IndexAxisValueFormatter() {
 
-    private val colors = IntegerValues()
-    private val desiredColors = longArrayOf(0xFFa9d34f, 0xFFfc9930, 0xFFd63b3f)
-    override fun update() {
-        val currentRenderPassData = renderableSeries!!.currentRenderPassData as XSeriesRenderPassData
-
-        val size = currentRenderPassData.pointsCount()
-        colors.setSize(size)
-
-        val colorsArray = colors.itemsArray
-        val indices = currentRenderPassData.indices.itemsArray
-        for (i in 0 until size) {
-            val index = indices[i]
-            colorsArray[i] = desiredColors[index % 3].toInt()
+        override fun getAxisLabel(value: Float, axis: AxisBase?): String {
+            val index = value.toInt()
+            return if (index < scoreList.size) {
+                scoreList[index].name
+            } else {
+                ""
+            }
         }
     }
 
-    override fun getFillColors(): IntegerValues = colors
+    private fun initBarChart() {
+        barChart.axisLeft.setDrawGridLines(false)
+        val xAxis: XAxis = barChart.xAxis
+        xAxis.setDrawGridLines(false)
+        xAxis.setDrawAxisLine(false)
+
+        barChart.axisRight.isEnabled = false
+        barChart.legend.isEnabled = false
+        barChart.description.isEnabled = false
+
+        barChart.animateY(3000)
+
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.valueFormatter = MyAxisFormatter()
+        xAxis.setDrawLabels(true)
+        xAxis.granularity = 1f
+    }
+
+    private fun getScoreList(): ArrayList<Score> {
+        scoreList.add(Score("Mon", 56))
+        scoreList.add(Score("Tue", 75))
+        scoreList.add(Score("Web", 85))
+        scoreList.add(Score("Thu", 45))
+        scoreList.add(Score("Fri", 63))
+        scoreList.add(Score("Sat", 13))
+        scoreList.add(Score("Sun", 73))
+
+        return scoreList
+    }
 
 }
+
+

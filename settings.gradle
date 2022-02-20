@@ -10,7 +10,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://www.myget.org/F/abtsoftware/maven' }
+        maven { url 'https://jitpack.io' }
     }
 }
 rootProject.name = "PayItForward"
