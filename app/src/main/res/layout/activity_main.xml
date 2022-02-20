@@ -58,7 +58,6 @@
             android:layout_width="270dp"
             android:layout_height="40dp"
             android:background="@drawable/rounded_button"
-            android:enabled="false"
             android:gravity="center_horizontal|center_vertical"
             android:text="Sign In"
             android:textAllCaps="false"
