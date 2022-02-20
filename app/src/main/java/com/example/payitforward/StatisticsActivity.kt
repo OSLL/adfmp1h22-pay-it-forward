@@ -24,6 +24,7 @@ class StatisticsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_statistics)
+        supportActionBar?.hide()
         initChart()
     }
 
@@ -82,8 +83,8 @@ class StatisticsActivity : AppCompatActivity() {
         val yAxis: IAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.0, 0.1).build()
 
         val dataSeries: IXyDataSeries<Int, Int> = sciChartBuilder.newXyDataSeries(
-            Int::class.java,
-            Int::class.java
+            Int::class.javaObjectType,
+            Int::class.javaObjectType
         ).build()
         val yValues = intArrayOf(50, 35, 61, 58, 50, 50, 40, 53, 55, 23, 45, 12, 59, 60)
 

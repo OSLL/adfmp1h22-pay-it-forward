@@ -6,13 +6,51 @@
     android:layout_height="match_parent"
     tools:context=".CreateDeedActivity">
 
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#A5A6F6"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_gravity="bottom"
+            android:background="#00C4C4C4"
+            android:text="@string/cancel" />
+
+        <TextView
+            android:id="@+id/Title"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:layout_weight="1"
+            android:text="@string/create_deed" />
+
+        <Button
+            android:id="@+id/button_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_gravity="bottom"
+            android:background="#00C4C4C4"
+            android:text="@string/done" />
+
+    </LinearLayout>
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/changePhoto"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_below="@+id/header"
         android:src="@drawable/icons_change_user_100"
-        android:layout_marginLeft="130dp"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="20dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +58,6 @@
         android:layout_below="@+id/changePhoto"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
         android:orientation="vertical"
         tools:ignore="MissingClass">
 

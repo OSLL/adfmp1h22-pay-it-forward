@@ -25,10 +25,15 @@
     <string name="get">Get</string>
     <string name="give">Give</string>
     <string name="deadline">Deadline:</string>
-    <string name="_10">10</string>
     <string name="_25_03_2022">25.03.2022</string>
-    <string name="vasiliy_pupkin">Vasiliy Pupkin</string>
-    <string name="author">Author:</string>
-    <string name="my_friend_in_another_city_has_a_birthday_please_buy_him_a_cake">My friend in another city has a birthday, please buy him a cake</string>
     <string name="buy_cake_and_deliver">Buy cake and deliver</string>
+    <string name="_10">10</string>
+    <string name="author">Author:</string>
+    <string name="vasiliy_pupkin">Vasiliy Pupkin</string>
+    <string name="my_friend_in_another_city_has_a_birthday_please_buy_him_a_cake">My friend in another city has a birthday, please buy him a cake</string>
+    <string name="cancel">Cancel</string>
+    <string name="create_deed">Create deed</string>
+    <string name="done">Done</string>
+    <string name="chat">Chat</string>
+    <string name="statistics">Statistics</string>
 </resources>
