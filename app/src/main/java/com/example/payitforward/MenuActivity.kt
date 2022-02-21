@@ -1,4 +1,5 @@
 package com.example.payitforward
+
 import android.os.Bundle
 import android.view.Menu
 import com.google.android.material.navigation.NavigationView
@@ -19,9 +20,10 @@ class MenuActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-     binding = ActivityMenuBinding.inflate(layoutInflater)
-     setContentView(binding.root)
+        binding = ActivityMenuBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
+        /*
         setSupportActionBar(binding.appBarMenu.toolbar)
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
@@ -29,10 +31,13 @@ class MenuActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_menu)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow), drawerLayout)
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+            ), drawerLayout
+        )
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        navView.setupWithNavController(navController)*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -40,9 +45,8 @@ class MenuActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu, menu)
         return true
     }
-
-    override fun onSupportNavigateUp(): Boolean {
+    /* override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_menu)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
+    }*/
 }

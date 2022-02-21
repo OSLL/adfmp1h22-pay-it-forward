@@ -1,10 +1,13 @@
-package com.example.payitforward
+package com.example.payitforward.adapters
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.payitforward.FragmentHomeAll
+import com.example.payitforward.FragmentHomeGet
+import com.example.payitforward.FragmentHomeGive
 
 class TabsPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle, private var numberOfTabs: Int) :
     FragmentStateAdapter(fm, lifecycle) {

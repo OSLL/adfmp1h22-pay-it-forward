@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.payitforward.adapters.TabsPagerAdapter
 import com.example.payitforward.databinding.ActivityHomeBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -15,7 +16,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        mBinding = ActivityHomeBinding.inflate(layoutInflater)
+        mBinding = ActivityHomeBinding.inflate(layoutInflater)      
         setContentView(mBinding.root)
         mBinding.tabLayout.setSelectedTabIndicatorColor(Color.WHITE)
         mBinding.tabLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.pink))
