@@ -11,9 +11,21 @@ import com.example.payitforward.databinding.ItemTaskBinding
 
 class TasksAdapter : RecyclerView.Adapter<TasksAdapter.TaskViewHolder>() {
     private var tasksList: MutableList<Task> = ArrayList()
+    private lateinit var mClickListener: onTaskClickListener
+
+
+    interface onTaskClickListener {
+        fun onTaskClick(position: Int)
+    }
+
+    fun setOnTaskClickListener(listener: onTaskClickListener) {
+        mClickListener = listener
+    }
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val binding = ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TaskViewHolder(binding)
+        return TaskViewHolder(binding, mClickListener)
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
@@ -28,7 +40,7 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.TaskViewHolder>() {
     }
 
     class TaskViewHolder(
-        val binding: ItemTaskBinding
+        val binding: ItemTaskBinding, listener: onTaskClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(task: Task) {
@@ -36,6 +48,12 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.TaskViewHolder>() {
             binding.taskName.text = task.name
             binding.deadlineDate.text = task.deadlineDate
             binding.coinsTextView.text = task.coins.toString()
+        }
+
+        init {
+            binding.root.setOnClickListener{
+                listener.onTaskClick(bindingAdapterPosition)
+            }
         }
     }
 }
