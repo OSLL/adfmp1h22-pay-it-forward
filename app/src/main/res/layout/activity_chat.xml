@@ -84,12 +84,11 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_messages"
+        android:id="@+id/list_dialogs"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/linearLayoutSearch"
         android:layout_alignParentBottom="true"
-        android:padding="16dp"
         tools:ignore="MissingClass" />
 
 
