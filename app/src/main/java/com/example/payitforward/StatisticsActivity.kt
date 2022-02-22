@@ -3,8 +3,14 @@ package com.example.payitforward
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.payitforward.adapters.TasksAdapter
+import com.example.payitforward.pojo.Task
+import com.example.payitforward.pojo.User
 
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.AxisBase
@@ -25,6 +31,10 @@ class StatisticsActivity : AppCompatActivity() {
 
     private lateinit var barChart: BarChart
     private var scoreList = ArrayList<Score>()
+
+    var tasksList: MutableList<Task> = java.util.ArrayList()
+    private lateinit var tasksAdapter: TasksAdapter
+    private lateinit var tasksRecyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +62,9 @@ class StatisticsActivity : AppCompatActivity() {
         barChart.data = data
 
         barChart.invalidate()
+
+        initRecyclerView()
+        loadTasks()
     }
 
     private fun initSelector() {
@@ -142,6 +155,44 @@ class StatisticsActivity : AppCompatActivity() {
         scoreList.add(Score("Sun", 73))
 
         return scoreList
+    }
+
+    private fun loadTasks() {
+        tasksList = getTasks()
+        tasksAdapter.setItems(tasksList)
+    }
+
+    private fun getTasks(): MutableList<Task> {
+        var lst: MutableList<Task> = java.util.ArrayList<Task>()
+        for (i in 1..10) {
+            lst.add(
+                Task(
+                    i.toLong(),
+                    "21.02.2022",
+                    "25.02.2022",
+                    User(i.toLong(), "Maria", ""),
+                    "Buy cake",
+                    "Desiption",
+                    "",
+                    1,
+                    1
+                )
+            )
+        }
+        return lst
+    }
+
+    private fun initRecyclerView() {
+        tasksRecyclerView = findViewById(R.id.history)
+        tasksRecyclerView.layoutManager = LinearLayoutManager(this)
+        tasksAdapter = TasksAdapter()
+        tasksAdapter.setOnTaskClickListener(object : TasksAdapter.onTaskClickListener{
+            override fun onTaskClick(position: Int) {
+                //Toast.makeText(this, "You clicked on item on $position", Toast.LENGTH_LONG).show()
+            }
+
+        })
+        tasksRecyclerView.adapter = tasksAdapter
     }
 
 }
