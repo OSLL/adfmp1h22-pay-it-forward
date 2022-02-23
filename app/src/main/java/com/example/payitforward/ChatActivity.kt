@@ -4,60 +4,64 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.payitforward.adapters.DialogsAdapter
+import com.example.payitforward.databinding.ActivityChatBinding
 import com.example.payitforward.pojo.Dialog
+import com.example.payitforward.pojo.Message
 import com.example.payitforward.pojo.User
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class ChatActivity : AppCompatActivity() {
 
-    var dialogsList: MutableList<Dialog> = java.util.ArrayList()
     private lateinit var dialogsAdapter: DialogsAdapter
-    private lateinit var dialogsRecyclerView: RecyclerView
+    private lateinit var binding: ActivityChatBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat)
+        binding = ActivityChatBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         supportActionBar?.hide()
 
         initRecyclerView()
-        loadTasks()
+        getDialogs()
     }
 
-    private fun loadTasks() {
-        dialogsList = getDialogs()
-        dialogsAdapter.setItems(dialogsList)
-    }
-
-    private fun getDialogs(): MutableList<Dialog> {
-        var lst: MutableList<Dialog> = java.util.ArrayList<Dialog>()
-        for (i in 1..20) {
-            lst.add(
-                Dialog(
-                    i.toLong(),
-                    "21.02.2022",
-                    User(i.toLong(), "Vasiliy", ""),
-                    "Buy cake and deliver",
-                    "Good Job!",
-                    ""
-                )
-            )
-        }
-        return lst
+    private fun getDialogs() {
+        val db = Firebase.firestore
+        db.collection("dialog")
+            .whereEqualTo("ownerId", "1")
+            .get()
+            .addOnSuccessListener { snapshots ->
+                val dialogs: List<Dialog> = snapshots.toObjects(Dialog::class.java)
+                dialogsAdapter.setItems(dialogs)
+            }
+        db.collection("dialog")
+            .whereEqualTo("candidateId", "1")
+            .get()
+            .addOnSuccessListener { snapshots ->
+                val dialogs: List<Dialog> = snapshots.toObjects(Dialog::class.java)
+                dialogsAdapter.setItems(dialogs)
+            }
     }
 
     private fun initRecyclerView() {
-        dialogsRecyclerView = findViewById(R.id.list_dialogs)
-        dialogsRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.listDialogs.layoutManager = LinearLayoutManager(this)
         dialogsAdapter = DialogsAdapter()
         dialogsAdapter.setOnDialogClickListener(object : DialogsAdapter.onDialogClickListener{
             override fun onDialogClick(position: Int) {
                 val intent = Intent(this@ChatActivity, DialogActivity::class.java)
-                intent.putExtra("title", dialogsList[position].title)
+                intent.putExtra("dialogId", "1_5")
                 startActivity(intent)
             }
 
         })
-        dialogsRecyclerView.adapter = dialogsAdapter
+        binding.listDialogs.adapter = dialogsAdapter
     }
 }

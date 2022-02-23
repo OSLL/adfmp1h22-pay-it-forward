@@ -1,11 +1,17 @@
 package com.example.payitforward.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.payitforward.databinding.ItemDialogBinding
 import com.example.payitforward.pojo.Dialog
-import java.util.ArrayList
+import com.example.payitforward.pojo.Message
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+
 
 class DialogsAdapter : RecyclerView.Adapter<DialogsAdapter.DialogViewHolder>() {
     
@@ -32,21 +38,37 @@ class DialogsAdapter : RecyclerView.Adapter<DialogsAdapter.DialogViewHolder>() {
 
     override fun getItemCount() = dialogsList.size
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setItems(dialogs: Collection<Dialog>) {
         dialogsList.addAll(0, dialogs)
         notifyDataSetChanged()
+    }
+
+    fun updateItem(position: Int) {
+        dialogsList[position]
     }
 
     class DialogViewHolder(
         val binding: ItemDialogBinding, listener: onDialogClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        @SuppressLint("SimpleDateFormat")
         fun bind(dialog: Dialog) {
-            // binding.dialogImageView
-            binding.dialogName.text = dialog.title
-            binding.nameTextView.text = dialog.author.name + ": "
-            binding.timeTextView.text = dialog.time
-            binding.messageTextView.text = dialog.message
+            val db = Firebase.firestore
+            db.collection("message")
+                .whereEqualTo("dialogId", dialog.id)
+                .addSnapshotListener { snapshots, e ->
+                    if (snapshots != null) {
+                        val messages: List<Message> = snapshots.toObjects(Message::class.java)
+                        val message = messages.maxByOrNull { it.time ?: Timestamp.now() }
+                        if (message != null) {
+                            val sfd = SimpleDateFormat("HH:mm")
+                            binding.timeTextView.text = sfd.format(message.time!!.toDate())
+                            binding.messageTextView.text = message.text
+                        }
+                    }
+                }
+            binding.dialogName.text = "Dialog Name"
         }
 
         init {

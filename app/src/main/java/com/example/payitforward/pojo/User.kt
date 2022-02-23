@@ -1,8 +1,7 @@
 package com.example.payitforward.pojo
 
-class User(
+data class User(
     val id: Long,
     val name: String,
     val imageUrl: String?,
-) {
-}
+)

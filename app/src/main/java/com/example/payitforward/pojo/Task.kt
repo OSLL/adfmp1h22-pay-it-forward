@@ -1,6 +1,6 @@
 package com.example.payitforward.pojo
 
-class Task(
+data class Task(
     var id: Long,
     var creationDate: String,
     var deadlineDate: String,
@@ -10,6 +10,4 @@ class Task(
     var imageUrl: String?,
     var coins: Int,
     var type: Int
-) {
-
-}
+)

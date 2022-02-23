@@ -2,17 +2,13 @@ package com.example.payitforward
 
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.payitforward.adapters.TasksAdapter
+import com.example.payitforward.databinding.ActivityStatisticsBinding
 import com.example.payitforward.pojo.Task
 import com.example.payitforward.pojo.User
-
-import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
@@ -20,6 +16,7 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
+import com.google.firebase.database.FirebaseDatabase
 
 
 class StatisticsActivity : AppCompatActivity() {
@@ -29,21 +26,20 @@ class StatisticsActivity : AppCompatActivity() {
         val score: Int,
     )
 
-    private lateinit var barChart: BarChart
     private var scoreList = ArrayList<Score>()
 
     var tasksList: MutableList<Task> = java.util.ArrayList()
     private lateinit var tasksAdapter: TasksAdapter
-    private lateinit var tasksRecyclerView: RecyclerView
+    private lateinit var binding: ActivityStatisticsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_statistics)
+        binding = ActivityStatisticsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         supportActionBar?.hide()
 
         initSelector()
 
-        barChart = findViewById(R.id.barChart)
         scoreList = getScoreList()
 
         initBarChart()
@@ -59,58 +55,54 @@ class StatisticsActivity : AppCompatActivity() {
         barDataSet.setColors(*ColorTemplate.COLORFUL_COLORS)
 
         val data = BarData(barDataSet)
-        barChart.data = data
+        binding.barChart.data = data
 
-        barChart.invalidate()
+        binding.barChart.invalidate()
 
         initRecyclerView()
         loadTasks()
     }
 
     private fun initSelector() {
-        val day: TextView = findViewById(R.id.Day)
-        val week: TextView = findViewById(R.id.Week)
-        val month: TextView = findViewById(R.id.Month)
-        val year: TextView = findViewById(R.id.Year)
-        val sep_1: View = findViewById(R.id.sep_1)
-        val sep_2: View = findViewById(R.id.sep_2)
-        val sep_3: View = findViewById(R.id.sep_3)
-        var lastTime = week
 
-        day.setOnClickListener {
-            sep_1.visibility = View.GONE
-            sep_2.visibility = View.VISIBLE
-            sep_3.visibility = View.VISIBLE
-            day.background = ResourcesCompat.getDrawable(resources, R.drawable.rounded_button_pink, null)
-            lastTime.background = null
-            lastTime = day
-        }
+        binding.apply {
+            var lastTime = Week
 
-        week.setOnClickListener {
-            sep_1.visibility = View.GONE
-            sep_2.visibility = View.GONE
-            sep_3.visibility = View.VISIBLE
-            week.background = ResourcesCompat.getDrawable(resources, R.drawable.rounded_button_pink, null)
-            lastTime.background = null
-            lastTime = week
-        }
+            Day.setOnClickListener {
+                sep1.visibility = View.GONE
+                sep2.visibility = View.VISIBLE
+                sep3.visibility = View.VISIBLE
+                Day.background = ResourcesCompat.getDrawable(resources, R.drawable.rounded_button_pink, null)
+                lastTime.background = null
+                lastTime = Day
+            }
 
-        month.setOnClickListener {
-            sep_1.visibility = View.VISIBLE
-            sep_2.visibility = View.GONE
-            sep_3.visibility = View.GONE
-            month.background = ResourcesCompat.getDrawable(resources, R.drawable.rounded_button_pink, null)
-            lastTime.background = null
-            lastTime = month
-        }
+            Week.setOnClickListener {
+                sep1.visibility = View.GONE
+                sep2.visibility = View.GONE
+                sep3.visibility = View.VISIBLE
+                Week.background = ResourcesCompat.getDrawable(resources, R.drawable.rounded_button_pink, null)
+                lastTime.background = null
+                lastTime = Week
+            }
 
-        year.setOnClickListener {
-            sep_1.visibility = View.VISIBLE
-            sep_2.visibility = View.VISIBLE
-            sep_3.visibility = View.GONE
-            year.background = ResourcesCompat.getDrawable(resources, R.drawable.rounded_button_pink, null)
-            lastTime.background = null
-            lastTime = year
+            Month.setOnClickListener {
+                sep1.visibility = View.VISIBLE
+                sep2.visibility = View.GONE
+                sep3.visibility = View.GONE
+                Month.background = ResourcesCompat.getDrawable(resources, R.drawable.rounded_button_pink, null)
+                lastTime.background = null
+                lastTime = Month
+            }
+
+            Year.setOnClickListener {
+                sep1.visibility = View.VISIBLE
+                sep2.visibility = View.VISIBLE
+                sep3.visibility = View.GONE
+                Year.background = ResourcesCompat.getDrawable(resources, R.drawable.rounded_button_pink, null)
+                lastTime.background = null
+                lastTime = Year
+            }
         }
 
     }
@@ -128,16 +120,16 @@ class StatisticsActivity : AppCompatActivity() {
     }
 
     private fun initBarChart() {
-        barChart.axisLeft.setDrawGridLines(false)
-        val xAxis: XAxis = barChart.xAxis
+        binding.barChart.axisLeft.setDrawGridLines(false)
+        val xAxis: XAxis = binding.barChart.xAxis
         xAxis.setDrawGridLines(false)
         xAxis.setDrawAxisLine(false)
 
-        barChart.axisRight.isEnabled = false
-        barChart.legend.isEnabled = false
-        barChart.description.isEnabled = false
+        binding.barChart.axisRight.isEnabled = false
+        binding.barChart.legend.isEnabled = false
+        binding.barChart.description.isEnabled = false
 
-        barChart.animateY(3000)
+        binding.barChart.animateY(3000)
 
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.valueFormatter = MyAxisFormatter()
@@ -183,8 +175,7 @@ class StatisticsActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        tasksRecyclerView = findViewById(R.id.history)
-        tasksRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.history.layoutManager = LinearLayoutManager(this)
         tasksAdapter = TasksAdapter()
         tasksAdapter.setOnTaskClickListener(object : TasksAdapter.onTaskClickListener{
             override fun onTaskClick(position: Int) {
@@ -192,7 +183,7 @@ class StatisticsActivity : AppCompatActivity() {
             }
 
         })
-        tasksRecyclerView.adapter = tasksAdapter
+        binding.history.adapter = tasksAdapter
     }
 
 }

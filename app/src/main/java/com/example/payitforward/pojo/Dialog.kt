@@ -1,12 +1,8 @@
 package com.example.payitforward.pojo
 
-class Dialog(
-    val id: Long,
-    var time: String,
-    var author: User,
-    var title: String,
-    var message: String,
-    var imageUrl: String?
-) {
-
-}
+data class Dialog(
+    val id: String? = null,
+    var ownerId: String? = null,
+    var candidateId: String? = null,
+    var taskId: String? = null
+)

@@ -1,6 +1,7 @@
 package com.example.payitforward
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.payitforward.adapters.TasksAdapter
+import com.example.payitforward.pojo.Dialog
 import com.example.payitforward.pojo.Task
 import com.example.payitforward.pojo.User
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import java.util.*
 
 
@@ -62,6 +66,25 @@ class FragmentHomeAll : Fragment() {
         tasksAdapter.setOnTaskClickListener(object : TasksAdapter.onTaskClickListener{
             override fun onTaskClick(position: Int) {
                 Toast.makeText(requireActivity(), "You clicked on item on $position", Toast.LENGTH_LONG).show()
+
+                val db = Firebase.firestore
+                val collections = db.collection("dialog")
+                collections
+                    .whereEqualTo("candidateId", "1")
+                    .whereEqualTo("taskId", "5")
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        val id: String?
+                        if (documents.isEmpty ) {
+                            id = "1" + "_" + "5"
+                            collections.add(Dialog(id, "2", "1", "5"))
+                        } else {
+                            id = documents.toObjects(Dialog::class.java)[0].id
+                        }
+                        val intent = Intent(view!!.context, DialogActivity::class.java)
+                        intent.putExtra("dialogId", id)
+                        startActivity(intent)
+                    }
             }
 
         })

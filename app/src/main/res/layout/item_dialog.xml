@@ -28,23 +28,12 @@
         android:textColor="@color/black" />
 
     <TextView
-        android:id="@+id/nameTextView"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/dialogName"
-        android:maxWidth="100dp"
-        android:text="Vasiliy:"
-        android:layout_toEndOf="@id/dialogImageView"
-        android:textColor="@color/black" />
-
-    <TextView
         android:id="@+id/messageTextView"
-        android:layout_width="200dp"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/dialogName"
         android:layout_marginStart="5dp"
-        android:layout_toEndOf="@id/nameTextView"
+        android:layout_toEndOf="@id/dialogImageView"
         android:maxLines="1"
         android:text="Good Job!"
         android:textColor="@color/black" />
