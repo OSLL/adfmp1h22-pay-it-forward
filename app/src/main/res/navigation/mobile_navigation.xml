@@ -9,17 +9,25 @@
         android:id="@+id/nav_home"
         android:name="com.example.payitforward.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/activity_home" />
+        tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.payitforward.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_chat"
+        android:name="com.example.payitforward.ui.chat.ChatFragment"
+        android:label="@string/chat"
+        tools:layout="@layout/fragment_chat" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.payitforward.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_statistics"
+        android:name="com.example.payitforward.ui.statistics.ChatFragment"
+        android:label="@string/statistics"
+        tools:layout="@layout/fragment_statistics" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.example.payitforward.ui.statistics.ChatFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_statistics" />
+
+
 </navigation>
