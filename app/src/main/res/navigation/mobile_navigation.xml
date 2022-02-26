@@ -19,15 +19,14 @@
 
     <fragment
         android:id="@+id/nav_statistics"
-        android:name="com.example.payitforward.ui.statistics.ChatFragment"
+        android:name="com.example.payitforward.ui.statistics.StatisticsFragment"
         android:label="@string/statistics"
         tools:layout="@layout/fragment_statistics" />
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.example.payitforward.ui.statistics.ChatFragment"
-        android:label="@string/settings"
-        tools:layout="@layout/fragment_statistics" />
+        android:name="com.example.payitforward.ui.settings.SettingsFragment"
+        android:label="@string/settings" />
 
 
 </navigation>

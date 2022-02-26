@@ -1,0 +1,31 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="">
+
+        <ListPreference
+            app:title="@string/edit_profile"
+            app:icon="@drawable/edit_profile"/>
+
+        <SwitchPreferenceCompat
+            app:key="sync"
+            app:title="@string/notifications"
+            app:icon="@drawable/notifications"/>
+
+        <ListPreference
+            app:title="@string/security"
+            app:icon="@drawable/security" />
+
+        <ListPreference
+            app:title="About"
+            app:icon="@drawable/about"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="">
+
+        <ListPreference
+            app:title="Log Out"
+            app:icon="@drawable/log_out"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

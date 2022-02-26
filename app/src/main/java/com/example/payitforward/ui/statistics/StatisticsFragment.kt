@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.payitforward.databinding.FragmentStatisticsBinding
 
-class ChatFragment : Fragment() {
+class StatisticsFragment : Fragment() {
 
 private var _binding: FragmentStatisticsBinding? = null
   // This property is only valid between onCreateView and
@@ -22,7 +22,7 @@ private var _binding: FragmentStatisticsBinding? = null
     savedInstanceState: Bundle?
   ): View {
     val slideshowViewModel =
-            ViewModelProvider(this).get(ChatViewModel::class.java)
+            ViewModelProvider(this).get(StatisticsViewModel::class.java)
 
     _binding = FragmentStatisticsBinding.inflate(inflater, container, false)
     val root: View = binding.root
