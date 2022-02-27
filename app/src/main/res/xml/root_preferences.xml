@@ -3,20 +3,23 @@
     <PreferenceCategory app:title="">
 
         <ListPreference
+            app:key="@string/edit_profile"
             app:title="@string/edit_profile"
             app:icon="@drawable/edit_profile"/>
 
         <SwitchPreferenceCompat
-            app:key="sync"
+            app:key="@string/notifications"
             app:title="@string/notifications"
             app:icon="@drawable/notifications"/>
 
         <ListPreference
+            app:key="@string/security"
             app:title="@string/security"
             app:icon="@drawable/security" />
 
         <ListPreference
-            app:title="About"
+            app:key="about"
+            app:title="@string/about"
             app:icon="@drawable/about"/>
 
     </PreferenceCategory>
@@ -24,7 +27,8 @@
     <PreferenceCategory app:title="">
 
         <ListPreference
-            app:title="Log Out"
+            app:key="@string/log_out"
+            app:title="@string/log_out"
             app:icon="@drawable/log_out"/>
     </PreferenceCategory>
 
