@@ -14,6 +14,7 @@ import com.example.payitforward.adapters.TasksAdapter
 import com.example.payitforward.pojo.Dialog
 import com.example.payitforward.pojo.Task
 import com.example.payitforward.pojo.User
+import com.example.payitforward.ui.chat.DialogActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*

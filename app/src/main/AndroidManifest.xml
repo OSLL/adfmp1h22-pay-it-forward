@@ -23,18 +23,12 @@
             android:exported="false" />
         <activity
             android:name=".MenuActivity"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".CreateDeedActivity"
             android:exported="false" />
         <activity
-            android:name=".StatisticsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DialogActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ChatActivity"
+            android:name=".ui.chat.DialogActivity"
             android:exported="false" />
         <activity android:name=".SignUpActivity" />
         <activity

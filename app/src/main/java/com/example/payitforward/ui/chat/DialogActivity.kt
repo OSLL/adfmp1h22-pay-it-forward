@@ -1,4 +1,4 @@
-package com.example.payitforward
+package com.example.payitforward.ui.chat
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -8,7 +8,6 @@ import com.example.payitforward.adapters.MessageAdapter
 import com.example.payitforward.databinding.ActivityDialogBinding
 import com.example.payitforward.pojo.Message
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
