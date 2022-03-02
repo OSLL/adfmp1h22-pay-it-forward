@@ -69,7 +69,9 @@ class FragmentHomeAll : Fragment() {
                 val intent = Intent(view!!.context, ItemTaskActivity::class.java)
                 if (tasksList[position].type == 0) {
                     intent.putExtra("taskType", "take")
-                } else {
+                } else if (tasksList[position].type == 1)  {
+                    intent.putExtra("taskType", "done")
+                } else if (tasksList[position].type == 2) {
                     intent.putExtra("taskType", "accept_reject")
                 }
                 startActivity(intent)

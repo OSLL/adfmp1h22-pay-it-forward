@@ -9,5 +9,5 @@ data class Task(
     var description: String,
     var imageUrl: String?,
     var coins: Int,
-    var type: Int
+    var type: Int, // 0 - take, 1 - done, 2 - accept, reject
 )

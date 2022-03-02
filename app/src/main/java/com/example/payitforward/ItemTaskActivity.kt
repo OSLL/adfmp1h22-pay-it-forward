@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.payitforward.databinding.ActivityTaskAcceptRejectBinding
 import com.example.payitforward.databinding.ActivityTaskTakeBinding
+import com.example.payitforward.databinding.ActivityTaskDoneBinding
 
 
 class ItemTaskActivity : AppCompatActivity() {
@@ -21,6 +22,10 @@ class ItemTaskActivity : AppCompatActivity() {
             var takeBinding: ActivityTaskTakeBinding =
                 ActivityTaskTakeBinding.inflate(layoutInflater)
             setContentView(takeBinding.root)
+        }  else if (inputTaskType == "done") {
+            var doneBinding: ActivityTaskDoneBinding =
+                ActivityTaskDoneBinding.inflate(layoutInflater)
+            setContentView(doneBinding.root)
         }
 
     }
