@@ -1,11 +1,11 @@
 package com.example.payitforward
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.payitforward.adapters.TasksAdapter
@@ -60,7 +60,9 @@ class FragmentHomeGet : Fragment() {
         tasksAdapter = TasksAdapter()
         tasksAdapter.setOnTaskClickListener(object : TasksAdapter.onTaskClickListener{
             override fun onTaskClick(position: Int) {
-                Toast.makeText(requireActivity(), "You clicked on item on $position", Toast.LENGTH_LONG).show()
+                val intent = Intent(view!!.context, ItemTaskActivity::class.java)
+                intent.putExtra("taskType", "take")
+                startActivity(intent)
             }
 
         })

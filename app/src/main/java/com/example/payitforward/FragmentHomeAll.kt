@@ -53,7 +53,7 @@ class FragmentHomeAll : Fragment() {
                     "Desiption",
                     "",
                     1,
-                    1
+                    i % 2
                 )
             )
         }
@@ -66,9 +66,15 @@ class FragmentHomeAll : Fragment() {
         tasksAdapter = TasksAdapter()
         tasksAdapter.setOnTaskClickListener(object : TasksAdapter.onTaskClickListener{
             override fun onTaskClick(position: Int) {
-                Toast.makeText(requireActivity(), "You clicked on item on $position", Toast.LENGTH_LONG).show()
+                val intent = Intent(view!!.context, ItemTaskActivity::class.java)
+                if (tasksList[position].type == 0) {
+                    intent.putExtra("taskType", "take")
+                } else {
+                    intent.putExtra("taskType", "accept_reject")
+                }
+                startActivity(intent)
 
-                val db = Firebase.firestore
+                /*val db = Firebase.firestore
                 val collections = db.collection("dialog")
                 collections
                     .whereEqualTo("candidateId", "1")
@@ -85,7 +91,7 @@ class FragmentHomeAll : Fragment() {
                         val intent = Intent(view!!.context, DialogActivity::class.java)
                         intent.putExtra("dialogId", id)
                         startActivity(intent)
-                    }
+                    }*/
             }
 
         })

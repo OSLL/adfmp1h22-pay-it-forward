@@ -9,6 +9,7 @@
     tools:showIn="@layout/app_bar_menu"
     tools:context=".HomeActivity">
 
+    <!--
     <fragment
         android:id="@+id/nav_host"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -18,7 +19,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/mobile_navigation" />
+        app:navGraph="@navigation/mobile_navigation" /> -->
 
     <LinearLayout
         android:id="@+id/linearLayoutHome"
