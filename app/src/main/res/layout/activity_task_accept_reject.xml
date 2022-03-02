@@ -5,12 +5,21 @@
     android:background="@color/gray"
     android:paddingEnd="8dp">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/taskImageView"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:src="@mipmap/ic_launcher" />
+
     <TextView
         android:id="@+id/taskName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@id/taskImageView"
         android:maxLines="1"
         android:text="@string/buy_cake_and_deliver"
         android:textColor="@color/black"
@@ -21,7 +30,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/taskName"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="15dp"
+        android:layout_toEndOf="@id/taskImageView"
         android:text="@string/deadline"
         android:textColor="@color/black"
         android:textStyle="bold" />
@@ -36,6 +46,31 @@
         android:maxLines="1"
         android:text="@string/_25_03_2022"
         android:textColor="@color/black" />
+
+
+    <TextView
+        android:id="@+id/authorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/deadlineDate"
+        android:layout_marginStart="15dp"
+        android:layout_toEndOf="@id/taskImageView"
+        android:text="@string/author"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/authorNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/deadlineDate"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@id/authorTextView"
+        android:text="@string/vasiliy_pupkin"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
 
     <ImageView
         android:id="@+id/coinsImageView"
@@ -55,54 +90,76 @@
         android:textColor="@color/black"
         android:textSize="25sp" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/taskImageView"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/deadlineTextView"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:src="@mipmap/ic_launcher" />
-
-    <TextView
-        android:id="@+id/authorTextView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/deadlineDate"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_below="@id/authorTextView"
+        android:layout_marginTop="15dp"
         android:layout_toEndOf="@id/taskImageView"
-        android:text="@string/author"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+        android:gravity="center_horizontal">
 
+        <LinearLayout
+            android:id="@+id/buttonEdit"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:background="@drawable/rounded_button_pink"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_horizontal">
 
-    <TextView
-        android:id="@+id/authorNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/deadlineDate"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_toEndOf="@id/authorTextView"
-        android:text="@string/vasiliy_pupkin"
-        android:textColor="@color/black"
-        android:textSize="15sp" />
+            <TextView
+                android:id="@+id/textViewEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="Edit"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttonMessage"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/rounded_button_pink"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/textViewMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="Message"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
 
 
     <TextView
         android:id="@+id/taskDescriptionTextView"
-        android:layout_width="270dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/authorTextView"
+        android:layout_below="@id/taskImageView"
         android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_toEndOf="@id/taskImageView"
         android:text="@string/my_friend_in_another_city_has_a_birthday_please_buy_him_a_cake"
         android:textColor="@color/black"
         android:textSize="14sp" />
