@@ -15,7 +15,7 @@ import java.util.ArrayList
 
 class FragmentHomeGive : Fragment() {
 
-    var tasksList: MutableList<Task> = ArrayList()
+    private var tasksList: MutableList<Task> = ArrayList()
     private lateinit var tasksAdapter: TasksAdapter
     private lateinit var tasksRecyclerView: RecyclerView
     private lateinit var mView: View
@@ -44,7 +44,7 @@ class FragmentHomeGive : Fragment() {
                     "25.02.2022",
                     User(i.toLong(), "Maria", ""),
                     "Buy cake",
-                    "Desiption",
+                    "Description",
                     "",
                     1,
                     1

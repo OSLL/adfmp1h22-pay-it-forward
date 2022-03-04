@@ -15,7 +15,7 @@ import java.util.ArrayList
 
 class FragmentHomeGet : Fragment() {
 
-    var tasksList: MutableList<Task> = ArrayList()
+    private var tasksList: MutableList<Task> = ArrayList()
     private lateinit var tasksAdapter: TasksAdapter
     private lateinit var tasksRecyclerView: RecyclerView
     private lateinit var mView: View
@@ -35,7 +35,7 @@ class FragmentHomeGet : Fragment() {
     }
 
     private fun getTasks(): MutableList<Task> {
-        var lst: MutableList<Task> = ArrayList<Task>()
+        val lst: MutableList<Task> = ArrayList<Task>()
         for (i in 1..10) {
             lst.add(
                 Task(
