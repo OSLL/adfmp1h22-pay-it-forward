@@ -31,10 +31,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         activity?.apply {
 
-            onPreferenceClick("Edit Profile") {
-                val intent = Intent(this, EditProfileActivity::class.java)
-                startActivity(intent)
-            }
+//            onPreferenceClick("Edit Profile") {
+//                val intent = Intent(this, EditProfileActivity::class.java)
+//                startActivity(intent)
+//            }
 //            onPreferenceClick("Security") {
 //                val intent = Intent(this, ChangePasswordActivity::class.java)
 //                startActivity(intent)

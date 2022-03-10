@@ -1,35 +1,58 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory app:title="">
 
-        <ListPreference
+        <PreferenceScreen
+            app:icon="@drawable/edit_profile"
             app:key="@string/edit_profile"
-            app:title="@string/edit_profile"
-            app:icon="@drawable/edit_profile"/>
+            app:title="@string/edit_profile">
+
+            <intent
+                android:targetClass="com.example.payitforward.EditProfileActivity"
+                android:targetPackage="com.example.payitforward" />
+
+        </PreferenceScreen>
+
 
         <SwitchPreferenceCompat
+            app:icon="@drawable/notifications"
             app:key="@string/notifications"
-            app:title="@string/notifications"
-            app:icon="@drawable/notifications"/>
+            app:title="@string/notifications" />
 
-        <ListPreference
+        <PreferenceScreen
+            app:icon="@drawable/security"
             app:key="@string/security"
-            app:title="@string/security"
-            app:icon="@drawable/security" />
+            app:title="@string/security">
 
-        <ListPreference
+            <intent
+                android:targetClass="com.example.payitforward.ChangePasswordActivity"
+                android:targetPackage="com.example.payitforward" />
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            app:icon="@drawable/about"
             app:key="about"
-            app:title="@string/about"
-            app:icon="@drawable/about"/>
+            app:title="@string/about">
+
+            <intent
+                android:targetClass="com.example.payitforward.AboutActivity"
+                android:targetPackage="com.example.payitforward" />
+        </PreferenceScreen>
 
     </PreferenceCategory>
 
     <PreferenceCategory app:title="">
 
-        <ListPreference
+        <PreferenceScreen
+            app:icon="@drawable/log_out"
             app:key="@string/log_out"
-            app:title="@string/log_out"
-            app:icon="@drawable/log_out"/>
+            app:title="@string/log_out">
+
+            <intent
+                android:targetClass="com.example.payitforward.SignUpActivity"
+                android:targetPackage="com.example.payitforward" />
+        </PreferenceScreen>
     </PreferenceCategory>
 
 </PreferenceScreen>
