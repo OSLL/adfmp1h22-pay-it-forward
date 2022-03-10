@@ -50,7 +50,7 @@
             app:title="@string/log_out">
 
             <intent
-                android:targetClass="com.example.payitforward.SignUpActivity"
+                android:targetClass="com.example.payitforward.MainActivity"
                 android:targetPackage="com.example.payitforward" />
         </PreferenceScreen>
     </PreferenceCategory>
