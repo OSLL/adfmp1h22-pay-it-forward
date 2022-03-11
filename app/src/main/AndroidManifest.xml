@@ -28,6 +28,9 @@
             android:name=".CreateDeedActivity"
             android:exported="false" />
         <activity
+            android:name=".ItemTaskActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.chat.DialogActivity"
             android:exported="false" />
         <activity android:name=".SignUpActivity" />
