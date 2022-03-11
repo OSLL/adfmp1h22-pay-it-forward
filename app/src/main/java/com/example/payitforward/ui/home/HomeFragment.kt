@@ -38,7 +38,7 @@ class HomeFragment : Fragment() {
             context?.let { ContextCompat.getColorStateList(it, android.R.color.white) }
         val numberOfTabs = 3
         binding.tabLayout.tabMode = TabLayout.MODE_FIXED
-        val adapter = TabsPagerAdapter(getParentFragmentManager(), lifecycle, numberOfTabs)
+        val adapter = TabsPagerAdapter(childFragmentManager, lifecycle, numberOfTabs)
         binding.tabsViewpager.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.tabsViewpager) { tab, position ->
             when (position) {
