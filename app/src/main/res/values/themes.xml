@@ -15,7 +15,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.PayItForward.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.PayItForward.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+        <item name="colorPrimary">#A5A6F6</item>
+        <item name="colorPrimaryDark">#A5A6F6</item>
+        <item name="colorAccent">#FF9595</item>
+    </style>
 
     <style name="Theme.PayItForward.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
