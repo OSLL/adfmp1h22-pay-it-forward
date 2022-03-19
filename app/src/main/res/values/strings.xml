@@ -83,4 +83,6 @@
     Author: Your name<br/><br/>Your description text, changelog, licences etc… ]]>
     </string>
     <string name="title_activity_task">TaskActivity</string>
+    <string name="edit_task">Edit Task</string>
+    <string name="task_name">Task name</string>
 </resources>

@@ -35,6 +35,12 @@ class ItemTaskActivity : AppCompatActivity() {
             }
     }
 
+    fun openEditTaskActivity(view: View?) {
+        val intent = Intent(view!!.context, EditTaskActivity::class.java)
+        startActivity(intent)
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val intent = intent
@@ -45,18 +51,21 @@ class ItemTaskActivity : AppCompatActivity() {
                     ActivityTaskAcceptRejectBinding.inflate(layoutInflater)
                 setContentView(acceptRejectBinding.root)
                 acceptRejectBinding.buttonMessage.setOnClickListener { view -> openChat(view) }
+                acceptRejectBinding.buttonEdit.setOnClickListener{view -> openEditTaskActivity(view)}
             }
             "take" -> {
                 val takeBinding: ActivityTaskTakeBinding =
                     ActivityTaskTakeBinding.inflate(layoutInflater)
                 setContentView(takeBinding.root)
                 takeBinding.buttonMessage.setOnClickListener { view -> openChat(view) }
+                takeBinding.buttonEdit.setOnClickListener{view -> openEditTaskActivity(view)}
             }
             "done" -> {
                 val doneBinding: ActivityTaskDoneBinding =
                     ActivityTaskDoneBinding.inflate(layoutInflater)
                 setContentView(doneBinding.root)
                 doneBinding.buttonMessage.setOnClickListener { view -> openChat(view) }
+                doneBinding.buttonEdit.setOnClickListener{view -> openEditTaskActivity(view)}
             }
         }
     }

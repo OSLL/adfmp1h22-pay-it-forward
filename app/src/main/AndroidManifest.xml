@@ -31,6 +31,9 @@
             android:name=".ItemTaskActivity"
             android:exported="false" />
         <activity
+            android:name=".EditTaskActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.chat.DialogActivity"
             android:exported="false" />
         <activity android:name=".SignUpActivity" />
