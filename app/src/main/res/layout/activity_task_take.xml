@@ -2,10 +2,29 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
-    android:paddingEnd="8dp">
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:background="@color/gray">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#A5A6F6"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/button_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:background="#00C4C4C4"
+            ads:srcCompat="@drawable/icons_back_48" />
+    </LinearLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_below="@id/header"
         android:id="@+id/taskImageView"
         android:layout_width="130dp"
         android:layout_height="130dp"
@@ -14,6 +33,7 @@
         android:src="@mipmap/ic_launcher" />
 
     <TextView
+        android:layout_below="@id/header"
         android:id="@+id/taskName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -73,6 +93,7 @@
         android:textSize="15sp" />
 
     <ImageView
+        android:layout_below="@id/header"
         android:id="@+id/coinsImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -84,13 +105,16 @@
         android:id="@+id/coinsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/header"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
+        android:paddingEnd="8dp"
         android:text="@string/_10"
         android:textColor="@color/black"
         android:textSize="25sp" />
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/authorTextView"
@@ -112,10 +136,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="3dp"
                 android:text="Edit"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
@@ -137,10 +161,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="3dp"
                 android:text="Message"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
