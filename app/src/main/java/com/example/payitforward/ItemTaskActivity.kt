@@ -14,7 +14,7 @@ import com.example.payitforward.pojo.Dialog
 
 class ItemTaskActivity : AppCompatActivity() {
 
-    fun openChat(view: View?) {
+    private fun openChat(view: View?) {
         val db = Firebase.firestore
         val collections = db.collection("dialog")
         collections
@@ -35,10 +35,13 @@ class ItemTaskActivity : AppCompatActivity() {
             }
     }
 
-    fun openEditTaskActivity(view: View?) {
+    private fun openEditTaskActivity(view: View?) {
         val intent = Intent(view!!.context, EditTaskActivity::class.java)
         startActivity(intent)
+    }
 
+    private fun cancelActivity() {
+        finish()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +55,7 @@ class ItemTaskActivity : AppCompatActivity() {
                 setContentView(acceptRejectBinding.root)
                 acceptRejectBinding.buttonMessage.setOnClickListener { view -> openChat(view) }
                 acceptRejectBinding.buttonEdit.setOnClickListener{view -> openEditTaskActivity(view)}
+                acceptRejectBinding.buttonMenu.setOnClickListener{cancelActivity()}
             }
             "take" -> {
                 val takeBinding: ActivityTaskTakeBinding =
@@ -59,6 +63,7 @@ class ItemTaskActivity : AppCompatActivity() {
                 setContentView(takeBinding.root)
                 takeBinding.buttonMessage.setOnClickListener { view -> openChat(view) }
                 takeBinding.buttonEdit.setOnClickListener{view -> openEditTaskActivity(view)}
+                takeBinding.buttonMenu.setOnClickListener{cancelActivity()}
             }
             "done" -> {
                 val doneBinding: ActivityTaskDoneBinding =
@@ -66,6 +71,7 @@ class ItemTaskActivity : AppCompatActivity() {
                 setContentView(doneBinding.root)
                 doneBinding.buttonMessage.setOnClickListener { view -> openChat(view) }
                 doneBinding.buttonEdit.setOnClickListener{view -> openEditTaskActivity(view)}
+                doneBinding.buttonMenu.setOnClickListener{cancelActivity()}
             }
         }
     }
