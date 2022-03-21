@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.payitforward.adapters.TasksAdapter
 import com.example.payitforward.pojo.Task
 import com.example.payitforward.pojo.User
+import com.google.firebase.Timestamp
 import java.util.*
 
 
@@ -40,10 +41,10 @@ class FragmentHomeAll : Fragment() {
         for (i in 1..10) {
             lst.add(
                 Task(
-                    i.toLong(),
-                    "21.02.2022",
-                    "25.02.2022",
-                    User(i.toLong(), "Maria", ""),
+                    "1",
+                    Timestamp.now(),
+                    Timestamp.now(),
+                    "1",
                     "Buy cake",
                     "Description",
                     "",

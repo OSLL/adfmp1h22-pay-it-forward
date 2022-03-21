@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.payitforward.pojo.Task
 import java.util.*
 import com.example.payitforward.databinding.ItemTaskBinding
-
+import java.text.SimpleDateFormat
 
 
 class TasksAdapter : RecyclerView.Adapter<TasksAdapter.TaskViewHolder>() {
@@ -45,8 +45,9 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.TaskViewHolder>() {
 
         fun bind(task: Task) {
          //   binding.taskImageView
+            val sfd = SimpleDateFormat("HH:mm")
             binding.taskName.text = task.name
-            binding.deadlineDate.text = task.deadlineDate
+            binding.deadlineDate.text = sfd.format(task.deadlineDate.toDate())
             binding.coinsTextView.text = task.coins.toString()
         }
 

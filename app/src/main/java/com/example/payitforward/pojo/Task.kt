@@ -1,10 +1,12 @@
 package com.example.payitforward.pojo
 
+import com.google.firebase.Timestamp
+
 data class Task(
-    var id: Long,
-    var creationDate: String,
-    var deadlineDate: String,
-    var author: User,
+    var id: String,
+    var creationDate: Timestamp,
+    var deadlineDate: Timestamp,
+    var authorId: String,
     var name: String,
     var description: String,
     var imageUrl: String?,
