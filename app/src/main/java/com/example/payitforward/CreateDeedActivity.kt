@@ -14,7 +14,7 @@ class CreateDeedActivity : AppCompatActivity() {
         binding = ActivityCreateDeedBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
-        binding.buttonCancel!!.setOnClickListener { cancelActivity() }
+        binding.buttonCancel.setOnClickListener { cancelActivity() }
     }
 
     private fun cancelActivity() {

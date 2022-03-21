@@ -36,7 +36,7 @@ class ItemTaskActivity : AppCompatActivity() {
     }
 
     private fun openEditTaskActivity(view: View?) {
-        val intent = Intent(view!!.context, EditTaskActivity::class.java)
+        val intent = Intent(view!!.context, CreateDeedActivity::class.java)
         startActivity(intent)
     }
 

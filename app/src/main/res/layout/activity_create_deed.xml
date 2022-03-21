@@ -48,16 +48,21 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_below="@+id/header"
-        android:src="@drawable/icons_change_user_100"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginStart="130dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="130dp"
+        android:src="@drawable/icons_change_user_100" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/changePhoto"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical"
         tools:ignore="MissingClass">
 
@@ -75,7 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="10dp"
-            android:paddingBottom="20dp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/descriptionTextView"
@@ -91,7 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="10dp"
-            android:paddingBottom="20dp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/pointsTextView"
@@ -116,7 +121,7 @@
             android:id="@+id/sep"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#8F8686"/>
+            android:background="#8F8686" />
 
         <TextView
             android:id="@+id/deadlineTextView"
@@ -131,8 +136,7 @@
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginTop="10dp" />
 
     </LinearLayout>
 

@@ -2,19 +2,22 @@ package com.example.payitforward
 
 
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.example.payitforward.databinding.ActivityEditProfileBinding
 
 
 class EditProfileActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityEditProfileBinding
+
     var cancelButton: Button? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_profile)
-        cancelButton = findViewById<View>(R.id.button_cancel_edit_profile) as Button
-        cancelButton!!.setOnClickListener { cancelActivity() }
+        binding = ActivityEditProfileBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.buttonCancelEditProfile.setOnClickListener { cancelActivity() }
     }
 
     private fun cancelActivity() {
