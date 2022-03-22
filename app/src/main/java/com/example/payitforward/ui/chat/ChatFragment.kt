@@ -9,9 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.payitforward.adapters.DialogsAdapter
 import com.example.payitforward.databinding.FragmentChatBinding
-import com.example.payitforward.pojo.Dialog
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.example.payitforward.util.FirestoreUtil
 
 class ChatFragment : Fragment() {
 
@@ -32,21 +30,12 @@ class ChatFragment : Fragment() {
     }
 
     private fun getDialogs() {
-        val db = Firebase.firestore
-        db.collection("dialog")
-            .whereEqualTo("ownerId", "1")
-            .get()
-            .addOnSuccessListener { snapshots ->
-                val dialogs: List<Dialog> = snapshots.toObjects(Dialog::class.java)
-                dialogsAdapter.setItems(dialogs)
-            }
-        db.collection("dialog")
-            .whereEqualTo("candidateId", "1")
-            .get()
-            .addOnSuccessListener { snapshots ->
-                val dialogs: List<Dialog> = snapshots.toObjects(Dialog::class.java)
-                dialogsAdapter.setItems(dialogs)
-            }
+        FirestoreUtil.getDialogsOwner { dialogs ->
+            dialogsAdapter.setItems(dialogs)
+        }
+        FirestoreUtil.getDialogsCandidate { dialogs ->
+            dialogsAdapter.setItems(dialogs)
+        }
     }
 
     private fun initRecyclerView() {

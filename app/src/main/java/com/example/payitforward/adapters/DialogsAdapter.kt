@@ -6,10 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.payitforward.databinding.ItemDialogBinding
 import com.example.payitforward.pojo.Dialog
-import com.example.payitforward.pojo.Message
-import com.google.firebase.Timestamp
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.example.payitforward.pojo.TextMessage
+import com.example.payitforward.util.FirestoreUtil
 import java.text.SimpleDateFormat
 
 
@@ -44,30 +42,24 @@ class DialogsAdapter : RecyclerView.Adapter<DialogsAdapter.DialogViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun updateItem(position: Int) {
-        dialogsList[position]
-    }
-
     class DialogViewHolder(
         val binding: ItemDialogBinding, listener: onDialogClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        @SuppressLint("SimpleDateFormat")
+        @SuppressLint("SimpleDateFormat", "SetTextI18n")
         fun bind(dialog: Dialog) {
-            val db = Firebase.firestore
-            db.collection("message")
-                .whereEqualTo("dialogId", dialog.id)
-                .addSnapshotListener { snapshots, e ->
-                    if (snapshots != null) {
-                        val messages: List<Message> = snapshots.toObjects(Message::class.java)
-                        val message = messages.maxByOrNull { it.time ?: Timestamp.now() }
-                        if (message != null) {
-                            val sfd = SimpleDateFormat("HH:mm")
-                            binding.timeTextView.text = sfd.format(message.time!!.toDate())
-                            binding.messageTextView.text = message.text
-                        }
+            FirestoreUtil.getLastMessage(dialog.id) { message ->
+                if (message != null) {
+                    val sfd = SimpleDateFormat("HH:mm")
+                    binding.timeTextView.text = sfd.format(message.time.toDate())
+                    if (message is TextMessage) {
+                        binding.messageTextView.text = message.text
+                    } else {
+                        binding.messageTextView.text = "photo"
                     }
                 }
+
+            }
             binding.dialogName.text = "Dialog Name"
         }
 

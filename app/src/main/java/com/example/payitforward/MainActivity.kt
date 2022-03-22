@@ -40,12 +40,6 @@ class MainActivity : AppCompatActivity() {
 
         signInButton = findViewById<View>(R.id.login_button) as Button
         signInButton!!.setOnClickListener { signInActivity() }
-
-        val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        val userId = currentUser?.uid
-        if (userId != null) {
-            preferences.edit().putString("user_id", userId).apply()
-        }
     }
 
     private fun signUpActivity() {

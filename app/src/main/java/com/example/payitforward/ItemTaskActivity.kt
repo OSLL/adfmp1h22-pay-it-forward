@@ -8,31 +8,16 @@ import com.example.payitforward.databinding.ActivityTaskAcceptRejectBinding
 import com.example.payitforward.databinding.ActivityTaskTakeBinding
 import com.example.payitforward.databinding.ActivityTaskDoneBinding
 import com.example.payitforward.ui.chat.DialogActivity
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import com.example.payitforward.pojo.Dialog
+import com.example.payitforward.util.FirestoreUtil
 
 class ItemTaskActivity : AppCompatActivity() {
 
     private fun openChat(view: View?) {
-        val db = Firebase.firestore
-        val collections = db.collection("dialog")
-        collections
-            .whereEqualTo("candidateId", "1")
-            .whereEqualTo("taskId", "5")
-            .get()
-            .addOnSuccessListener { documents ->
-                val id: String?
-                if (documents.isEmpty) {
-                    id = "1" + "_" + "5"
-                    collections.add(Dialog(id, "2", "1", "5"))
-                } else {
-                    id = documents.toObjects(Dialog::class.java)[0].id
-                }
-                val intent = Intent(view!!.context, DialogActivity::class.java)
-                intent.putExtra("dialogId", id)
-                startActivity(intent)
-            }
+        FirestoreUtil.getDialogId { id ->
+            val intent = Intent(view!!.context, DialogActivity::class.java)
+            intent.putExtra("dialogId", id)
+            startActivity(intent)
+        }
     }
 
     private fun openEditTaskActivity(view: View?) {

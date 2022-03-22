@@ -2,21 +2,15 @@ package com.example.payitforward.pojo
 
 import com.google.firebase.Timestamp
 
-data class Message(
-    var text: String? = null,
-    var time: Timestamp? = null,
-    var senderId: String? = null,
-    var receiverId: String? = null,
-    var dialogId: String? = null
-) {
+object MessageType {
+    const val TEXT = "TEXT"
+    const val IMAGE = "IMAGE"
+}
 
-    fun toMap(): HashMap<String, Any?> {
-        return hashMapOf(
-            "text" to text,
-            "time" to time,
-            "senderId" to senderId,
-            "receiverId" to receiverId,
-            "dialogId" to dialogId
-        )
-    }
+interface Message {
+    val time: Timestamp
+    val senderId: String
+    val receiverId: String
+    val dialogId: String
+    val type: String
 }

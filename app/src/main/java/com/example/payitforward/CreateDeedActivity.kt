@@ -11,14 +11,12 @@ import android.widget.SeekBar
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.PreferenceManager
 import com.example.payitforward.databinding.ActivityCreateDeedBinding
 import com.example.payitforward.pojo.Task
+import com.example.payitforward.util.FirestoreUtil
+import com.example.payitforward.util.StorageUtil
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.ktx.storage
+import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
 class CreateDeedActivity : AppCompatActivity() {
@@ -80,32 +78,21 @@ class CreateDeedActivity : AppCompatActivity() {
     }
 
     private fun addToDatabase() {
-        val db = Firebase.firestore
-        val collections = db.collection("task")
         val time = Timestamp.now()
-        val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        val userId: String = preferences.getString("user_id", "") ?: ""
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
         val taskId = userId + time.seconds
         if (deadline == null) {
             deadline = time
         }
-        collections.add(Task(taskId, time, deadline!!, userId, title, description, null, coins, 0))
-        addPhotoToDatabase(taskId)
+        FirestoreUtil.addTask(Task(taskId, time, deadline!!, userId, title, description, null, coins, 0))
+        if (photo != null) {
+            StorageUtil.uploadTaskImage(photo!!, taskId)
+        }
         finish()
     }
 
     private fun cancelActivity() {
         finish()
-    }
-
-    private fun addPhotoToDatabase(taskId: String) {
-        val storage = Firebase.storage
-        val storageRef = storage.reference
-        val imagesRef: StorageReference = storageRef.child("taskImages/$taskId")
-        if (photo != null) {
-            imagesRef.putFile(photo!!)
-        }
-
     }
 
     private fun checkPermissionForImage() {

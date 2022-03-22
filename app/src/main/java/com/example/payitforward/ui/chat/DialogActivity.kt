@@ -1,21 +1,44 @@
 package com.example.payitforward.ui.chat
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.marginEnd
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.payitforward.adapters.MessageAdapter
 import com.example.payitforward.databinding.ActivityDialogBinding
-import com.example.payitforward.pojo.Message
+import com.example.payitforward.pojo.ImageMessage
+import com.example.payitforward.pojo.TextMessage
+import com.example.payitforward.util.FirestoreUtil
+import com.example.payitforward.util.StorageUtil
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import java.text.SimpleDateFormat
+import com.google.firebase.auth.FirebaseAuth
+
 
 class DialogActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDialogBinding
-    lateinit var adapter: MessageAdapter
+    private lateinit var adapter: MessageAdapter
+    private lateinit var dialogId: String
+    private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            val photo = data?.data
+            if (photo != null) {
+                StorageUtil.uploadMessageImage(photo) { imagePath ->
+                    val time = Timestamp.now()
+                    val message = ImageMessage(imagePath, time, "123", "567", dialogId)
+                    FirestoreUtil.sendMessage(message)
+                }
+            }
+        }
+    }
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,21 +55,26 @@ class DialogActivity : AppCompatActivity() {
 
         initRcView()
 
-        val dialogId = intent.getStringExtra("dialogId")
+        dialogId = intent.getStringExtra("dialogId") ?: "1"
 
-        val formatter = SimpleDateFormat("HH:mm")
+        FirestoreUtil.getMessages(dialogId) { messages ->
+            adapter.submitList(messages.sortedBy { it.time })
+            binding.messageRecyclerView.smoothScrollToPosition(adapter.itemCount)
+        }
 
-        val db = Firebase.firestore
-        val collections = db.collection("message")
         binding.sendButton.setOnClickListener {
             val time = Timestamp.now()
-            collections.add(Message(binding.messageEditText.text.toString(), time, "123", "567", dialogId).toMap())
+            val userId = FirebaseAuth.getInstance().currentUser!!.uid
+            val message = TextMessage(binding.messageEditText.text.toString(), time, userId, "567", dialogId)
+            FirestoreUtil.sendMessage(message)
+            binding.messageEditText.text.clear()
         }
-        collections.whereEqualTo("dialogId", dialogId).addSnapshotListener { snapshots, e ->
-            if (snapshots != null) {
-                val messages: List<Message> = snapshots.toObjects(Message::class.java)
-                adapter.submitList(messages.sortedBy { it.time })
-            }
+
+        binding.addMessageImageView.setOnClickListener {
+            checkPermissionForImage()
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            resultLauncher.launch(intent)
         }
     }
 
@@ -54,5 +82,19 @@ class DialogActivity : AppCompatActivity() {
         adapter = MessageAdapter()
         messageRecyclerView.layoutManager = LinearLayoutManager(this@DialogActivity)
         messageRecyclerView.adapter = adapter
+    }
+
+    private fun checkPermissionForImage() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if ((checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED)
+                && (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED)
+            ) {
+                val permission = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+                val permissionCoarse = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+                requestPermissions(permission, 1001)
+                requestPermissions(permissionCoarse, 1002)
+            }
+        }
     }
 }
