@@ -55,8 +55,10 @@ class ChatFragment : Fragment() {
                 val dialogId = dialog.candidateId + "_" + dialog.taskId
                 intent.putExtra("dialogId", dialogId)
                 intent.putExtra("receiverId", receiverId)
-                FirestoreUtil.getTaskTitle(dialog.taskId) { title ->
-                    intent.putExtra("title", title)
+                FirestoreUtil.getTask(dialog.taskId) { task ->
+                    if (task != null) {
+                        intent.putExtra("title", task.name)
+                    }
                 }
                 startActivity(intent)
             }

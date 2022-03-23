@@ -20,8 +20,10 @@ object StorageUtil {
 
     fun pathToReference(path: String) = storage.getReference(path)
 
-    fun uploadTaskImage(photo: Uri, taskId: String) {
+    fun uploadTaskImage(photo: Uri, taskId: String, onSuccess: (imagePath: String) -> Unit) {
         val imagesRef: StorageReference = storageRef.child("taskImages/$taskId")
-        imagesRef.putFile(photo)
+        imagesRef.putFile(photo).addOnCanceledListener {
+            onSuccess(imagesRef.path)
+        }
     }
 }

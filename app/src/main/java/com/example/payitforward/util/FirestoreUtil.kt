@@ -92,15 +92,15 @@ object FirestoreUtil {
             }
     }
 
-    fun getTaskTitle(taskId: String, onSuccess: (title: String) -> Unit) {
+    fun getTask(taskId: String, onSuccess: (task: Task?) -> Unit) {
         collectionsTask
             .whereEqualTo("id", taskId)
             .get()
             .addOnSuccessListener { documents ->
                 if (documents.isEmpty) {
-                    onSuccess("")
+                    onSuccess(null)
                 } else {
-                    onSuccess(documents.toObjects(Task::class.java)[0].name)
+                    onSuccess(documents.toObjects(Task::class.java)[0])
                 }
             }
     }

@@ -1,13 +1,16 @@
 package com.example.payitforward.adapters
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.payitforward.GlideApp
 import com.example.payitforward.databinding.ItemDialogBinding
 import com.example.payitforward.pojo.Dialog
 import com.example.payitforward.pojo.TextMessage
 import com.example.payitforward.util.FirestoreUtil
+import com.example.payitforward.util.StorageUtil
 import java.text.SimpleDateFormat
 
 
@@ -27,7 +30,7 @@ class DialogsAdapter : RecyclerView.Adapter<DialogsAdapter.DialogViewHolder>() {
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DialogViewHolder {
         val binding = ItemDialogBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return DialogViewHolder(binding, mClickListener)
+        return DialogViewHolder(binding, mClickListener, parent.context)
     }
 
     override fun onBindViewHolder(holder: DialogViewHolder, position: Int) {
@@ -47,7 +50,7 @@ class DialogsAdapter : RecyclerView.Adapter<DialogsAdapter.DialogViewHolder>() {
     }
 
     class DialogViewHolder(
-        val binding: ItemDialogBinding, listener: onDialogClickListener
+        val binding: ItemDialogBinding, listener: onDialogClickListener, val context: Context
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SimpleDateFormat", "SetTextI18n")
@@ -64,8 +67,14 @@ class DialogsAdapter : RecyclerView.Adapter<DialogsAdapter.DialogViewHolder>() {
                 }
 
             }
-            FirestoreUtil.getTaskTitle(dialog.taskId) { title ->
-                binding.dialogName.text = title
+            FirestoreUtil.getTask(dialog.taskId) { task ->
+                if (task != null) {
+                    binding.dialogName.text = task.name
+                    if (task.imageUrl != null) {
+                        val photoRef = StorageUtil.pathToReference(task.imageUrl!!)
+                        GlideApp.with(context).load(photoRef).into(binding.dialogImageView)
+                    }
+                }
             }
         }
 
