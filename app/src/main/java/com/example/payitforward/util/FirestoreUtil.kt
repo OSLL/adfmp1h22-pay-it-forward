@@ -57,7 +57,7 @@ object FirestoreUtil {
 
     fun getDialogsOwner(onSuccess: (dialogs: List<Dialog>) -> Unit) {
         collectionsDialog
-            .whereEqualTo("ownerId", "1")
+            .whereEqualTo("ownerId", currentUserId)
             .get()
             .addOnSuccessListener { snapshots ->
                 val dialogs: List<Dialog> = snapshots.toObjects(Dialog::class.java)
@@ -67,7 +67,7 @@ object FirestoreUtil {
 
     fun getDialogsCandidate(onSuccess: (dialogs: List<Dialog>) -> Unit) {
         collectionsDialog
-            .whereEqualTo("candidateId", "1")
+            .whereEqualTo("candidateId", currentUserId)
             .get()
             .addOnSuccessListener { snapshots ->
                 val dialogs: List<Dialog> = snapshots.toObjects(Dialog::class.java)
@@ -75,20 +75,33 @@ object FirestoreUtil {
             }
     }
 
-    fun getDialogId(onSuccess: (id: String) -> Unit) {
+    fun getDialogId(taskId: String, ownerId: String, onSuccess: (id: String) -> Unit) {
         collectionsDialog
-            .whereEqualTo("candidateId", "1")
-            .whereEqualTo("taskId", "5")
+            .whereEqualTo("candidateId", currentUserId)
+            .whereEqualTo("taskId", taskId)
             .get()
             .addOnSuccessListener { documents ->
                 val id: String?
                 if (documents.isEmpty) {
-                    id = "1" + "_" + "5"
-                    collectionsDialog.add(Dialog(id, "2", "1", "5"))
+                    id = currentUserId + "_" + taskId
+                    collectionsDialog.add(Dialog(id, ownerId, currentUserId, taskId))
                 } else {
                     id = documents.toObjects(Dialog::class.java)[0].id
                 }
                 onSuccess(id)
+            }
+    }
+
+    fun getTaskTitle(taskId: String, onSuccess: (title: String) -> Unit) {
+        collectionsTask
+            .whereEqualTo("id", taskId)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (documents.isEmpty) {
+                    onSuccess("")
+                } else {
+                    onSuccess(documents.toObjects(Task::class.java)[0].name)
+                }
             }
     }
 }

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.payitforward.adapters.DialogsAdapter
 import com.example.payitforward.databinding.FragmentChatBinding
 import com.example.payitforward.util.FirestoreUtil
+import com.google.firebase.auth.FirebaseAuth
 
 class ChatFragment : Fragment() {
 
@@ -44,7 +45,19 @@ class ChatFragment : Fragment() {
         dialogsAdapter.setOnDialogClickListener(object : DialogsAdapter.onDialogClickListener{
             override fun onDialogClick(position: Int) {
                 val intent = Intent(this@ChatFragment.context, DialogActivity::class.java)
-                intent.putExtra("dialogId", "1_5")
+                val dialog = dialogsAdapter.getDialog(position)
+                val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
+                val receiverId = if (dialog.ownerId != currentUserId) {
+                    dialog.ownerId
+                } else {
+                    dialog.candidateId
+                }
+                val dialogId = dialog.candidateId + "_" + dialog.taskId
+                intent.putExtra("dialogId", dialogId)
+                intent.putExtra("receiverId", receiverId)
+                FirestoreUtil.getTaskTitle(dialog.taskId) { title ->
+                    intent.putExtra("title", title)
+                }
                 startActivity(intent)
             }
 

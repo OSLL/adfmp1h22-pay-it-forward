@@ -13,9 +13,12 @@ import com.example.payitforward.util.FirestoreUtil
 class ItemTaskActivity : AppCompatActivity() {
 
     private fun openChat(view: View?) {
-        FirestoreUtil.getDialogId { id ->
+        val taskId: String = "5"
+        val authorId: String = "1"
+        FirestoreUtil.getDialogId(taskId, authorId) { id ->
             val intent = Intent(view!!.context, DialogActivity::class.java)
             intent.putExtra("dialogId", id)
+            intent.putExtra("receiverId", authorId)
             startActivity(intent)
         }
     }

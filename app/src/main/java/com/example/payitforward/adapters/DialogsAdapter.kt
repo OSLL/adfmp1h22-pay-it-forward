@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat
 
 class DialogsAdapter : RecyclerView.Adapter<DialogsAdapter.DialogViewHolder>() {
     
-    private var dialogsList: MutableList<Dialog> = ArrayList()
+    var dialogsList: MutableList<Dialog> = ArrayList()
     private lateinit var mClickListener: onDialogClickListener
 
 
@@ -42,6 +42,10 @@ class DialogsAdapter : RecyclerView.Adapter<DialogsAdapter.DialogViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun getDialog(position: Int): Dialog {
+        return dialogsList[position]
+    }
+
     class DialogViewHolder(
         val binding: ItemDialogBinding, listener: onDialogClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -60,7 +64,9 @@ class DialogsAdapter : RecyclerView.Adapter<DialogsAdapter.DialogViewHolder>() {
                 }
 
             }
-            binding.dialogName.text = "Dialog Name"
+            FirestoreUtil.getTaskTitle(dialog.taskId) { title ->
+                binding.dialogName.text = title
+            }
         }
 
         init {

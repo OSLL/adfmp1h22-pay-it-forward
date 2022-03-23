@@ -22,6 +22,6 @@ object StorageUtil {
 
     fun uploadTaskImage(photo: Uri, taskId: String) {
         val imagesRef: StorageReference = storageRef.child("taskImages/$taskId")
-        imagesRef.putFile(photo!!)
+        imagesRef.putFile(photo)
     }
 }

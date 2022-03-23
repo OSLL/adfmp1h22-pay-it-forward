@@ -9,7 +9,6 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.marginEnd
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.payitforward.adapters.MessageAdapter
 import com.example.payitforward.databinding.ActivityDialogBinding
@@ -26,6 +25,8 @@ class DialogActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDialogBinding
     private lateinit var adapter: MessageAdapter
     private lateinit var dialogId: String
+    private val userId = FirebaseAuth.getInstance().currentUser!!.uid
+    private lateinit var receiverId: String
     private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val data: Intent? = result.data
@@ -33,7 +34,7 @@ class DialogActivity : AppCompatActivity() {
             if (photo != null) {
                 StorageUtil.uploadMessageImage(photo) { imagePath ->
                     val time = Timestamp.now()
-                    val message = ImageMessage(imagePath, time, "123", "567", dialogId)
+                    val message = ImageMessage(imagePath, time, userId, receiverId, dialogId)
                     FirestoreUtil.sendMessage(message)
                 }
             }
@@ -47,8 +48,6 @@ class DialogActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
-//        binding.headerTitle.text = intent.getStringExtra("title")
-
         binding.buttonMenu.setOnClickListener {
             finish()
         }
@@ -56,6 +55,8 @@ class DialogActivity : AppCompatActivity() {
         initRcView()
 
         dialogId = intent.getStringExtra("dialogId") ?: "1"
+        receiverId = intent.getStringExtra("receiverId") ?: "1"
+        binding.headerTitle.text = intent.getStringExtra("title")
 
         FirestoreUtil.getMessages(dialogId) { messages ->
             adapter.submitList(messages.sortedBy { it.time })
@@ -64,8 +65,7 @@ class DialogActivity : AppCompatActivity() {
 
         binding.sendButton.setOnClickListener {
             val time = Timestamp.now()
-            val userId = FirebaseAuth.getInstance().currentUser!!.uid
-            val message = TextMessage(binding.messageEditText.text.toString(), time, userId, "567", dialogId)
+            val message = TextMessage(binding.messageEditText.text.toString(), time, userId, receiverId, dialogId)
             FirestoreUtil.sendMessage(message)
             binding.messageEditText.text.clear()
         }
