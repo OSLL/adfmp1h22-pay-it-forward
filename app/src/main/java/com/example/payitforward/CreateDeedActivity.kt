@@ -86,10 +86,10 @@ class CreateDeedActivity : AppCompatActivity() {
         }
         if (photo != null) {
             StorageUtil.uploadTaskImage(photo!!, taskId) { imagePath ->
-                FirestoreUtil.addTask(Task(taskId, time, deadline!!, userId, title, description, imagePath, coins, 0))
+                FirestoreUtil.addTask(Task(taskId, time, deadline!!, userId, null, title, description, imagePath, coins, 0))
             }
         } else {
-            FirestoreUtil.addTask(Task(taskId, time, deadline!!, userId, title, description, null, coins, 0))
+            FirestoreUtil.addTask(Task(taskId, time, deadline!!, userId, null, title, description, null, coins, 0))
         }
         finish()
     }

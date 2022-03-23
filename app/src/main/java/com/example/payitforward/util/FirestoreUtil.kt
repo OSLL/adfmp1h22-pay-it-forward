@@ -104,4 +104,13 @@ object FirestoreUtil {
                 }
             }
     }
+
+    fun getCompletedTask(onSuccess: (tasks: List<Task>) -> Unit) {
+        collectionsTask
+            .whereEqualTo("completedId", currentUserId)
+            .get()
+            .addOnSuccessListener { documents ->
+                onSuccess(documents.toObjects(Task::class.java))
+            }
+    }
 }

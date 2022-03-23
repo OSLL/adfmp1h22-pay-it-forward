@@ -7,6 +7,7 @@ data class Task(
     var creationDate: Timestamp,
     var deadlineDate: Timestamp,
     var authorId: String,
+    var completedId: String?,
     var name: String,
     var description: String,
     var imageUrl: String?,
