@@ -17,16 +17,6 @@
         android:minHeight="50dp"
         android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/filterButton"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="16dp"
-            android:background="#00C4C4C4"
-            ads:srcCompat="@drawable/filter" />
-
         <EditText
             android:id="@+id/search"
             android:layout_width="0dp"

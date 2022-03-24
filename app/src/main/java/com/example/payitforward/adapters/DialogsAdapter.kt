@@ -49,6 +49,10 @@ class DialogsAdapter : RecyclerView.Adapter<DialogsAdapter.DialogViewHolder>() {
         return dialogsList[position]
     }
 
+    fun getDialogs(): List<Dialog> {
+        return dialogsList
+    }
+
     class DialogViewHolder(
         val binding: ItemDialogBinding, listener: onDialogClickListener, val context: Context
     ) : RecyclerView.ViewHolder(binding.root) {

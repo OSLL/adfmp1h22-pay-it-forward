@@ -33,7 +33,7 @@ object FirestoreUtil {
         }
     }
 
-    fun getLastMessage(dialogId: String, onSuccess: (messages: Message?) -> Unit) {
+    fun getLastMessage(dialogId: String, onSuccess: (message: Message?) -> Unit) {
         collectionsMessage
             .whereEqualTo("dialogId", dialogId)
             .addSnapshotListener { snapshots, e ->
@@ -65,7 +65,7 @@ object FirestoreUtil {
             }
     }
 
-    fun getDialogsCandidate(onSuccess: (dialogs: List<Dialog>) -> Unit) {
+    fun getDialogsCandidate(onSuccess: (dialogs2: List<Dialog>) -> Unit) {
         collectionsDialog
             .whereEqualTo("candidateId", currentUserId)
             .get()
