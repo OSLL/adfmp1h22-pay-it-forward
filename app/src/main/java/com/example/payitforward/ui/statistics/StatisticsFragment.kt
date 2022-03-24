@@ -51,7 +51,7 @@ class StatisticsFragment : Fragment() {
         initSelector()
         initBarChart()
 
-        scoreList = getScoreList()
+        scoreList = getScoreList(7)
         changeChart(scoreList)
 
         return root
@@ -62,41 +62,22 @@ class StatisticsFragment : Fragment() {
         binding.apply {
             var lastTime = Week
 
-            Day.setOnClickListener {
-                sep1.visibility = View.GONE
-                sep2.visibility = View.VISIBLE
-                sep3.visibility = View.VISIBLE
-                Day.background = ResourcesCompat.getDrawable(resources, R.drawable.rounded_button_pink, null)
-                lastTime.background = null
-                lastTime = Day
-            }
-
             Week.setOnClickListener {
-                sep1.visibility = View.GONE
-                sep2.visibility = View.GONE
-                sep3.visibility = View.VISIBLE
                 Week.background = ResourcesCompat.getDrawable(resources, R.drawable.rounded_button_pink, null)
                 lastTime.background = null
                 lastTime = Week
+                scoreList = getScoreList(7)
+                changeChart(scoreList)
             }
 
             Month.setOnClickListener {
-                sep1.visibility = View.VISIBLE
-                sep2.visibility = View.GONE
-                sep3.visibility = View.GONE
                 Month.background = ResourcesCompat.getDrawable(resources, R.drawable.rounded_button_pink, null)
                 lastTime.background = null
                 lastTime = Month
+                scoreList = getScoreList(30)
+                changeChart(scoreList)
             }
 
-            Year.setOnClickListener {
-                sep1.visibility = View.VISIBLE
-                sep2.visibility = View.VISIBLE
-                sep3.visibility = View.GONE
-                Year.background = ResourcesCompat.getDrawable(resources, R.drawable.rounded_button_pink, null)
-                lastTime.background = null
-                lastTime = Year
-            }
         }
 
     }
@@ -149,18 +130,18 @@ class StatisticsFragment : Fragment() {
     }
 
     @SuppressLint("SimpleDateFormat")
-    private fun getScoreList(): MutableList<Score> {
-        val sfd = SimpleDateFormat("dd")
+    private fun getScoreList(n: Int): MutableList<Score> {
+        val sfd = SimpleDateFormat("dd.MM")
         val scoreL = mutableListOf<Score>()
         var current = Timestamp.now()
-        for(i in 1..10) {
+        for(i in 1..n) {
             val day = current.toDate()
             val dayStr = sfd.format(day)
             scoreL.add(Score(dayStr, getCoinsFromRange(Timestamp(atStartOfDay(day)), Timestamp(atEndOfDay(day)))))
             current = Timestamp(current.seconds - 86400, 0)
         }
 
-        return scoreL
+        return scoreL.asReversed()
     }
 
     private fun atEndOfDay(date: Date): Date {

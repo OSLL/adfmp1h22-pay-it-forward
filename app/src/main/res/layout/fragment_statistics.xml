@@ -17,22 +17,6 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/Day"
-            android:layout_width="95dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:text="@string/d"/>
-
-        <View
-            android:id="@+id/sep_1"
-            android:layout_width="1dp"
-            android:layout_height="15dp"
-            android:layout_gravity="center_vertical"
-            android:visibility="gone"
-            android:background="#C4C4C4"/>
-
-        <TextView
             android:id="@+id/Week"
             android:layout_width="95dp"
             android:layout_height="match_parent"
@@ -40,14 +24,6 @@
             android:background="@drawable/rounded_button_pink"
             android:layout_weight="1"
             android:text="@string/w"/>
-
-        <View
-            android:id="@+id/sep_2"
-            android:layout_width="1dp"
-            android:layout_height="15dp"
-            android:layout_gravity="center_vertical"
-            android:visibility="gone"
-            android:background="#C4C4C4"/>
 
         <TextView
             android:id="@+id/Month"
@@ -57,20 +33,6 @@
             android:layout_weight="1"
             android:text="@string/m"/>
 
-        <View
-            android:id="@+id/sep_3"
-            android:layout_width="1dp"
-            android:layout_height="15dp"
-            android:layout_gravity="center_vertical"
-            android:background="#C4C4C4"/>
-
-        <TextView
-            android:id="@+id/Year"
-            android:layout_width="95dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:text="@string/y"/>
 
     </LinearLayout>
 
