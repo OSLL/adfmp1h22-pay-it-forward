@@ -22,11 +22,15 @@ import java.util.*
 class CreateDeedActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCreateDeedBinding
+    private var taskId: String? = null
     private lateinit var title: String
     private lateinit var description: String
     private var deadline: Timestamp? = null
+    private var createdTime: Timestamp? = null
     private var photo: Uri? = null
+    private var imagePath: String? = null
     private var coins: Int = 50
+    private var edit: Boolean = false
     private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val data: Intent? = result.data
@@ -41,6 +45,12 @@ class CreateDeedActivity : AppCompatActivity() {
         binding = ActivityCreateDeedBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+
+        taskId = intent.getStringExtra("taskId")
+        if (taskId != null) {
+            loadInfo(taskId!!)
+        }
+
         binding.buttonCancel.setOnClickListener { cancelActivity() }
 
         binding.calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
@@ -77,19 +87,45 @@ class CreateDeedActivity : AppCompatActivity() {
         }
     }
 
+    private fun loadInfo(id: String) {
+        FirestoreUtil.getTask(id) { task ->
+            if (task != null) {
+                edit = true
+                binding.titleEditText.setText(task.name)
+                binding.descriptionEditText.setText(task.description)
+                binding.cointsTextView.setText(task.coins)
+                binding.seekBar.progress = task.coins
+                binding.calendarView.date = task.deadlineDate.toDate().time
+                createdTime = task.creationDate
+                if (task.imageUrl != null) {
+                    val photoRef = StorageUtil.pathToReference(task.imageUrl!!)
+                    GlideApp.with(this).load(photoRef).into(binding.changePhoto)
+                    imagePath = task.imageUrl
+                }
+            }
+        }
+    }
+
     private fun addToDatabase() {
-        val time = Timestamp.now()
+        if (createdTime == null) {
+            createdTime = Timestamp.now()
+        }
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
-        val taskId = userId + time.seconds
+        if (taskId == null) {
+            taskId = userId + createdTime!!.seconds
+        }
         if (deadline == null) {
-            deadline = time
+            deadline = createdTime
+        }
+        if (edit) {
+            FirestoreUtil.deleteTask(taskId!!)
         }
         if (photo != null) {
-            StorageUtil.uploadTaskImage(photo!!, taskId) { imagePath ->
-                FirestoreUtil.addTask(Task(taskId, time, deadline!!, userId, null, title, description, imagePath, coins, 0))
+            StorageUtil.uploadTaskImage(photo!!, taskId!!) { imagePath ->
+                FirestoreUtil.addTask(Task(taskId!!, createdTime!!, deadline!!, userId, null, title, description, imagePath, coins, 0))
             }
         } else {
-            FirestoreUtil.addTask(Task(taskId, time, deadline!!, userId, null, title, description, null, coins, 0))
+            FirestoreUtil.addTask(Task(taskId!!, createdTime!!, deadline!!, userId, null, title, description, imagePath, coins, 0))
         }
         finish()
     }

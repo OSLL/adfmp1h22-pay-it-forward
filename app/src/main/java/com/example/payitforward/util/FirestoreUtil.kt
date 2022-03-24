@@ -55,6 +55,10 @@ object FirestoreUtil {
         collectionsTask.add(task)
     }
 
+    fun deleteTask(id: String) {
+        collectionsTask.document(id).delete() // не уверена что так
+    }
+
     fun getDialogsOwner(onSuccess: (dialogs: List<Dialog>) -> Unit) {
         collectionsDialog
             .whereEqualTo("ownerId", currentUserId)

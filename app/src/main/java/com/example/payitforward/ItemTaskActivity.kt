@@ -24,7 +24,9 @@ class ItemTaskActivity : AppCompatActivity() {
     }
 
     private fun openEditTaskActivity(view: View?) {
+        val taskId: String = "5"
         val intent = Intent(view!!.context, CreateDeedActivity::class.java)
+        intent.putExtra("taskId", taskId)
         startActivity(intent)
     }
 
