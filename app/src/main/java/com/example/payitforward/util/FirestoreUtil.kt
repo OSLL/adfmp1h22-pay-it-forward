@@ -109,9 +109,35 @@ object FirestoreUtil {
             }
     }
 
-    fun getCompletedTask(onSuccess: (tasks: List<Task>) -> Unit) {
+    fun getCompletedTasks(onSuccess: (tasks: List<Task>) -> Unit) {
         collectionsTask
             .whereEqualTo("completedId", currentUserId)
+            .get()
+            .addOnSuccessListener { documents ->
+                onSuccess(documents.toObjects(Task::class.java))
+            }
+    }
+
+    fun getOnReviewTasks(onSuccess: (tasks: List<Task>) -> Unit) {
+        collectionsTask
+            .whereEqualTo("type", "onReview")
+            .get()
+            .addOnSuccessListener { documents ->
+                onSuccess(documents.toObjects(Task::class.java))
+            }
+    }
+
+    fun getNewTasks(onSuccess: (tasks: List<Task>) -> Unit) {
+        collectionsTask
+            .whereEqualTo("type", "New")
+            .get()
+            .addOnSuccessListener { documents ->
+                onSuccess(documents.toObjects(Task::class.java))
+            }
+    }
+
+    fun getAllTasks(onSuccess: (tasks: List<Task>) -> Unit) {
+        collectionsTask
             .get()
             .addOnSuccessListener { documents ->
                 onSuccess(documents.toObjects(Task::class.java))

@@ -11,12 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.payitforward.adapters.TasksAdapter
 import com.example.payitforward.pojo.Task
 import com.example.payitforward.pojo.User
+import com.example.payitforward.util.FirestoreUtil
 import com.google.firebase.Timestamp
 import java.util.ArrayList
 
 class FragmentHomeGive : Fragment() {
 
-    private var tasksList: MutableList<Task> = ArrayList()
+    private var tasksList: List<Task> = ArrayList()
     private lateinit var tasksAdapter: TasksAdapter
     private lateinit var tasksRecyclerView: RecyclerView
     private lateinit var mView: View
@@ -31,29 +32,10 @@ class FragmentHomeGive : Fragment() {
     }
 
     private fun loadTasks() {
-        tasksList = getTasks()
-        tasksAdapter.setItems(tasksList)
-    }
-
-    private fun getTasks(): MutableList<Task> {
-        var lst: MutableList<Task> = ArrayList<Task>()
-        for (i in 1..10) {
-            lst.add(
-                Task(
-                    "1",
-                    Timestamp.now(),
-                    Timestamp.now(),
-                    "1",
-                    null,
-                    "Buy cake",
-                    "Description",
-                    "",
-                    1,
-                    1
-                )
-            )
+        FirestoreUtil.getOnReviewTasks { tasks ->
+            tasksList = tasks
+            tasksAdapter.setItems(tasksList)
         }
-        return lst
     }
 
     private fun initRecyclerView() {
@@ -63,7 +45,7 @@ class FragmentHomeGive : Fragment() {
         tasksAdapter.setOnTaskClickListener(object : TasksAdapter.onTaskClickListener{
             override fun onTaskClick(position: Int) {
                 val intent = Intent(view!!.context, ItemTaskActivity::class.java)
-                intent.putExtra("taskType", "accept_reject")
+                intent.putExtra("taskType", "onReview")
                 startActivity(intent)
             }
 

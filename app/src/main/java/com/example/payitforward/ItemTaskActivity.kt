@@ -39,7 +39,7 @@ class ItemTaskActivity : AppCompatActivity() {
         val intent = intent
 
         when (intent.getStringExtra("taskType")) {
-            "accept_reject" -> {
+            "onReview" -> {
                 val acceptRejectBinding: ActivityTaskAcceptRejectBinding =
                     ActivityTaskAcceptRejectBinding.inflate(layoutInflater)
                 setContentView(acceptRejectBinding.root)
@@ -47,7 +47,7 @@ class ItemTaskActivity : AppCompatActivity() {
                 acceptRejectBinding.buttonEdit.setOnClickListener{view -> openEditTaskActivity(view)}
                 acceptRejectBinding.buttonMenu.setOnClickListener{cancelActivity()}
             }
-            "take" -> {
+            "new" -> {
                 val takeBinding: ActivityTaskTakeBinding =
                     ActivityTaskTakeBinding.inflate(layoutInflater)
                 setContentView(takeBinding.root)
@@ -55,7 +55,7 @@ class ItemTaskActivity : AppCompatActivity() {
                 takeBinding.buttonEdit.setOnClickListener{view -> openEditTaskActivity(view)}
                 takeBinding.buttonMenu.setOnClickListener{cancelActivity()}
             }
-            "done" -> {
+            "completed" -> {
                 val doneBinding: ActivityTaskDoneBinding =
                     ActivityTaskDoneBinding.inflate(layoutInflater)
                 setContentView(doneBinding.root)

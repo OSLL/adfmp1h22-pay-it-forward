@@ -175,7 +175,7 @@ class StatisticsFragment : Fragment() {
     }
 
     private fun loadTasks() {
-        FirestoreUtil.getCompletedTask { tasks ->
+        FirestoreUtil.getCompletedTasks { tasks ->
             tasksList = tasks
             tasksAdapter.setItems(tasksList)
         }
