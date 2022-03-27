@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.constraintlayout.widget.StateSet.TAG
 import com.example.payitforward.pojo.*
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -132,7 +134,7 @@ object FirestoreUtil {
 
     fun getNewTasks(onSuccess: (tasks: List<Task>) -> Unit) {
         collectionsTask
-            .whereEqualTo("type", "New")
+            .whereEqualTo("type", "new")
             .get()
             .addOnSuccessListener { documents ->
                 onSuccess(documents.toObjects(Task::class.java))
@@ -142,14 +144,36 @@ object FirestoreUtil {
     fun getAllTasks(onSuccess: (tasks: List<Task>) -> Unit) {
         collectionsTask
             .get()
-//            .addOnSuccessListener { documents ->
-//                onSuccess(documents.toObjects(Task::class.java))
-//            }   ??????? не работает с этим
+            .addOnSuccessListener { documents ->
+                onSuccess(documents.toObjects(Task::class.java))
+            }
+    }
+
+    fun getTasksForGet(authorId: String, onSuccess: (tasks: List<Task>) -> Unit) {
+        collectionsTask
+            .whereNotEqualTo("authorId", authorId)
+            .get()
+            .addOnSuccessListener { documents ->
+                onSuccess(documents.toObjects(Task::class.java))
+            }
+    }
+
+    fun getTasksForGive(authorId: String, onSuccess: (tasks: List<Task>) -> Unit) {
+        collectionsTask
+            .whereEqualTo("authorId", authorId)
+            .get()
+            .addOnSuccessListener { documents ->
+                onSuccess(documents.toObjects(Task::class.java))
+            }
     }
 
     fun addUser(user: User) {
         collectionsUsers.add(user).addOnSuccessListener { documentRef ->
             Log.d(TAG, "User added with ID: ${documentRef.id}")
         }
+    }
+
+    fun getCurrentUser(): String {
+        return Firebase.auth.currentUser!!.uid
     }
 }

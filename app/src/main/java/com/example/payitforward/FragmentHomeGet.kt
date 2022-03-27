@@ -12,6 +12,7 @@ import com.example.payitforward.adapters.TasksAdapter
 import com.example.payitforward.pojo.Task
 import com.example.payitforward.pojo.User
 import com.example.payitforward.util.FirestoreUtil
+import com.example.payitforward.util.StorageUtil
 import com.google.firebase.Timestamp
 import java.util.ArrayList
 
@@ -32,7 +33,8 @@ class FragmentHomeGet : Fragment() {
     }
 
     private fun loadTasks() {
-        FirestoreUtil.getNewTasks { tasks ->
+        var userId: String = FirestoreUtil.getCurrentUser()
+        FirestoreUtil.getTasksForGet(userId) { tasks ->
             tasksList = tasks
             tasksAdapter.setItems(tasksList)
         }
