@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp">
 
@@ -21,17 +21,17 @@
         android:layout_marginStart="5dp"
         android:layout_toEndOf="@id/filterNew"
         android:background="@drawable/filter_button"
+        android:clickable="true"
         android:shape="oval"
         android:text="In progress"
-        android:clickable="true"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/filterOnReview"
         android:layout_width="100dp"
         android:layout_height="30dp"
-        android:layout_marginStart="5dp"
-        android:layout_toEndOf="@id/filterInProgress"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/filterNew"
         android:background="@drawable/filter_button"
         android:shape="oval"
         android:text="On review"
@@ -42,19 +42,19 @@
         android:id="@+id/filterAccepted"
         android:layout_width="100dp"
         android:layout_height="30dp"
-        android:layout_below="@id/filterNew"
+        android:layout_below="@id/filterOnReview"
         android:layout_marginTop="10dp"
         android:background="@drawable/filter_button"
+        android:clickable="true"
         android:shape="oval"
         android:text="Accepted"
-        android:clickable="true"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/filterRejected"
         android:layout_width="100dp"
         android:layout_height="30dp"
-        android:layout_below="@id/filterInProgress"
+        android:layout_below="@id/filterCompleted"
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@id/filterAccepted"
@@ -68,10 +68,10 @@
         android:id="@+id/filterCompleted"
         android:layout_width="100dp"
         android:layout_height="30dp"
-        android:layout_below="@id/filterOnReview"
+        android:layout_below="@id/filterInProgress"
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
-        android:layout_toEndOf="@id/filterRejected"
+        android:layout_toEndOf="@id/filterOnReview"
         android:background="@drawable/filter_button"
         android:clickable="true"
         android:shape="oval"
@@ -82,27 +82,28 @@
         android:id="@+id/filterCancel"
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:layout_below="@id/filterRejected"
-        android:layout_marginStart="5dp"
+        android:layout_below="@id/filterAccepted"
         android:layout_marginTop="10dp"
-        android:layout_toEndOf="@id/filterAccepted"
         android:background="@drawable/filter_button"
-        android:text="Cancel"
         android:clickable="true"
-        android:textAllCaps="false"/>
+        android:shape="oval"
+        android:text="Cancel"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/filterApply"
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:layout_below="@id/filterCompleted"
+        android:layout_below="@id/filterRejected"
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
-        android:layout_toEndOf="@id/filterRejected"
+        android:layout_toEndOf="@id/filterCancel"
         android:background="@drawable/filter_button"
         android:clickable="true"
+        android:shape="oval"
         android:text="Apply"
         android:textAllCaps="false" />
+
 
 
 </RelativeLayout>

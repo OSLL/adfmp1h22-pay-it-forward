@@ -11,6 +11,9 @@
         android:theme="@style/Theme.PayItForward">
         <activity
             android:name=".FilterActivity"
+            android:label="Choose filters"
+            android:launchMode="singleInstance"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"
             android:exported="false" />
         <activity
             android:name=".EditProfileActivity"
