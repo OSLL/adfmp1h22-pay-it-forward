@@ -1,5 +1,7 @@
 package com.example.payitforward.util
 
+import android.util.Log
+import androidx.constraintlayout.widget.StateSet.TAG
 import com.example.payitforward.pojo.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -12,6 +14,7 @@ object FirestoreUtil {
     val collectionsTask = firestore.collection("task")
     val collectionsDialog = firestore.collection("dialog")
     val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
+    val collectionsUsers = firestore.collection("users")
 
     fun sendMessage(message: Message) {
         collectionsMessage.add(message)
@@ -142,5 +145,11 @@ object FirestoreUtil {
             .addOnSuccessListener { documents ->
                 onSuccess(documents.toObjects(Task::class.java))
             }
+    }
+
+    fun addUser(user: User) {
+        collectionsUsers.add(user).addOnSuccessListener { documentRef ->
+            Log.d(TAG, "User added with ID: ${documentRef.id}")
+        }
     }
 }
