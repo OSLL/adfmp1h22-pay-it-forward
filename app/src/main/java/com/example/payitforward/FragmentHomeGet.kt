@@ -2,6 +2,7 @@ package com.example.payitforward
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.format.DateFormat
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,7 @@ import com.example.payitforward.pojo.User
 import com.example.payitforward.util.FirestoreUtil
 import com.example.payitforward.util.StorageUtil
 import com.google.firebase.Timestamp
-import java.util.ArrayList
+import java.util.*
 
 class FragmentHomeGet : Fragment() {
 
@@ -44,15 +45,31 @@ class FragmentHomeGet : Fragment() {
         tasksRecyclerView = mView.findViewById(R.id.tasks_recycler_view)
         tasksRecyclerView.layoutManager = LinearLayoutManager(mView.context)
         tasksAdapter = TasksAdapter()
-        tasksAdapter.setOnTaskClickListener(object : TasksAdapter.onTaskClickListener{
+        tasksAdapter.setOnTaskClickListener(object : TasksAdapter.onTaskClickListener {
             override fun onTaskClick(position: Int) {
                 val intent = Intent(view!!.context, ItemTaskActivity::class.java)
-                intent.putExtra("taskType", "new")
+                intent.putExtra("taskId", tasksList[position].id)
+                intent.putExtra("creationDate", getDate(tasksList[position].creationDate.seconds))
+                intent.putExtra("deadlineDate", getDate(tasksList[position].deadlineDate.seconds))
+                intent.putExtra("authorId", tasksList[position].authorId)
+                intent.putExtra("completedId", tasksList[position].completedId)
+                intent.putExtra("name", tasksList[position].name)
+                intent.putExtra("description", tasksList[position].description)
+                intent.putExtra("imageUrl", tasksList[position].imageUrl)
+                intent.putExtra("coins", tasksList[position].coins.toString())
+                intent.putExtra("taskType", tasksList[position].type)
                 startActivity(intent)
             }
 
         })
         tasksRecyclerView.adapter = tasksAdapter
+    }
+
+    fun getDate(timestamp: Long): String {
+        val calendar = Calendar.getInstance(Locale.ENGLISH)
+        calendar.timeInMillis = timestamp * 1000L
+        val date = DateFormat.format("dd-MM-yyyy", calendar).toString()
+        return date
     }
 
 }

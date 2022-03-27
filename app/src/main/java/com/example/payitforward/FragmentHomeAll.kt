@@ -3,6 +3,7 @@ package com.example.payitforward
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,13 +49,13 @@ class FragmentHomeAll : Fragment() {
                 val intent = Intent(view!!.context, ItemTaskActivity::class.java)
                 when (tasksList[position].type) {
                     "new" -> {
-                        intent.putExtra("taskType", "new")
+                        putExtraData(intent, position)
                     }
                     "completed" -> {
-                        intent.putExtra("taskType", "completed")
+                        putExtraData(intent, position)
                     }
                     "onReview" -> {
-                        intent.putExtra("taskType", "onReview")
+                        putExtraData(intent, position)
                     }
                 }
                 startActivity(intent)
@@ -63,6 +64,27 @@ class FragmentHomeAll : Fragment() {
         })
         tasksRecyclerView.adapter = tasksAdapter
 
+    }
+
+    private fun putExtraData(intent: Intent, position: Int) {
+        intent.putExtra("taskId", tasksList[position].id)
+        intent.putExtra("creationDate", getDate(tasksList[position].creationDate.seconds))
+        intent.putExtra("deadlineDate", getDate(tasksList[position].deadlineDate.seconds))
+        intent.putExtra("authorId", tasksList[position].authorId)
+        intent.putExtra("completedId", tasksList[position].completedId)
+        intent.putExtra("name", tasksList[position].name)
+        intent.putExtra("description", tasksList[position].description)
+        intent.putExtra("imageUrl", tasksList[position].imageUrl)
+        intent.putExtra("coins", tasksList[position].coins.toString())
+        intent.putExtra("taskType", tasksList[position].type)
+    }
+
+
+    fun getDate(timestamp: Long): String {
+        val calendar = Calendar.getInstance(Locale.ENGLISH)
+        calendar.timeInMillis = timestamp * 1000L
+        val date = DateFormat.format("dd-MM-yyyy", calendar).toString()
+        return date
     }
 
 }
