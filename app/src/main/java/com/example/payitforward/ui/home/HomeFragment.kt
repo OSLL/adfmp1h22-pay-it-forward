@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.payitforward.CreateDeedActivity
+import com.example.payitforward.FilterActivity
 import com.example.payitforward.R
 import com.example.payitforward.adapters.TabsPagerAdapter
 import com.example.payitforward.databinding.FragmentHomeBinding
@@ -60,6 +62,14 @@ class HomeFragment : Fragment() {
                 }
             }
         }.attach()
+        binding.filterButtonHome.setOnClickListener {
+            val intent = Intent(context, FilterActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.sendButtonHome.setOnClickListener{
+            Toast.makeText(activity, "You clicked on search button", Toast.LENGTH_LONG).show()
+        }
         return root
     }
 }

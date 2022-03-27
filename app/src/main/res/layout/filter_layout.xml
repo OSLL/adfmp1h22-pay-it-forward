@@ -86,7 +86,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@id/filterAccepted"
-        android:background="@android:color/transparent"
+        android:background="@drawable/filter_button"
         android:text="Cancel"
         android:clickable="true"
         android:textAllCaps="false"/>
@@ -99,7 +99,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@id/filterRejected"
-        android:background="@android:color/transparent"
+        android:background="@drawable/filter_button"
         android:clickable="true"
         android:text="Apply"
         android:textAllCaps="false" />
