@@ -37,6 +37,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginBottom="16dp"
             android:background="#00C4C4C4"
+            android:clickable="true"
             ads:srcCompat="@drawable/filter" />
 
         <EditText
@@ -61,6 +62,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:background="#00C4C4C4"
+            android:clickable="true"
             ads:srcCompat="@drawable/icons_search_32" />
 
     </LinearLayout>

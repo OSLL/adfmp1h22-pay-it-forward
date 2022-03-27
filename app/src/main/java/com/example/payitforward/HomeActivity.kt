@@ -17,6 +17,11 @@ import com.google.android.material.tabs.TabLayoutMediator
 class HomeActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityHomeBinding
 
+    private fun openFilterActivity(view: View?) {
+        val intent = Intent(view!!.context, FilterActivity::class.java)
+        startActivity(intent)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -44,5 +49,10 @@ class HomeActivity : AppCompatActivity() {
             }
         }.attach()
 
+        mBinding.filterButtonHome.setOnClickListener {
+            // TODO: Fix it
+            Toast.makeText(this, "You clicked on item", Toast.LENGTH_LONG).show()
+                //view -> openFilterActivity(view)
+        }
     }
 }

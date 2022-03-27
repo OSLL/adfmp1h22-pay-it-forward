@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <Button
+        android:id="@+id/filterNew"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:background="@drawable/filter_button"
+        android:shape="oval"
+        android:text="New"
+        android:clickable="true"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/filterInProgress"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@id/filterNew"
+        android:background="@drawable/filter_button"
+        android:shape="oval"
+        android:text="In progress"
+        android:clickable="true"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/filterOnReview"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@id/filterInProgress"
+        android:background="@drawable/filter_button"
+        android:shape="oval"
+        android:text="On review"
+        android:clickable="true"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/filterAccepted"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/filterNew"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/filter_button"
+        android:shape="oval"
+        android:text="Accepted"
+        android:clickable="true"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/filterRejected"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/filterInProgress"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/filterAccepted"
+        android:background="@drawable/filter_button"
+        android:shape="oval"
+        android:text="Rejected"
+        android:clickable="true"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/filterDone"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/filterOnReview"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/filterRejected"
+        android:background="@drawable/filter_button"
+        android:shape="oval"
+        android:text="Done"
+        android:clickable="true"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/filterCancel"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/filterRejected"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/filterAccepted"
+        android:background="@android:color/transparent"
+        android:text="Cancel"
+        android:clickable="true"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/filterApply"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/filterDone"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/filterRejected"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:text="Apply"
+        android:textAllCaps="false" />
+
+
+</RelativeLayout>
