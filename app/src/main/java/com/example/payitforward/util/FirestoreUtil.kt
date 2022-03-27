@@ -142,9 +142,9 @@ object FirestoreUtil {
     fun getAllTasks(onSuccess: (tasks: List<Task>) -> Unit) {
         collectionsTask
             .get()
-            .addOnSuccessListener { documents ->
-                onSuccess(documents.toObjects(Task::class.java))
-            }
+//            .addOnSuccessListener { documents ->
+//                onSuccess(documents.toObjects(Task::class.java))
+//            }   ??????? не работает с этим
     }
 
     fun addUser(user: User) {
