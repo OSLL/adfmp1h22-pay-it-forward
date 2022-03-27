@@ -12,6 +12,5 @@ data class Task(
     var description: String = "",
     var imageUrl: String? = "",
     var coins: Int = 0,
-    var type: String = "", // 0 - new, 1 - completed, 2 - onReview
-
+    var type: String = "", // new, completed, onReview, inProgress, rejected, accepted,
 )

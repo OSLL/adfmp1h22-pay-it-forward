@@ -54,5 +54,7 @@ class HomeActivity : AppCompatActivity() {
             Toast.makeText(this, "You clicked on item", Toast.LENGTH_LONG).show()
                 //view -> openFilterActivity(view)
         }
+
+        
     }
 }

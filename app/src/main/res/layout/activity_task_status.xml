@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:background="@color/gray">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#A5A6F6"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/button_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:background="#00C4C4C4"
+            ads:srcCompat="@drawable/icons_back_48" />
+    </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/taskImageView"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/header"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/taskName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@id/taskImageView"
+        android:maxLines="1"
+        android:text="@string/buy_cake_and_deliver"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/deadlineTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/taskName"
+        android:layout_marginStart="15dp"
+        android:layout_toEndOf="@id/taskImageView"
+        android:text="@string/deadline"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/deadlineDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/taskName"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@id/deadlineTextView"
+        android:maxLines="1"
+        android:text="@string/_25_03_2022"
+        android:textColor="@color/black" />
+
+
+    <TextView
+        android:id="@+id/authorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/deadlineDate"
+        android:layout_marginStart="15dp"
+        android:layout_toEndOf="@id/taskImageView"
+        android:text="@string/author"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/authorNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/deadlineDate"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@id/authorTextView"
+        android:text="@string/vasiliy_pupkin"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
+    <ImageView
+        android:id="@+id/coinsImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header"
+        android:layout_marginTop="20dp"
+        android:layout_toStartOf="@id/coinsTextView"
+        android:src="@drawable/coins" />
+
+    <TextView
+        android:id="@+id/coinsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:paddingEnd="8dp"
+        android:text="@string/_10"
+        android:textColor="@color/black"
+        android:textSize="25sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/authorTextView"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@id/taskImageView"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:id="@+id/buttonEdit"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:background="@drawable/rounded_button_pink"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/textViewEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="3dp"
+                android:text="Edit"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttonMessage"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/rounded_button_pink"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/textViewMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="3dp"
+                android:text="Message"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/taskDescriptionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/taskImageView"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/my_friend_in_another_city_has_a_birthday_please_buy_him_a_cake"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+
+    <TextView
+        android:id="@+id/currentStatusTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/taskDescriptionTextView"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="5dp"
+        android:text="Current status:"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/currentStatusValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/taskDescriptionTextView"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toEndOf="@id/currentStatusTextView"
+        android:maxLines="3"
+        android:text="Waiting for the review"
+        android:textColor="@color/black" />
+
+
+
+</RelativeLayout>
