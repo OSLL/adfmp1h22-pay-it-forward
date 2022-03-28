@@ -4,29 +4,29 @@
     android:layout_height="wrap_content"
     android:padding="10dp">
 
-    <Button
+    <ToggleButton
         android:id="@+id/filterNew"
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:background="@drawable/filter_button"
         android:shape="oval"
-        android:text="New"
-        android:clickable="true"
+        android:textOff="New"
+        android:textOn="New"
         android:textAllCaps="false" />
 
-    <Button
+    <ToggleButton
         android:id="@+id/filterInProgress"
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_marginStart="5dp"
         android:layout_toEndOf="@id/filterNew"
         android:background="@drawable/filter_button"
-        android:clickable="true"
         android:shape="oval"
-        android:text="In progress"
+        android:textOff="In progress"
+        android:textOn="In progress"
         android:textAllCaps="false" />
 
-    <Button
+    <ToggleButton
         android:id="@+id/filterOnReview"
         android:layout_width="100dp"
         android:layout_height="30dp"
@@ -34,23 +34,23 @@
         android:layout_below="@id/filterNew"
         android:background="@drawable/filter_button"
         android:shape="oval"
-        android:text="On review"
-        android:clickable="true"
+        android:textOff="On Review"
+        android:textOn="On Review"
         android:textAllCaps="false"/>
 
-    <Button
+    <ToggleButton
         android:id="@+id/filterAccepted"
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_below="@id/filterOnReview"
         android:layout_marginTop="10dp"
         android:background="@drawable/filter_button"
-        android:clickable="true"
         android:shape="oval"
-        android:text="Accepted"
+        android:textOff="Accepted"
+        android:textOn="Accepted"
         android:textAllCaps="false" />
 
-    <Button
+    <ToggleButton
         android:id="@+id/filterRejected"
         android:layout_width="100dp"
         android:layout_height="30dp"
@@ -60,11 +60,11 @@
         android:layout_toEndOf="@id/filterAccepted"
         android:background="@drawable/filter_button"
         android:shape="oval"
-        android:text="Rejected"
-        android:clickable="true"
+        android:textOff="Rejected"
+        android:textOn="Rejected"
         android:textAllCaps="false"/>
 
-    <Button
+    <ToggleButton
         android:id="@+id/filterCompleted"
         android:layout_width="100dp"
         android:layout_height="30dp"
@@ -73,9 +73,9 @@
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@id/filterOnReview"
         android:background="@drawable/filter_button"
-        android:clickable="true"
         android:shape="oval"
-        android:text="Completed"
+        android:textOff="Completed"
+        android:textOn="Completed"
         android:textAllCaps="false" />
 
     <Button
@@ -85,10 +85,10 @@
         android:layout_below="@id/filterAccepted"
         android:layout_marginTop="10dp"
         android:background="@drawable/filter_button"
-        android:clickable="true"
         android:shape="oval"
         android:text="Cancel"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:layout_marginBottom="10dp"/>
 
     <Button
         android:id="@+id/filterApply"
@@ -99,10 +99,10 @@
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@id/filterCancel"
         android:background="@drawable/filter_button"
-        android:clickable="true"
         android:shape="oval"
         android:text="Apply"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:layout_marginBottom="10dp"/>
 
 
 

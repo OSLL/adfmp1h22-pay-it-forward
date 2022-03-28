@@ -1,5 +1,6 @@
 package com.example.payitforward.util
 
+import android.text.Editable
 import android.util.Log
 import androidx.constraintlayout.widget.StateSet.TAG
 import com.example.payitforward.pojo.*
@@ -161,6 +162,31 @@ object FirestoreUtil {
     fun getTasksForGive(authorId: String, onSuccess: (tasks: List<Task>) -> Unit) {
         collectionsTask
             .whereEqualTo("authorId", authorId)
+            .get()
+            .addOnSuccessListener { documents ->
+                onSuccess(documents.toObjects(Task::class.java))
+            }
+    }
+
+    fun searchTasks(text: String, onSuccess: (tasks: List<Task>) -> Unit) {
+        if (text.isEmpty()) {
+            getAllTasks(onSuccess)
+        } else {
+            collectionsTask
+                .whereEqualTo("name", text)
+                .get()
+                .addOnSuccessListener { documents ->
+                    onSuccess(documents.toObjects(Task::class.java))
+                }
+        }
+    }
+
+    fun filterTasks(
+        filters: List<String>,
+        onSuccess: (tasks: List<Task>) -> Unit
+    ) {
+        collectionsTask
+            .whereIn("type", filters)
             .get()
             .addOnSuccessListener { documents ->
                 onSuccess(documents.toObjects(Task::class.java))
