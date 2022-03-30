@@ -93,7 +93,7 @@ class CreateDeedActivity : AppCompatActivity() {
                 edit = true
                 binding.titleEditText.setText(task.name)
                 binding.descriptionEditText.setText(task.description)
-                binding.cointsTextView.setText(task.coins)
+                binding.cointsTextView.text = task.coins.toString()
                 binding.seekBar.progress = task.coins
                 binding.calendarView.date = task.deadlineDate.toDate().time
                 createdTime = task.creationDate

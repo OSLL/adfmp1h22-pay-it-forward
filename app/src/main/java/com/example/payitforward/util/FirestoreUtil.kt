@@ -1,11 +1,9 @@
 package com.example.payitforward.util
 
-import android.text.Editable
 import android.util.Log
 import androidx.constraintlayout.widget.StateSet.TAG
 import com.example.payitforward.pojo.*
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -14,10 +12,10 @@ import com.google.firebase.ktx.Firebase
 object FirestoreUtil {
     private val firestore: FirebaseFirestore by lazy { Firebase.firestore }
     private val collectionsMessage = firestore.collection("message")
-    val collectionsTask = firestore.collection("task")
-    val collectionsDialog = firestore.collection("dialog")
-    val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
-    val collectionsUsers = firestore.collection("users")
+    private val collectionsTask = firestore.collection("task")
+    private val collectionsDialog = firestore.collection("dialog")
+    private val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
+    private val collectionsUsers = firestore.collection("users")
 
     fun sendMessage(message: Message) {
         collectionsMessage.add(message)
