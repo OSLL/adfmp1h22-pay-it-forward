@@ -62,7 +62,7 @@ class CreateDeedActivity : AppCompatActivity() {
         binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                 coins = p1
-                binding.cointsTextView.text = p1.toString()
+                binding.coinsTextView.text = p1.toString()
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
@@ -93,7 +93,7 @@ class CreateDeedActivity : AppCompatActivity() {
                 edit = true
                 binding.titleEditText.setText(task.name)
                 binding.descriptionEditText.setText(task.description)
-                binding.cointsTextView.text = task.coins.toString()
+                binding.coinsTextView.text = task.coins.toString()
                 binding.seekBar.progress = task.coins
                 binding.calendarView.date = task.deadlineDate.toDate().time
                 createdTime = task.creationDate

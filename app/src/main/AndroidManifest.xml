@@ -36,7 +36,9 @@
         <activity
             android:name=".ui.chat.DialogActivity"
             android:exported="false" />
-        <activity android:name=".SignUpActivity" />
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
