@@ -1,19 +1,20 @@
 package com.example.payitforward
 
+import android.accessibilityservice.AccessibilityService
 import android.content.Intent
+import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.UiController
 import android.support.test.espresso.ViewAction
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
-import android.support.test.rule.ActivityTestRule
-import android.view.View
-import android.widget.SeekBar
-import android.support.test.espresso.intent.Intents.init
-import android.support.test.espresso.intent.Intents.intended
+import android.support.test.espresso.intent.Intents.*
 import android.support.test.espresso.intent.matcher.IntentMatchers.hasAction
 import android.support.test.espresso.intent.matcher.IntentMatchers.hasType
 import android.support.test.espresso.matcher.ViewMatchers.*
+import android.support.test.rule.ActivityTestRule
+import android.view.View
+import android.widget.SeekBar
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.equalTo
@@ -67,9 +68,13 @@ class CreateDeedTest {
 
     @Test
     fun testPhoto() {
-//        init()
-//        onView(withId(R.id.changePhoto)).perform(click())
-//        intended(allOf(hasAction(equalTo(Intent.ACTION_PICK)), hasType("image/*")))
+        init()
+        onView(withId(R.id.changePhoto)).perform(click())
+        intended(allOf(hasAction(equalTo(Intent.ACTION_PICK)), hasType("image/*")))
+        release()
+        InstrumentationRegistry.getInstrumentation()
+            .uiAutomation
+            .performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK)
     }
 
 }
