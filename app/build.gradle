@@ -85,7 +85,8 @@ dependencies {
     androidTestImplementation "android.arch.core:core-testing:1.1.1"
     androidTestImplementation 'androidx.fragment:fragment-testing:1.4.1'
     implementation "androidx.fragment:fragment-ktx:1.5.0-alpha04"
-
     androidTestImplementation 'com.21buttons:fragment-test-rule:2.0.1'
     debugImplementation 'com.21buttons:fragment-test-rule-extras:2.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
 }

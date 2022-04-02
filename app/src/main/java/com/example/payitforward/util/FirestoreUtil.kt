@@ -28,7 +28,7 @@ object FirestoreUtil {
                 snapshots.documents.forEach {
                     if (it["type"] == MessageType.TEXT) {
                         messages.add(it.toObject(TextMessage::class.java)!!)
-                    } else {
+                    } else if ((it["type"] == MessageType.IMAGE)) {
                         messages.add(it.toObject(ImageMessage::class.java)!!)
                     }
                 }
