@@ -32,6 +32,9 @@
             android:exported="false" />
         <activity
             android:name=".ItemTaskActivity"
+            android:launchMode="singleInstance"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"
+            android:label="Task"
             android:exported="false" />
         <activity
             android:name=".ui.chat.DialogActivity"
