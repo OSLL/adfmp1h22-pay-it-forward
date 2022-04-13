@@ -1,5 +1,7 @@
 package com.example.payitforward
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.payitforward.databinding.FilterLayoutBinding
@@ -14,6 +16,17 @@ class FilterActivity : AppCompatActivity() {
     private var filterAccepted = false
     private var filterRejected = false
 
+    fun sendData() {
+        val data = Intent()
+        data.putExtra("filterNew", filterNew.toString())
+        data.putExtra("filterInProgress", filterInProgress.toString())
+        data.putExtra("filterOnReview", filterOnReview.toString())
+        data.putExtra("filterCompleted", filterCompleted.toString())
+        data.putExtra("filterAccepted", filterAccepted.toString())
+        data.putExtra("filterRejected", filterRejected.toString())
+        setResult(Activity.RESULT_OK, data)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FilterLayoutBinding.inflate(layoutInflater)
@@ -25,10 +38,13 @@ class FilterActivity : AppCompatActivity() {
             filterCompleted = binding.filterCompleted.isChecked
             filterAccepted = binding.filterCompleted.isChecked
             filterRejected = binding.filterRejected.isChecked
+            sendData()
             finish()
         }
         binding.filterCancel.setOnClickListener {
+            sendData()
             finish()
         }
     }
+
 }

@@ -1,5 +1,6 @@
 package com.example.payitforward.ui.home
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +27,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class HomeFragment : Fragment() {
@@ -34,6 +37,12 @@ class HomeFragment : Fragment() {
     private lateinit var tasksAdapter: TasksAdapter
     private lateinit var tasksRecyclerView: RecyclerView
     private lateinit var mView: View
+    private var filterNew = false
+    private var filterInProgress = false
+    private var filterOnReview = false
+    private var filterCompleted = false
+    private var filterAccepted = false
+    private var filterRejected = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,22 +82,60 @@ class HomeFragment : Fragment() {
         }.attach()
         binding.filterButtonHome.setOnClickListener {
             val intent = Intent(context, FilterActivity::class.java)
-            startActivity(intent)
+            resultLauncher.launch(intent)
         }
 
-        binding.sendButtonHome.setOnClickListener{
+        binding.sendButtonHome.setOnClickListener {
             // TODO: return tabLayout after search
             binding.tabLayout.visibility = View.GONE
             initRecyclerView()
             var searchText = binding.searchHome.text
-            FirestoreUtil.searchTasks(searchText.toString()) { tasks ->
-                tasksList = tasks
-                tasksAdapter.setItems(tasksList)
+            if (filterNew || filterInProgress || filterOnReview || filterRejected || filterAccepted || filterCompleted) {
+                var filters: ArrayList<String> = ArrayList()
+                if (filterNew)
+                    filters.add("new")
+                if (filterCompleted)
+                    filters.add("completed")
+                if (filterOnReview)
+                    filters.add("onReview")
+                if (filterRejected)
+                    filters.add("rejected")
+                if (filterAccepted)
+                    filters.add("accepted")
+                if (filterInProgress)
+                    filters.add("inProgress")
+                FirestoreUtil.filterTasks(filters) { tasks ->
+                    tasksList = tasks
+                    tasksAdapter.setItems(tasksList)
+
+                }
+            } else {
+                FirestoreUtil.searchTasks(searchText.toString()) { tasks ->
+                    tasksList = tasks
+                    tasksAdapter.setItems(tasksList)
+                }
             }
         }
 
         return mView
     }
+
+    private var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                if (data != null) {
+                    filterNew = data.getStringExtra("filterNew").toBoolean()
+                    filterInProgress = data.getStringExtra("filterInProgress").toBoolean()
+                    filterOnReview = data.getStringExtra("filterOnReview").toBoolean()
+                    filterCompleted = data.getStringExtra("filterCompleted").toBoolean()
+                    filterAccepted = data.getStringExtra("filterAccepted").toBoolean()
+                    filterRejected = data.getStringExtra("filterRejected").toBoolean()
+                    Log.i("AOA", filterNew.toString())
+                    Log.i("AOA", filterInProgress.toString())
+                }
+            }
+        }
 
 
     private fun initRecyclerView() {
