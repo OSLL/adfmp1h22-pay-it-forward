@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import com.example.payitforward.databinding.ActivityTaskAcceptRejectBinding
 import com.example.payitforward.databinding.ActivityTaskCompletedBinding
 import com.example.payitforward.databinding.ActivityTaskStatusBinding
@@ -59,7 +61,7 @@ class ItemTaskActivity : AppCompatActivity() {
                     taskStatusBinding.taskName.text = getIntent().extras!!.getString("name")
                     taskStatusBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
-                    //taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl"))
+                    //taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
                     taskStatusBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
                     taskStatusBinding.currentStatusValue.text = "The task is created by you and waiting for the executor"
                 } else {
@@ -73,8 +75,11 @@ class ItemTaskActivity : AppCompatActivity() {
                     takeBinding.taskName.text = getIntent().extras!!.getString("name")
                     takeBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
-                    //takeBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl"))
+                    //takeBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
                     takeBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
+                    takeBinding.buttonTake.setOnClickListener{
+                        FirestoreUtil.changeTaskType(taskId.toString(),  "inProcess")
+                    }
                 }
             }
 
@@ -91,7 +96,7 @@ class ItemTaskActivity : AppCompatActivity() {
                     taskStatusBinding.taskName.text = getIntent().extras!!.getString("name")
                     taskStatusBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
-                    //taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl"))
+                    //taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
                     taskStatusBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
                     // TODO: the task is in progress by user @name
                     taskStatusBinding.currentStatusValue.text = "The task is in progress by user"
@@ -107,8 +112,11 @@ class ItemTaskActivity : AppCompatActivity() {
                     completedBinding.taskName.text = getIntent().extras!!.getString("name")
                     completedBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
-                    // completedBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl"))
+                    // completedBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
                     completedBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
+                    completedBinding.buttonDone.setOnClickListener{
+                        FirestoreUtil.changeTaskType(taskId.toString(),  "completed")
+                    }
                 }
             }
 
@@ -123,7 +131,7 @@ class ItemTaskActivity : AppCompatActivity() {
                 taskStatusBinding.taskName.text = getIntent().extras!!.getString("name")
                 taskStatusBinding.taskDescriptionTextView.text =
                     getIntent().extras!!.getString("description")
-                //taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl"))
+                //taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
                 taskStatusBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
                 if (currentUserId == getIntent().extras!!.getString("authorId")) {
                     // TODO: add name of the user
@@ -152,8 +160,14 @@ class ItemTaskActivity : AppCompatActivity() {
                     acceptRejectBinding.taskName.text = getIntent().extras!!.getString("name")
                     acceptRejectBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
-                    //acceptRejectBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl"))
+                    //acceptRejectBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
                     acceptRejectBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
+                    acceptRejectBinding.buttonAccept.setOnClickListener{
+                        FirestoreUtil.changeTaskType(taskId.toString(), "accepted")
+                    }
+                    acceptRejectBinding.buttonReject.setOnClickListener{
+                        FirestoreUtil.changeTaskType(taskId.toString(),  "rejected")
+                    }
                 } else {
                     val taskStatusBinding: ActivityTaskStatusBinding =
                         ActivityTaskStatusBinding.inflate(layoutInflater)
@@ -165,7 +179,7 @@ class ItemTaskActivity : AppCompatActivity() {
                     taskStatusBinding.taskName.text = getIntent().extras!!.getString("name")
                     taskStatusBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
-                    //taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl"))
+                    // taskStatusBinding.taskImageView.setImageURI(getIntent().extras!!.getString("imageUrl")!!.toUri())
                     taskStatusBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
                     taskStatusBinding.currentStatusValue.text = "The task is waiting for the review"
                 }
@@ -183,7 +197,7 @@ class ItemTaskActivity : AppCompatActivity() {
                 taskStatusBinding.taskName.text = getIntent().extras!!.getString("name")
                 taskStatusBinding.taskDescriptionTextView.text =
                     getIntent().extras!!.getString("description")
-                //taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl"))
+                //taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
                 taskStatusBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
                 if (currentUserId == getIntent().extras!!.getString("authorId")) {
                     taskStatusBinding.buttonEdit.setOnClickListener { view -> openEditTaskActivity(view, taskId!!) }
@@ -207,7 +221,7 @@ class ItemTaskActivity : AppCompatActivity() {
                 taskStatusBinding.taskName.text = getIntent().extras!!.getString("name")
                 taskStatusBinding.taskDescriptionTextView.text =
                     getIntent().extras!!.getString("description")
-                //taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl"))
+                //taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
                 taskStatusBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
                 if (currentUserId == getIntent().extras!!.getString("authorId")) {
                     taskStatusBinding.buttonEdit.setOnClickListener { view -> openEditTaskActivity(view, taskId!!) }

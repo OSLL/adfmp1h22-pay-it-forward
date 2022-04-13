@@ -191,6 +191,10 @@ object FirestoreUtil {
             }
     }
 
+    fun changeTaskType(taskId: String, typeToChange: String) {
+        collectionsTask.document(taskId).update("type", typeToChange)
+    }
+
     fun addUser(user: User) {
         collectionsUsers.add(user).addOnSuccessListener { documentRef ->
             Log.d(TAG, "User added with ID: ${documentRef.id}")
