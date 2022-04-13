@@ -55,7 +55,6 @@ class ItemTaskActivity : AppCompatActivity() {
                     setContentView(taskStatusBinding.root)
                     taskStatusBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId) }
                     taskStatusBinding.buttonEdit.setOnClickListener { view -> openEditTaskActivity(view, taskId!!) }
-                  //  taskStatusBinding.buttonMenu.setOnClickListener { cancelActivity() }
                     taskStatusBinding.deadlineDate.text = getIntent().extras!!.getString("deadlineDate")
                     taskStatusBinding.taskName.text = getIntent().extras!!.getString("name")
                     taskStatusBinding.taskDescriptionTextView.text =
@@ -68,8 +67,8 @@ class ItemTaskActivity : AppCompatActivity() {
                         ActivityTaskTakeBinding.inflate(layoutInflater)
                     setContentView(takeBinding.root)
                     takeBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!) }
-                    takeBinding.buttonEdit.setOnClickListener { view -> openEditTaskActivity(view, taskId!!) }
-              //      takeBinding.buttonMenu.setOnClickListener { cancelActivity() }
+                    takeBinding.buttonEdit.layoutParams.width = 0
+                    takeBinding.buttonEdit.visibility = View.INVISIBLE
                     takeBinding.deadlineDate.text = getIntent().extras!!.getString("deadlineDate")
                     takeBinding.taskName.text = getIntent().extras!!.getString("name")
                     takeBinding.taskDescriptionTextView.text =
@@ -88,7 +87,6 @@ class ItemTaskActivity : AppCompatActivity() {
                     setContentView(taskStatusBinding.root)
                     taskStatusBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId) }
                     taskStatusBinding.buttonEdit.setOnClickListener { view -> openEditTaskActivity(view, taskId!!) }
-                   // taskStatusBinding.buttonMenu.setOnClickListener { cancelActivity() }
                     taskStatusBinding.deadlineDate.text = getIntent().extras!!.getString("deadlineDate")
                     taskStatusBinding.taskName.text = getIntent().extras!!.getString("name")
                     taskStatusBinding.taskDescriptionTextView.text =
@@ -103,8 +101,8 @@ class ItemTaskActivity : AppCompatActivity() {
                         ActivityTaskCompletedBinding.inflate(layoutInflater)
                     setContentView(completedBinding.root)
                     completedBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!) }
-                    completedBinding.buttonEdit.setOnClickListener { view -> openEditTaskActivity(view, taskId!!) }
-              //      completedBinding.buttonMenu.setOnClickListener { cancelActivity() }
+                    completedBinding.buttonEdit.layoutParams.width = 0
+                    completedBinding.buttonEdit.visibility = View.INVISIBLE
                     completedBinding.deadlineDate.text = getIntent().extras!!.getString("deadlineDate")
                     completedBinding.taskName.text = getIntent().extras!!.getString("name")
                     completedBinding.taskDescriptionTextView.text =
@@ -121,8 +119,6 @@ class ItemTaskActivity : AppCompatActivity() {
                     ActivityTaskStatusBinding.inflate(layoutInflater)
                 setContentView(taskStatusBinding.root)
                 taskStatusBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!) }
-                taskStatusBinding.buttonEdit.setOnClickListener { view -> openEditTaskActivity(view, taskId!!) }
-           //     taskStatusBinding.buttonMenu.setOnClickListener { cancelActivity() }
                 taskStatusBinding.deadlineDate.text = getIntent().extras!!.getString("deadlineDate")
                 taskStatusBinding.taskName.text = getIntent().extras!!.getString("name")
                 taskStatusBinding.taskDescriptionTextView.text =
@@ -132,7 +128,10 @@ class ItemTaskActivity : AppCompatActivity() {
                 if (currentUserId == getIntent().extras!!.getString("authorId")) {
                     // TODO: add name of the user
                     taskStatusBinding.currentStatusValue.text = "The task was completed by user"
+                    taskStatusBinding.buttonEdit.setOnClickListener { view -> openEditTaskActivity(view, taskId!!) }
                 } else {
+                    taskStatusBinding.buttonEdit.layoutParams.width = 0
+                    taskStatusBinding.buttonEdit.visibility = View.INVISIBLE
                     taskStatusBinding.currentStatusValue.text = "The task was completed by you"
                 }
             }
@@ -148,7 +147,6 @@ class ItemTaskActivity : AppCompatActivity() {
                     acceptRejectBinding.buttonEdit.setOnClickListener { view ->
                         openEditTaskActivity(view, taskId!!)
                     }
-          //          acceptRejectBinding.buttonMenu.setOnClickListener { cancelActivity() }
                     acceptRejectBinding.deadlineDate.text =
                         getIntent().extras!!.getString("deadlineDate")
                     acceptRejectBinding.taskName.text = getIntent().extras!!.getString("name")
@@ -161,8 +159,8 @@ class ItemTaskActivity : AppCompatActivity() {
                         ActivityTaskStatusBinding.inflate(layoutInflater)
                     setContentView(taskStatusBinding.root)
                     taskStatusBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!) }
-                    taskStatusBinding.buttonEdit.setOnClickListener { view -> openEditTaskActivity(view, taskId!!) }
-           //         taskStatusBinding.buttonMenu.setOnClickListener { cancelActivity() }
+                    taskStatusBinding.buttonEdit.layoutParams.width = 0
+                    taskStatusBinding.buttonEdit.visibility = View.INVISIBLE
                     taskStatusBinding.deadlineDate.text = getIntent().extras!!.getString("deadlineDate")
                     taskStatusBinding.taskName.text = getIntent().extras!!.getString("name")
                     taskStatusBinding.taskDescriptionTextView.text =
@@ -181,8 +179,6 @@ class ItemTaskActivity : AppCompatActivity() {
                     ActivityTaskStatusBinding.inflate(layoutInflater)
                 setContentView(taskStatusBinding.root)
                 taskStatusBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!) }
-                taskStatusBinding.buttonEdit.setOnClickListener { view -> openEditTaskActivity(view, taskId!!) }
-            //    taskStatusBinding.buttonMenu.setOnClickListener { cancelActivity() }
                 taskStatusBinding.deadlineDate.text = getIntent().extras!!.getString("deadlineDate")
                 taskStatusBinding.taskName.text = getIntent().extras!!.getString("name")
                 taskStatusBinding.taskDescriptionTextView.text =
@@ -190,9 +186,12 @@ class ItemTaskActivity : AppCompatActivity() {
                 //taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl"))
                 taskStatusBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
                 if (currentUserId == getIntent().extras!!.getString("authorId")) {
+                    taskStatusBinding.buttonEdit.setOnClickListener { view -> openEditTaskActivity(view, taskId!!) }
                     taskStatusBinding.currentStatusValue.text = "The task was accepted by you"
                 } else {
                     // TODO: add name of the user
+                    taskStatusBinding.buttonEdit.layoutParams.width = 0
+                    taskStatusBinding.buttonEdit.visibility = View.INVISIBLE
                     taskStatusBinding.currentStatusValue.text = "The task was completed by user"
                 }
             }
@@ -204,8 +203,6 @@ class ItemTaskActivity : AppCompatActivity() {
                     ActivityTaskStatusBinding.inflate(layoutInflater)
                 setContentView(taskStatusBinding.root)
                 taskStatusBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!) }
-                taskStatusBinding.buttonEdit.setOnClickListener { view -> openEditTaskActivity(view, taskId!!) }
-          //      taskStatusBinding.buttonMenu.setOnClickListener { cancelActivity() }
                 taskStatusBinding.deadlineDate.text = getIntent().extras!!.getString("deadlineDate")
                 taskStatusBinding.taskName.text = getIntent().extras!!.getString("name")
                 taskStatusBinding.taskDescriptionTextView.text =
@@ -213,9 +210,12 @@ class ItemTaskActivity : AppCompatActivity() {
                 //taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl"))
                 taskStatusBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
                 if (currentUserId == getIntent().extras!!.getString("authorId")) {
+                    taskStatusBinding.buttonEdit.setOnClickListener { view -> openEditTaskActivity(view, taskId!!) }
                     taskStatusBinding.currentStatusValue.text = "The task was rejected by you"
                 } else {
                     // TODO: add name of the user
+                    taskStatusBinding.buttonEdit.layoutParams.width = 0
+                    taskStatusBinding.buttonEdit.visibility = View.INVISIBLE
                     taskStatusBinding.currentStatusValue.text = "The task was completed by user"
                 }
             }
