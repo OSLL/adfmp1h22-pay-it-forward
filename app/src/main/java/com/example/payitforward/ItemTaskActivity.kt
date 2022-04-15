@@ -15,6 +15,8 @@ import com.example.payitforward.databinding.ActivityTaskStatusBinding
 import com.example.payitforward.databinding.ActivityTaskTakeBinding
 import com.example.payitforward.ui.chat.DialogActivity
 import com.example.payitforward.util.FirestoreUtil
+import com.example.payitforward.util.StorageUtil
+import com.example.payitforward.GlideApp
 
 class ItemTaskActivity : AppCompatActivity() {
 
@@ -60,45 +62,67 @@ class ItemTaskActivity : AppCompatActivity() {
                     setContentView(taskStatusBinding.root)
                     taskStatusBinding.buttonMessage.layoutParams.width = 0
                     taskStatusBinding.buttonMessage.visibility = View.INVISIBLE
-                    FirestoreUtil.getUser(authorId.toString()) {
-                        user ->
+                    FirestoreUtil.getUser(authorId.toString()) { user ->
                         if (user != null) {
                             taskStatusBinding.authorNameTextView.text = user.name
                         } else {
                             taskStatusBinding.authorNameTextView.text = ""
                         }
                     }
-                    taskStatusBinding.buttonEdit.setOnClickListener { view -> openEditTaskActivity(view, taskId!!) }
-                    taskStatusBinding.deadlineDate.text = getIntent().extras!!.getString("deadlineDate")
+                    taskStatusBinding.buttonEdit.setOnClickListener { view ->
+                        openEditTaskActivity(
+                            view,
+                            taskId!!
+                        )
+                    }
+                    taskStatusBinding.deadlineDate.text =
+                        getIntent().extras!!.getString("deadlineDate")
                     taskStatusBinding.taskName.text = taskName
                     taskStatusBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
-               //     taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
+                    val imageUrl = getIntent().extras!!.getString("imageUrl")
+                    if (imageUrl != null) {
+                        val photoRef = StorageUtil.pathToReference(imageUrl.toString())
+                        GlideApp.with(applicationContext).load(photoRef)
+                            .into(taskStatusBinding.taskImageView)
+                    }
                     taskStatusBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
-                    taskStatusBinding.currentStatusValue.text = "The task is created by you and waiting for the executor"
+                    taskStatusBinding.currentStatusValue.text =
+                        "The task is created by you and waiting for the executor"
                 } else {
                     val takeBinding: ActivityTaskTakeBinding =
                         ActivityTaskTakeBinding.inflate(layoutInflater)
                     setContentView(takeBinding.root)
-                    FirestoreUtil.getUser(authorId.toString()) {
-                            user ->
+                    FirestoreUtil.getUser(authorId.toString()) { user ->
                         if (user != null) {
                             takeBinding.authorNameTextView.text = user.name
                         } else {
                             takeBinding.authorNameTextView.text = ""
                         }
                     }
-                    takeBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!, taskName!!) }
+                    takeBinding.buttonMessage.setOnClickListener { view ->
+                        openChat(
+                            view,
+                            taskId!!,
+                            authorId!!,
+                            taskName!!
+                        )
+                    }
                     takeBinding.buttonEdit.layoutParams.width = 0
                     takeBinding.buttonEdit.visibility = View.INVISIBLE
                     takeBinding.deadlineDate.text = getIntent().extras!!.getString("deadlineDate")
                     takeBinding.taskName.text = taskName
                     takeBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
-               //     takeBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
+                    val imageUrl = getIntent().extras!!.getString("imageUrl")
+                    if (imageUrl != null) {
+                        val photoRef = StorageUtil.pathToReference(imageUrl.toString())
+                        GlideApp.with(applicationContext).load(photoRef)
+                            .into(takeBinding.taskImageView)
+                    }
                     takeBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
-                    takeBinding.buttonTake.setOnClickListener{
-                        FirestoreUtil.changeTaskType(taskId.toString(),  "inProgress")
+                    takeBinding.buttonTake.setOnClickListener {
+                        FirestoreUtil.changeTaskType(taskId.toString(), "inProgress")
                         finish()
                     }
                 }
@@ -112,8 +136,7 @@ class ItemTaskActivity : AppCompatActivity() {
                     val taskStatusBinding: ActivityTaskStatusBinding =
                         ActivityTaskStatusBinding.inflate(layoutInflater)
                     setContentView(taskStatusBinding.root)
-                    FirestoreUtil.getUser(authorId.toString()) {
-                            user ->
+                    FirestoreUtil.getUser(authorId.toString()) { user ->
                         if (user != null) {
                             taskStatusBinding.authorNameTextView.text = user.name
                         } else {
@@ -122,12 +145,24 @@ class ItemTaskActivity : AppCompatActivity() {
                     }
                     taskStatusBinding.buttonMessage.layoutParams.width = 0
                     taskStatusBinding.buttonMessage.visibility = View.INVISIBLE
-                    taskStatusBinding.buttonEdit.setOnClickListener { view -> openEditTaskActivity(view, taskId!!) }
-                    taskStatusBinding.deadlineDate.text = getIntent().extras!!.getString("deadlineDate")
+                    taskStatusBinding.buttonEdit.setOnClickListener { view ->
+                        openEditTaskActivity(
+                            view,
+                            taskId!!
+                        )
+                    }
+                    taskStatusBinding.deadlineDate.text =
+                        getIntent().extras!!.getString("deadlineDate")
                     taskStatusBinding.taskName.text = taskName
                     taskStatusBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
-                    //taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
+
+                    val imageUrl = getIntent().extras!!.getString("imageUrl")
+                    if (imageUrl != null) {
+                        val photoRef = StorageUtil.pathToReference(imageUrl.toString())
+                        GlideApp.with(applicationContext).load(photoRef)
+                            .into(taskStatusBinding.taskImageView)
+                    }
                     taskStatusBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
                     // TODO: the task is in progress by user @name
                     taskStatusBinding.currentStatusValue.text = "The task is in progress by user"
@@ -136,25 +171,37 @@ class ItemTaskActivity : AppCompatActivity() {
                     val completedBinding: ActivityTaskCompletedBinding =
                         ActivityTaskCompletedBinding.inflate(layoutInflater)
                     setContentView(completedBinding.root)
-                    FirestoreUtil.getUser(authorId.toString()) {
-                            user ->
+                    FirestoreUtil.getUser(authorId.toString()) { user ->
                         if (user != null) {
                             completedBinding.authorNameTextView.text = user.name
                         } else {
                             completedBinding.authorNameTextView.text = ""
                         }
                     }
-                    completedBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!, taskName!!) }
+                    completedBinding.buttonMessage.setOnClickListener { view ->
+                        openChat(
+                            view,
+                            taskId!!,
+                            authorId!!,
+                            taskName!!
+                        )
+                    }
                     completedBinding.buttonEdit.layoutParams.width = 0
                     completedBinding.buttonEdit.visibility = View.INVISIBLE
-                    completedBinding.deadlineDate.text = getIntent().extras!!.getString("deadlineDate")
+                    completedBinding.deadlineDate.text =
+                        getIntent().extras!!.getString("deadlineDate")
                     completedBinding.taskName.text = taskName
                     completedBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
-                    // completedBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
+                    val imageUrl = getIntent().extras!!.getString("imageUrl")
+                    if (imageUrl != null) {
+                        val photoRef = StorageUtil.pathToReference(imageUrl.toString())
+                        GlideApp.with(applicationContext).load(photoRef)
+                            .into(completedBinding.taskImageView)
+                    }
                     completedBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
-                    completedBinding.buttonDone.setOnClickListener{
-                        FirestoreUtil.changeTaskType(taskId.toString(),  "completed")
+                    completedBinding.buttonDone.setOnClickListener {
+                        FirestoreUtil.changeTaskType(taskId.toString(), "completed")
                         finish()
                     }
                 }
@@ -171,10 +218,15 @@ class ItemTaskActivity : AppCompatActivity() {
                 taskStatusBinding.taskName.text = taskName
                 taskStatusBinding.taskDescriptionTextView.text =
                     getIntent().extras!!.getString("description")
-                //taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
+
+                val imageUrl = getIntent().extras!!.getString("imageUrl")
+                if (imageUrl != null) {
+                    val photoRef = StorageUtil.pathToReference(imageUrl.toString())
+                    GlideApp.with(applicationContext).load(photoRef)
+                        .into(taskStatusBinding.taskImageView)
+                }
                 taskStatusBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
-                FirestoreUtil.getUser(authorId.toString()) {
-                        user ->
+                FirestoreUtil.getUser(authorId.toString()) { user ->
                     if (user != null) {
                         taskStatusBinding.authorNameTextView.text = user.name
                     } else {
@@ -186,9 +238,21 @@ class ItemTaskActivity : AppCompatActivity() {
                     taskStatusBinding.buttonMessage.layoutParams.width = 0
                     taskStatusBinding.buttonMessage.visibility = View.INVISIBLE
                     taskStatusBinding.currentStatusValue.text = "The task was completed by user"
-                    taskStatusBinding.buttonEdit.setOnClickListener { view -> openEditTaskActivity(view, taskId!!) }
+                    taskStatusBinding.buttonEdit.setOnClickListener { view ->
+                        openEditTaskActivity(
+                            view,
+                            taskId!!
+                        )
+                    }
                 } else {
-                    taskStatusBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!, taskName!!) }
+                    taskStatusBinding.buttonMessage.setOnClickListener { view ->
+                        openChat(
+                            view,
+                            taskId!!,
+                            authorId!!,
+                            taskName!!
+                        )
+                    }
                     taskStatusBinding.buttonEdit.layoutParams.width = 0
                     taskStatusBinding.buttonEdit.visibility = View.INVISIBLE
                     taskStatusBinding.currentStatusValue.text = "The task was completed by you"
@@ -203,8 +267,7 @@ class ItemTaskActivity : AppCompatActivity() {
                     val acceptRejectBinding: ActivityTaskAcceptRejectBinding =
                         ActivityTaskAcceptRejectBinding.inflate(layoutInflater)
                     setContentView(acceptRejectBinding.root)
-                    FirestoreUtil.getUser(authorId.toString()) {
-                            user ->
+                    FirestoreUtil.getUser(authorId.toString()) { user ->
                         if (user != null) {
                             acceptRejectBinding.authorNameTextView.text = user.name
                         } else {
@@ -221,36 +284,53 @@ class ItemTaskActivity : AppCompatActivity() {
                     acceptRejectBinding.taskName.text = taskName
                     acceptRejectBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
-                    //acceptRejectBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
+                    val imageUrl = getIntent().extras!!.getString("imageUrl")
+                    if (imageUrl != null) {
+                        val photoRef = StorageUtil.pathToReference(imageUrl.toString())
+                        GlideApp.with(applicationContext).load(photoRef)
+                            .into(acceptRejectBinding.taskImageView)
+                    }
                     acceptRejectBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
-                    acceptRejectBinding.buttonAccept.setOnClickListener{
+                    acceptRejectBinding.buttonAccept.setOnClickListener {
                         FirestoreUtil.changeTaskType(taskId.toString(), "accepted")
                         finish()
                     }
-                    acceptRejectBinding.buttonReject.setOnClickListener{
-                        FirestoreUtil.changeTaskType(taskId.toString(),  "rejected")
+                    acceptRejectBinding.buttonReject.setOnClickListener {
+                        FirestoreUtil.changeTaskType(taskId.toString(), "rejected")
                         finish()
                     }
                 } else {
                     val taskStatusBinding: ActivityTaskStatusBinding =
                         ActivityTaskStatusBinding.inflate(layoutInflater)
                     setContentView(taskStatusBinding.root)
-                    FirestoreUtil.getUser(authorId.toString()) {
-                            user ->
+                    FirestoreUtil.getUser(authorId.toString()) { user ->
                         if (user != null) {
                             taskStatusBinding.authorNameTextView.text = user.name
                         } else {
                             taskStatusBinding.authorNameTextView.text = ""
                         }
                     }
-                    taskStatusBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!, taskName!!) }
+                    taskStatusBinding.buttonMessage.setOnClickListener { view ->
+                        openChat(
+                            view,
+                            taskId!!,
+                            authorId!!,
+                            taskName!!
+                        )
+                    }
                     taskStatusBinding.buttonEdit.layoutParams.width = 0
                     taskStatusBinding.buttonEdit.visibility = View.INVISIBLE
-                    taskStatusBinding.deadlineDate.text = getIntent().extras!!.getString("deadlineDate")
+                    taskStatusBinding.deadlineDate.text =
+                        getIntent().extras!!.getString("deadlineDate")
                     taskStatusBinding.taskName.text = taskName
                     taskStatusBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
-                    // taskStatusBinding.taskImageView.setImageURI(getIntent().extras!!.getString("imageUrl")!!.toUri())
+                    val imageUrl = getIntent().extras!!.getString("imageUrl")
+                    if (imageUrl != null) {
+                        val photoRef = StorageUtil.pathToReference(imageUrl.toString())
+                        GlideApp.with(applicationContext).load(photoRef)
+                            .into(taskStatusBinding.taskImageView)
+                    }
                     taskStatusBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
                     taskStatusBinding.currentStatusValue.text = "The task is waiting for the review"
                 }
@@ -268,10 +348,14 @@ class ItemTaskActivity : AppCompatActivity() {
                 taskStatusBinding.taskName.text = taskName
                 taskStatusBinding.taskDescriptionTextView.text =
                     getIntent().extras!!.getString("description")
-                //taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
+                val imageUrl = getIntent().extras!!.getString("imageUrl")
+                if (imageUrl != null) {
+                    val photoRef = StorageUtil.pathToReference(imageUrl.toString())
+                    GlideApp.with(applicationContext).load(photoRef)
+                        .into(taskStatusBinding.taskImageView)
+                }
                 taskStatusBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
-                FirestoreUtil.getUser(authorId.toString()) {
-                        user ->
+                FirestoreUtil.getUser(authorId.toString()) { user ->
                     if (user != null) {
                         taskStatusBinding.authorNameTextView.text = user.name
                     } else {
@@ -281,11 +365,23 @@ class ItemTaskActivity : AppCompatActivity() {
                 if (currentUserId == getIntent().extras!!.getString("authorId")) {
                     taskStatusBinding.buttonMessage.layoutParams.width = 0
                     taskStatusBinding.buttonMessage.visibility = View.INVISIBLE
-                    taskStatusBinding.buttonEdit.setOnClickListener { view -> openEditTaskActivity(view, taskId!!) }
+                    taskStatusBinding.buttonEdit.setOnClickListener { view ->
+                        openEditTaskActivity(
+                            view,
+                            taskId!!
+                        )
+                    }
                     taskStatusBinding.currentStatusValue.text = "The task was accepted by you"
                 } else {
                     // TODO: add name of the user
-                    taskStatusBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!, taskName!!) }
+                    taskStatusBinding.buttonMessage.setOnClickListener { view ->
+                        openChat(
+                            view,
+                            taskId!!,
+                            authorId!!,
+                            taskName!!
+                        )
+                    }
                     taskStatusBinding.buttonEdit.layoutParams.width = 0
                     taskStatusBinding.buttonEdit.visibility = View.INVISIBLE
                     taskStatusBinding.currentStatusValue.text = "The task was completed by user"
@@ -303,10 +399,14 @@ class ItemTaskActivity : AppCompatActivity() {
                 taskStatusBinding.taskName.text = getIntent().extras!!.getString("name")
                 taskStatusBinding.taskDescriptionTextView.text =
                     getIntent().extras!!.getString("description")
-                //taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
+                val imageUrl = getIntent().extras!!.getString("imageUrl")
+                if (imageUrl != null) {
+                    val photoRef = StorageUtil.pathToReference(imageUrl.toString())
+                    GlideApp.with(applicationContext).load(photoRef)
+                        .into(taskStatusBinding.taskImageView)
+                }
                 taskStatusBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
-                FirestoreUtil.getUser(authorId.toString()) {
-                        user ->
+                FirestoreUtil.getUser(authorId.toString()) { user ->
                     if (user != null) {
                         taskStatusBinding.authorNameTextView.text = user.name
                     } else {
@@ -316,13 +416,25 @@ class ItemTaskActivity : AppCompatActivity() {
                 if (currentUserId == getIntent().extras!!.getString("authorId")) {
                     taskStatusBinding.buttonMessage.layoutParams.width = 0
                     taskStatusBinding.buttonMessage.visibility = View.INVISIBLE
-                    taskStatusBinding.buttonEdit.setOnClickListener { view -> openEditTaskActivity(view, taskId!!) }
+                    taskStatusBinding.buttonEdit.setOnClickListener { view ->
+                        openEditTaskActivity(
+                            view,
+                            taskId!!
+                        )
+                    }
                     taskStatusBinding.currentStatusValue.text = "The task was rejected by you"
                 } else {
                     // TODO: add name of the user
                     taskStatusBinding.buttonEdit.layoutParams.width = 0
                     taskStatusBinding.buttonEdit.visibility = View.INVISIBLE
-                    taskStatusBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!, taskName!!) }
+                    taskStatusBinding.buttonMessage.setOnClickListener { view ->
+                        openChat(
+                            view,
+                            taskId!!,
+                            authorId!!,
+                            taskName!!
+                        )
+                    }
                     taskStatusBinding.currentStatusValue.text = "The task was completed by user"
                 }
             }

@@ -8,14 +8,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.payitforward.adapters.TasksAdapter
 import com.example.payitforward.pojo.Task
-import com.example.payitforward.pojo.User
 import com.example.payitforward.util.FirestoreUtil
-import com.google.firebase.Timestamp
 import java.util.*
 
 class FragmentHomeGive : Fragment() {
@@ -46,7 +43,7 @@ class FragmentHomeGive : Fragment() {
     private fun initRecyclerView() {
         tasksRecyclerView = mView.findViewById(R.id.tasks_recycler_view)
         tasksRecyclerView.layoutManager = LinearLayoutManager(mView.context)
-        tasksAdapter = TasksAdapter()
+        tasksAdapter = TasksAdapter(context)
         tasksAdapter.setOnTaskClickListener(object : TasksAdapter.onTaskClickListener {
             override fun onTaskClick(position: Int) {
                 val intent = Intent(view!!.context, ItemTaskActivity::class.java)
