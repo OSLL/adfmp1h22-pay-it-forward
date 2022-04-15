@@ -49,6 +49,10 @@ class DialogsAdapter : RecyclerView.Adapter<DialogsAdapter.DialogViewHolder>() {
         return dialogsList[position]
     }
 
+    fun clearItems() {
+        dialogsList.clear()
+    }
+
     fun getDialogs(): List<Dialog> {
         return dialogsList
     }

@@ -48,6 +48,7 @@ class ChatFragment : Fragment() {
                                 ans.add(dialogs[key])
                             }
                         }
+                        dialogsAdapter.clearItems()
                         dialogsAdapter.setItems(ans)
                         binding.search.text.clear()
                     }
