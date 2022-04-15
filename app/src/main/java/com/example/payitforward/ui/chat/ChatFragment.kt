@@ -99,9 +99,9 @@ class ChatFragment : Fragment() {
                 FirestoreUtil.getTask(dialog.taskId) { task ->
                     if (task != null) {
                         intent.putExtra("title", task.name)
+                        startActivity(intent)
                     }
                 }
-                startActivity(intent)
             }
 
         })
