@@ -60,7 +60,14 @@ object FirestoreUtil {
     }
 
     fun deleteTask(id: String) {
-        collectionsTask.document(id).delete() // не уверена что так
+        collectionsTask
+            .whereEqualTo("taskId", id)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    document.reference.delete()
+                }
+            }
     }
 
     fun getDialogsOwner(onSuccess: (dialogs: List<Dialog>) -> Unit) {
