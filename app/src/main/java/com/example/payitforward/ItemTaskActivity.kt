@@ -17,11 +17,12 @@ import com.example.payitforward.util.FirestoreUtil
 
 class ItemTaskActivity : AppCompatActivity() {
 
-    private fun openChat(view: View?, taskId: String, authorId: String) {
+    private fun openChat(view: View?, taskId: String, authorId: String, title: String) {
         FirestoreUtil.getDialogId(taskId, authorId) { id ->
             val intent = Intent(view!!.context, DialogActivity::class.java)
             intent.putExtra("dialogId", id)
             intent.putExtra("receiverId", authorId)
+            intent.putExtra("title", title)
             startActivity(intent)
         }
     }
@@ -51,6 +52,7 @@ class ItemTaskActivity : AppCompatActivity() {
             "new" -> {
                 val authorId = getIntent().extras!!.getString("authorId")
                 val taskId = getIntent().extras!!.getString("taskId")
+                val taskName = getIntent().extras!!.getString("name")
                 if (currentUserId == authorId) {
                     val taskStatusBinding: ActivityTaskStatusBinding =
                         ActivityTaskStatusBinding.inflate(layoutInflater)
@@ -59,7 +61,7 @@ class ItemTaskActivity : AppCompatActivity() {
                     taskStatusBinding.buttonMessage.visibility = View.INVISIBLE
                     taskStatusBinding.buttonEdit.setOnClickListener { view -> openEditTaskActivity(view, taskId!!) }
                     taskStatusBinding.deadlineDate.text = getIntent().extras!!.getString("deadlineDate")
-                    taskStatusBinding.taskName.text = getIntent().extras!!.getString("name")
+                    taskStatusBinding.taskName.text = taskName
                     taskStatusBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
                     //taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
@@ -69,11 +71,11 @@ class ItemTaskActivity : AppCompatActivity() {
                     val takeBinding: ActivityTaskTakeBinding =
                         ActivityTaskTakeBinding.inflate(layoutInflater)
                     setContentView(takeBinding.root)
-                    takeBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!) }
+                    takeBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!, taskName!!) }
                     takeBinding.buttonEdit.layoutParams.width = 0
                     takeBinding.buttonEdit.visibility = View.INVISIBLE
                     takeBinding.deadlineDate.text = getIntent().extras!!.getString("deadlineDate")
-                    takeBinding.taskName.text = getIntent().extras!!.getString("name")
+                    takeBinding.taskName.text = taskName
                     takeBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
                     //takeBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
@@ -88,6 +90,7 @@ class ItemTaskActivity : AppCompatActivity() {
             "inProgress" -> {
                 val authorId = getIntent().extras!!.getString("authorId")
                 val taskId = getIntent().extras!!.getString("taskId")
+                val taskName = getIntent().extras!!.getString("name")
                 if (currentUserId == authorId) {
                     val taskStatusBinding: ActivityTaskStatusBinding =
                         ActivityTaskStatusBinding.inflate(layoutInflater)
@@ -96,7 +99,7 @@ class ItemTaskActivity : AppCompatActivity() {
                     taskStatusBinding.buttonMessage.visibility = View.INVISIBLE
                     taskStatusBinding.buttonEdit.setOnClickListener { view -> openEditTaskActivity(view, taskId!!) }
                     taskStatusBinding.deadlineDate.text = getIntent().extras!!.getString("deadlineDate")
-                    taskStatusBinding.taskName.text = getIntent().extras!!.getString("name")
+                    taskStatusBinding.taskName.text = taskName
                     taskStatusBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
                     //taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
@@ -108,11 +111,11 @@ class ItemTaskActivity : AppCompatActivity() {
                     val completedBinding: ActivityTaskCompletedBinding =
                         ActivityTaskCompletedBinding.inflate(layoutInflater)
                     setContentView(completedBinding.root)
-                    completedBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!) }
+                    completedBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!, taskName!!) }
                     completedBinding.buttonEdit.layoutParams.width = 0
                     completedBinding.buttonEdit.visibility = View.INVISIBLE
                     completedBinding.deadlineDate.text = getIntent().extras!!.getString("deadlineDate")
-                    completedBinding.taskName.text = getIntent().extras!!.getString("name")
+                    completedBinding.taskName.text = taskName
                     completedBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
                     // completedBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
@@ -127,11 +130,12 @@ class ItemTaskActivity : AppCompatActivity() {
             "completed" -> {
                 val authorId = getIntent().extras!!.getString("authorId")
                 val taskId = getIntent().extras!!.getString("taskId")
+                val taskName = getIntent().extras!!.getString("name")
                 val taskStatusBinding: ActivityTaskStatusBinding =
                     ActivityTaskStatusBinding.inflate(layoutInflater)
                 setContentView(taskStatusBinding.root)
                 taskStatusBinding.deadlineDate.text = getIntent().extras!!.getString("deadlineDate")
-                taskStatusBinding.taskName.text = getIntent().extras!!.getString("name")
+                taskStatusBinding.taskName.text = taskName
                 taskStatusBinding.taskDescriptionTextView.text =
                     getIntent().extras!!.getString("description")
                 //taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
@@ -143,7 +147,7 @@ class ItemTaskActivity : AppCompatActivity() {
                     taskStatusBinding.currentStatusValue.text = "The task was completed by user"
                     taskStatusBinding.buttonEdit.setOnClickListener { view -> openEditTaskActivity(view, taskId!!) }
                 } else {
-                    taskStatusBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!) }
+                    taskStatusBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!, taskName!!) }
                     taskStatusBinding.buttonEdit.layoutParams.width = 0
                     taskStatusBinding.buttonEdit.visibility = View.INVISIBLE
                     taskStatusBinding.currentStatusValue.text = "The task was completed by you"
@@ -153,6 +157,7 @@ class ItemTaskActivity : AppCompatActivity() {
             "onReview" -> {
                 val authorId = getIntent().extras!!.getString("authorId")
                 val taskId = getIntent().extras!!.getString("taskId")
+                val taskName = getIntent().extras!!.getString("name")
                 if (currentUserId == authorId) {
                     val acceptRejectBinding: ActivityTaskAcceptRejectBinding =
                         ActivityTaskAcceptRejectBinding.inflate(layoutInflater)
@@ -164,7 +169,7 @@ class ItemTaskActivity : AppCompatActivity() {
                     }
                     acceptRejectBinding.deadlineDate.text =
                         getIntent().extras!!.getString("deadlineDate")
-                    acceptRejectBinding.taskName.text = getIntent().extras!!.getString("name")
+                    acceptRejectBinding.taskName.text = taskName
                     acceptRejectBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
                     //acceptRejectBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
@@ -181,11 +186,11 @@ class ItemTaskActivity : AppCompatActivity() {
                     val taskStatusBinding: ActivityTaskStatusBinding =
                         ActivityTaskStatusBinding.inflate(layoutInflater)
                     setContentView(taskStatusBinding.root)
-                    taskStatusBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!) }
+                    taskStatusBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!, taskName!!) }
                     taskStatusBinding.buttonEdit.layoutParams.width = 0
                     taskStatusBinding.buttonEdit.visibility = View.INVISIBLE
                     taskStatusBinding.deadlineDate.text = getIntent().extras!!.getString("deadlineDate")
-                    taskStatusBinding.taskName.text = getIntent().extras!!.getString("name")
+                    taskStatusBinding.taskName.text = taskName
                     taskStatusBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
                     // taskStatusBinding.taskImageView.setImageURI(getIntent().extras!!.getString("imageUrl")!!.toUri())
@@ -198,11 +203,12 @@ class ItemTaskActivity : AppCompatActivity() {
             "accepted" -> {
                 val authorId = getIntent().extras!!.getString("authorId")
                 val taskId = getIntent().extras!!.getString("taskId")
+                val taskName = getIntent().extras!!.getString("name")
                 val taskStatusBinding: ActivityTaskStatusBinding =
                     ActivityTaskStatusBinding.inflate(layoutInflater)
                 setContentView(taskStatusBinding.root)
                 taskStatusBinding.deadlineDate.text = getIntent().extras!!.getString("deadlineDate")
-                taskStatusBinding.taskName.text = getIntent().extras!!.getString("name")
+                taskStatusBinding.taskName.text = taskName
                 taskStatusBinding.taskDescriptionTextView.text =
                     getIntent().extras!!.getString("description")
                 //taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
@@ -214,7 +220,7 @@ class ItemTaskActivity : AppCompatActivity() {
                     taskStatusBinding.currentStatusValue.text = "The task was accepted by you"
                 } else {
                     // TODO: add name of the user
-                    taskStatusBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!) }
+                    taskStatusBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!, taskName!!) }
                     taskStatusBinding.buttonEdit.layoutParams.width = 0
                     taskStatusBinding.buttonEdit.visibility = View.INVISIBLE
                     taskStatusBinding.currentStatusValue.text = "The task was completed by user"
@@ -224,6 +230,7 @@ class ItemTaskActivity : AppCompatActivity() {
             "rejected" -> {
                 val authorId = getIntent().extras!!.getString("authorId")
                 val taskId = getIntent().extras!!.getString("taskId")
+                val taskName = getIntent().extras!!.getString("name")
                 val taskStatusBinding: ActivityTaskStatusBinding =
                     ActivityTaskStatusBinding.inflate(layoutInflater)
                 setContentView(taskStatusBinding.root)
@@ -242,7 +249,7 @@ class ItemTaskActivity : AppCompatActivity() {
                     // TODO: add name of the user
                     taskStatusBinding.buttonEdit.layoutParams.width = 0
                     taskStatusBinding.buttonEdit.visibility = View.INVISIBLE
-                    taskStatusBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!) }
+                    taskStatusBinding.buttonMessage.setOnClickListener { view -> openChat(view, taskId!!, authorId!!, taskName!!) }
                     taskStatusBinding.currentStatusValue.text = "The task was completed by user"
                 }
             }
