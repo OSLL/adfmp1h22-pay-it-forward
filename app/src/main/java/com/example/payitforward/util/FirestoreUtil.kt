@@ -150,6 +150,7 @@ object FirestoreUtil {
 
     fun getTasksForGet(authorId: String, onSuccess: (tasks: List<Task>) -> Unit) {
         collectionsTask
+        //    .whereEqualTo("type", "new")
             .whereNotEqualTo("authorId", authorId)
             .get()
             .addOnSuccessListener { documents ->

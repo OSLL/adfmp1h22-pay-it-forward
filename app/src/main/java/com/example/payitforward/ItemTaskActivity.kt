@@ -79,7 +79,7 @@ class ItemTaskActivity : AppCompatActivity() {
                     //takeBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
                     takeBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
                     takeBinding.buttonTake.setOnClickListener{
-                        FirestoreUtil.changeTaskType(taskId.toString(),  "inProcess")
+                        FirestoreUtil.changeTaskType(taskId.toString(),  "inProgress")
                         finish()
                     }
                 }
