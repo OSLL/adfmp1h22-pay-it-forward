@@ -133,8 +133,7 @@ object FirestoreUtil {
     fun getTasksForGet(authorId: String, onSuccess: (tasks: List<Task>) -> Unit) {
         Log.i("AOA", authorId)
         collectionsTask
-            .whereEqualTo("type", "new")
-            .whereNotEqualTo("authorId", authorId)
+            .whereEqualTo("executorId", authorId)
             .get()
             .addOnSuccessListener { documents ->
                 onSuccess(documents.toObjects(Task::class.java))
@@ -177,8 +176,8 @@ object FirestoreUtil {
 
     fun changeTaskType(taskId: String, typeToChange: String) {
         collectionsTask.document(taskId).update("type", typeToChange)
-        if (typeToChange == "completed") {
-            collectionsTask.document(taskId).update("completedId", currentUserId)
+        if (typeToChange == "inProgress") {
+            collectionsTask.document(taskId).update("executorId", currentUserId)
         }
     }
 

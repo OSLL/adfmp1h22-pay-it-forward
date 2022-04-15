@@ -7,7 +7,7 @@ data class Task(
     var creationDate: Timestamp = Timestamp.now(),
     var deadlineDate: Timestamp = Timestamp.now(),
     var authorId: String = "",
-    var completedId: String? = "",
+    var executorId: String? = "",
     var name: String = "",
     var description: String = "",
     var imageUrl: String? = "",

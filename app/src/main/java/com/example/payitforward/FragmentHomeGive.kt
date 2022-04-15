@@ -54,7 +54,7 @@ class FragmentHomeGive : Fragment() {
                 intent.putExtra("creationDate", getDate(tasksList[position].creationDate.seconds))
                 intent.putExtra("deadlineDate", getDate(tasksList[position].deadlineDate.seconds))
                 intent.putExtra("authorId", tasksList[position].authorId)
-                intent.putExtra("completedId", tasksList[position].completedId)
+                intent.putExtra("executorId", tasksList[position].executorId)
                 intent.putExtra("name", tasksList[position].name)
                 intent.putExtra("description", tasksList[position].description)
                 intent.putExtra("imageUrl", tasksList[position].imageUrl)
