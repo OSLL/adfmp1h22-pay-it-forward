@@ -122,24 +122,6 @@ object FirestoreUtil {
             }
     }
 
-    fun getOnReviewTasks(onSuccess: (tasks: List<Task>) -> Unit) {
-        collectionsTask
-            .whereEqualTo("type", "onReview")
-            .get()
-            .addOnSuccessListener { documents ->
-                onSuccess(documents.toObjects(Task::class.java))
-            }
-    }
-
-    fun getNewTasks(onSuccess: (tasks: List<Task>) -> Unit) {
-        collectionsTask
-            .whereEqualTo("type", "new")
-            .get()
-            .addOnSuccessListener { documents ->
-                onSuccess(documents.toObjects(Task::class.java))
-            }
-    }
-
     fun getAllTasks(onSuccess: (tasks: List<Task>) -> Unit) {
         collectionsTask
             .get()
@@ -195,6 +177,9 @@ object FirestoreUtil {
 
     fun changeTaskType(taskId: String, typeToChange: String) {
         collectionsTask.document(taskId).update("type", typeToChange)
+        if (typeToChange == "completed") {
+            collectionsTask.document(taskId).update("completedId", currentUserId)
+        }
     }
 
     fun addUser(user: User) {

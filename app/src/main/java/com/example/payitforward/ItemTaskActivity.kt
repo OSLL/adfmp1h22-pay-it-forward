@@ -3,6 +3,7 @@ package com.example.payitforward
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
@@ -70,7 +71,7 @@ class ItemTaskActivity : AppCompatActivity() {
                     taskStatusBinding.taskName.text = getIntent().extras!!.getString("name")
                     taskStatusBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
-                    //taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
+               //     taskStatusBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
                     taskStatusBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
                     taskStatusBinding.currentStatusValue.text = "The task is created by you and waiting for the executor"
                 } else {
@@ -92,7 +93,7 @@ class ItemTaskActivity : AppCompatActivity() {
                     takeBinding.taskName.text = getIntent().extras!!.getString("name")
                     takeBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
-                    //takeBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
+               //     takeBinding.taskImageView.setImageURI( getIntent().extras!!.getString("imageUrl")!!.toUri())
                     takeBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
                     takeBinding.buttonTake.setOnClickListener{
                         FirestoreUtil.changeTaskType(taskId.toString(),  "inProgress")
