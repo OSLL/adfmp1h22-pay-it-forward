@@ -6,6 +6,7 @@ data class Task(
     var id: String = "",
     var creationDate: Timestamp = Timestamp.now(),
     var deadlineDate: Timestamp = Timestamp.now(),
+    var completionDate: Timestamp? = null,
     var authorId: String = "",
     var executorId: String? = "",
     var name: String = "",

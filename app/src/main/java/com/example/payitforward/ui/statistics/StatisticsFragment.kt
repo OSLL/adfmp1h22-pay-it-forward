@@ -52,9 +52,6 @@ class StatisticsFragment : Fragment() {
         initSelector()
         initBarChart()
 
-        scoreList = getScoreList(7)
-        changeChart(scoreList)
-
         return root
     }
 
@@ -168,7 +165,7 @@ class StatisticsFragment : Fragment() {
     private fun getCoinsFromRange(l: Timestamp, r: Timestamp) : Int {
         var sum = 0
         for (t in tasksList) {
-            if (t.deadlineDate < r && t.deadlineDate >= l) {
+            if (t.completionDate!! < r && t.completionDate!! >= l) {
                 sum += t.coins
             }
         }
@@ -179,6 +176,8 @@ class StatisticsFragment : Fragment() {
         FirestoreUtil.getCompletedTasks { tasks ->
             tasksList = tasks
             tasksAdapter.setItems(tasksList)
+            scoreList = getScoreList(7)
+            changeChart(scoreList)
         }
     }
 

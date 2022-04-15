@@ -3,6 +3,7 @@ package com.example.payitforward.util
 import android.util.Log
 import androidx.constraintlayout.widget.StateSet.TAG
 import com.example.payitforward.pojo.*
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -115,7 +116,8 @@ object FirestoreUtil {
 
     fun getCompletedTasks(onSuccess: (tasks: List<Task>) -> Unit) {
         collectionsTask
-            .whereEqualTo("completedId", currentUserId)
+            .whereEqualTo("type", "completed")
+            .whereEqualTo("executorId", currentUserId)
             .get()
             .addOnSuccessListener { documents ->
                 onSuccess(documents.toObjects(Task::class.java))
@@ -178,6 +180,9 @@ object FirestoreUtil {
         collectionsTask.document(taskId).update("type", typeToChange)
         if (typeToChange == "inProgress") {
             collectionsTask.document(taskId).update("executorId", currentUserId)
+        }
+        if (typeToChange == "completed") {
+            collectionsTask.document(taskId).update("completionDate", Timestamp.now())
         }
     }
 
