@@ -203,9 +203,34 @@ object FirestoreUtil {
     }
 
     fun addUser(user: User) {
-        collectionsUsers.add(user).addOnSuccessListener { documentRef ->
-            Log.d(TAG, "User added with ID: ${documentRef.id}")
+        collectionsUsers.document(user.id).set(user).addOnSuccessListener { documentRef ->
+            Log.d(TAG, "User added with ID: ${user.id}")
         }
+    }
+
+    fun getUser(userId: String, onSuccess: (user: User?) -> Unit) {
+        collectionsUsers
+            .whereEqualTo("id", userId)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (documents.isEmpty) {
+                    onSuccess(null)
+                } else {
+                    onSuccess(documents.toObjects(User::class.java)[0])
+                }
+            }
+    }
+
+    fun changeUserName(userId: String, newName: String) {
+        collectionsUsers.document(userId).update("name", newName)
+    }
+
+    fun changeUserUsername(userId: String, newUsername: String) {
+        collectionsUsers.document(userId).update("username", newUsername)
+    }
+
+    fun changeUserBio(userId: String, newBio: String) {
+        collectionsUsers.document(userId).update("bio", newBio)
     }
 
     fun getCurrentUser(): String {
