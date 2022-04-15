@@ -47,17 +47,7 @@ class FragmentHomeAll : Fragment() {
         tasksAdapter.setOnTaskClickListener(object : TasksAdapter.onTaskClickListener {
             override fun onTaskClick(position: Int) {
                 val intent = Intent(view!!.context, ItemTaskActivity::class.java)
-                when (tasksList[position].type) {
-                    "new" -> {
-                        putExtraData(intent, position)
-                    }
-                    "completed" -> {
-                        putExtraData(intent, position)
-                    }
-                    "onReview" -> {
-                        putExtraData(intent, position)
-                    }
-                }
+                putExtraData(intent, position)
                 startActivity(intent)
             }
 
