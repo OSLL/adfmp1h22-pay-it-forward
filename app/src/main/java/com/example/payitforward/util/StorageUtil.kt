@@ -22,7 +22,7 @@ object StorageUtil {
 
     fun uploadTaskImage(photo: Uri, taskId: String, onSuccess: (imagePath: String) -> Unit) {
         val imagesRef: StorageReference = storageRef.child("taskImages/$taskId")
-        imagesRef.putFile(photo).addOnCanceledListener {
+        imagesRef.putFile(photo).addOnSuccessListener {
             onSuccess(imagesRef.path)
         }
     }
