@@ -53,7 +53,7 @@ class CreateDeedActivity : AppCompatActivity() {
 
         binding.buttonCancel.setOnClickListener { cancelActivity() }
 
-        binding.calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
+        binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val calendar = Calendar.getInstance()
             calendar.set(year, month, dayOfMonth)
             deadline = Timestamp(calendar.time)

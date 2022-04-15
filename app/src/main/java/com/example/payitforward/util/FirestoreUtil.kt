@@ -23,7 +23,7 @@ object FirestoreUtil {
     }
 
     fun getMessages(dialogId: String, onSuccess: (messages: List<Message>) -> Unit) {
-        collectionsMessage.whereEqualTo("dialogId", dialogId).addSnapshotListener { snapshots, e ->
+        collectionsMessage.whereEqualTo("dialogId", dialogId).addSnapshotListener { snapshots, _ ->
             if (snapshots != null) {
                 val messages = mutableListOf<Message>()
                 snapshots.documents.forEach {
@@ -41,7 +41,7 @@ object FirestoreUtil {
     fun getLastMessage(dialogId: String, onSuccess: (message: Message?) -> Unit) {
         collectionsMessage
             .whereEqualTo("dialogId", dialogId)
-            .addSnapshotListener { snapshots, e ->
+            .addSnapshotListener { snapshots, _ ->
                 if (snapshots != null) {
                     val messages = mutableListOf<Message>()
                     snapshots.documents.forEach {
@@ -187,7 +187,7 @@ object FirestoreUtil {
     }
 
     fun addUser(user: User) {
-        collectionsUsers.document(user.id).set(user).addOnSuccessListener { documentRef ->
+        collectionsUsers.document(user.id).set(user).addOnSuccessListener { _ ->
             Log.d(TAG, "User added with ID: ${user.id}")
         }
     }
