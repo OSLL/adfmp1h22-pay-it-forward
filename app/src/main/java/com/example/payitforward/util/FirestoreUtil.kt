@@ -126,28 +126,42 @@ object FirestoreUtil {
 
     fun getAllTasks(onSuccess: (tasks: List<Task>) -> Unit) {
         collectionsTask
-            .get()
-            .addOnSuccessListener { documents ->
-                onSuccess(documents.toObjects(Task::class.java))
+            .addSnapshotListener { snapshot, _ ->
+                val tasks = mutableListOf<Task>()
+                if (snapshot != null) {
+                    snapshot.documents.forEach {
+                        tasks.add(it.toObject(Task::class.java)!!)
+                    }
+                    onSuccess(tasks)
+                }
             }
     }
 
     fun getTasksForGet(authorId: String, onSuccess: (tasks: List<Task>) -> Unit) {
-        Log.i("AOA", authorId)
         collectionsTask
             .whereEqualTo("executorId", authorId)
-            .get()
-            .addOnSuccessListener { documents ->
-                onSuccess(documents.toObjects(Task::class.java))
+            .addSnapshotListener { snapshot, _ ->
+                val tasks = mutableListOf<Task>()
+                if (snapshot != null) {
+                    snapshot.documents.forEach {
+                        tasks.add(it.toObject(Task::class.java)!!)
+                    }
+                    onSuccess(tasks)
+                }
             }
     }
 
     fun getTasksForGive(authorId: String, onSuccess: (tasks: List<Task>) -> Unit) {
         collectionsTask
             .whereEqualTo("authorId", authorId)
-            .get()
-            .addOnSuccessListener { documents ->
-                onSuccess(documents.toObjects(Task::class.java))
+            .addSnapshotListener { snapshot, _ ->
+                val tasks = mutableListOf<Task>()
+                if (snapshot != null) {
+                    snapshot.documents.forEach {
+                        tasks.add(it.toObject(Task::class.java)!!)
+                    }
+                    onSuccess(tasks)
+                }
             }
     }
 
