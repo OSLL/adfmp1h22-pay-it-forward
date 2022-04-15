@@ -1,14 +1,16 @@
 package com.example.payitforward.ui.statistics
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.payitforward.ItemTaskActivity
 import com.example.payitforward.R
 import com.example.payitforward.adapters.TasksAdapter
 import com.example.payitforward.databinding.FragmentStatisticsBinding
@@ -183,13 +185,33 @@ class StatisticsFragment : Fragment() {
 
     private fun initRecyclerView() {
         binding.history.layoutManager = LinearLayoutManager(this.context)
-        tasksAdapter = TasksAdapter()
+        tasksAdapter = TasksAdapter(context)
         tasksAdapter.setOnTaskClickListener(object : TasksAdapter.onTaskClickListener{
             override fun onTaskClick(position: Int) {
                 //Toast.makeText(this, "You clicked on item on $position", Toast.LENGTH_LONG).show()
+                val intent = Intent(view!!.context, ItemTaskActivity::class.java)
+                intent.putExtra("taskId", tasksList[position].id)
+                intent.putExtra("creationDate", getDate(tasksList[position].creationDate.seconds))
+                intent.putExtra("deadlineDate", getDate(tasksList[position].deadlineDate.seconds))
+                intent.putExtra("authorId", tasksList[position].authorId)
+                intent.putExtra("executorId", tasksList[position].executorId)
+                intent.putExtra("name", tasksList[position].name)
+                intent.putExtra("description", tasksList[position].description)
+                intent.putExtra("imageUrl", tasksList[position].imageUrl)
+                intent.putExtra("coins", tasksList[position].coins.toString())
+                intent.putExtra("taskType", tasksList[position].type)
+                startActivity(intent)
             }
 
         })
         binding.history.adapter = tasksAdapter
+    }
+
+
+    fun getDate(timestamp: Long): String {
+        val calendar = Calendar.getInstance(Locale.ENGLISH)
+        calendar.timeInMillis = timestamp * 1000L
+        val date = DateFormat.format("dd-MM-yyyy", calendar).toString()
+        return date
     }
 }

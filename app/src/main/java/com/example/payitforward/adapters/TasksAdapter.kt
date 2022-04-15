@@ -1,17 +1,23 @@
 package com.example.payitforward.adapters
 
+import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.payitforward.FragmentHomeAll
+import com.example.payitforward.GlideApp
 import com.example.payitforward.pojo.Task
 import java.util.*
 import com.example.payitforward.databinding.ItemTaskBinding
+import com.example.payitforward.util.StorageUtil
 import java.text.SimpleDateFormat
 
 
-class TasksAdapter : RecyclerView.Adapter<TasksAdapter.TaskViewHolder>() {
+class TasksAdapter(context: Context?) : RecyclerView.Adapter<TasksAdapter.TaskViewHolder>() {
     private var tasksList: MutableList<Task> = ArrayList()
     private lateinit var mClickListener: onTaskClickListener
+    private var mContext: Context? = context
 
 
     interface onTaskClickListener {
@@ -29,7 +35,7 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.TaskViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        holder.bind(tasksList[position])
+        holder.bind(tasksList[position], mContext)
     }
 
     override fun getItemCount() = tasksList.size
@@ -44,12 +50,20 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.TaskViewHolder>() {
         val binding: ItemTaskBinding, listener: onTaskClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(task: Task) {
+        fun bind(task: Task,  context: Context?) {
          //   binding.taskImageView
             val sfd = SimpleDateFormat("HH:mm")
             binding.taskName.text = task.name
             binding.deadlineDate.text = sfd.format(task.deadlineDate.toDate())
             binding.coinsTextView.text = task.coins.toString()
+            if (task.imageUrl != null) {
+                val photoRef = StorageUtil.pathToReference(task.imageUrl.toString())
+                if (context != null) {
+                    Log.i("HAHAHA", photoRef.toString())
+                    Log.i("HAHAHA", task.imageUrl.toString())
+                    GlideApp.with(context).load(photoRef).into(binding.taskImageView)
+                }
+            }
         }
 
         init {

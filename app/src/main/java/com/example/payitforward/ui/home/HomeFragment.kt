@@ -141,7 +141,7 @@ class HomeFragment : Fragment() {
     private fun initRecyclerView() {
         tasksRecyclerView = mView.findViewById(R.id.tasks_recycler_view)
         tasksRecyclerView.layoutManager = LinearLayoutManager(mView.context)
-        tasksAdapter = TasksAdapter()
+        tasksAdapter = TasksAdapter(context)
         tasksAdapter.setOnTaskClickListener(object : TasksAdapter.onTaskClickListener {
             override fun onTaskClick(position: Int) {
                 val intent = Intent(view!!.context, ItemTaskActivity::class.java)
