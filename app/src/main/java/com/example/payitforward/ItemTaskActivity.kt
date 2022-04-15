@@ -181,7 +181,7 @@ class ItemTaskActivity : AppCompatActivity() {
                         taskStatusBinding.authorNameTextView.text = ""
                     }
                 }
-                if (currentUserId == getIntent().extras!!.getString("authorId")) {
+                if (currentUserId == authorId) {
                     // TODO: add name of the user
                     taskStatusBinding.buttonMessage.layoutParams.width = 0
                     taskStatusBinding.buttonMessage.visibility = View.INVISIBLE
