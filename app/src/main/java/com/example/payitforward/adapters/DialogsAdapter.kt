@@ -30,7 +30,7 @@ class DialogsAdapter : RecyclerView.Adapter<DialogsAdapter.DialogViewHolder>() {
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DialogViewHolder {
         val binding = ItemDialogBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return DialogViewHolder(binding, mClickListener, parent.context)
+        return DialogViewHolder(binding, mClickListener, parent.context.applicationContext)
     }
 
     override fun onBindViewHolder(holder: DialogViewHolder, position: Int) {

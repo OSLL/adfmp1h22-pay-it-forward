@@ -77,7 +77,6 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.13.0'
     implementation 'com.firebaseui:firebase-ui-storage:8.0.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     testImplementation 'org.mockito:mockito-inline:3.12.4'
     testImplementation 'org.mockito:mockito-junit-jupiter:3.12.4'

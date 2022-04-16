@@ -5,13 +5,12 @@ import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.navigation.Navigation
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.isEnabled
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement
 import com.example.payitforward.ui.chat.ChatFragment
-import org.hamcrest.Matchers.not
+import com.example.payitforward.util.FirestoreUtil
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -30,7 +29,7 @@ class ChatFragmentTest {
             navController.setGraph(R.navigation.mobile_navigation)
             navController.setCurrentDestination(R.id.nav_chat)
         }.let {
-            val scenarioAskIdentity = launchFragmentInContainer {
+            launchFragmentInContainer {
                 ChatFragment().also { fragment ->
                     fragment.viewLifecycleOwnerLiveData.observeForever { viewLifecycleOwner ->
                         if (viewLifecycleOwner != null) {
@@ -40,21 +39,24 @@ class ChatFragmentTest {
                 }
             }
         }
+        FirestoreUtil.setUserId("K5pdckS2mXTjZWs8JQZyIIWR2Ks2")
     }
 
     @Test
     fun checkHintIsSearch() {
-        Espresso.onView(ViewMatchers.withId(R.id.search))
-            .check(matches(ViewMatchers.withHint("search")))
+        onView(withId(R.id.search))
+            .check(matches(withHint("search")))
     }
 
     @Test
     fun checkButton() {
-        checkContinueButtonEnabled(true)
+        onView(withId(R.id.sendButton))
+            .check(matches(isEnabled()))
     }
 
-    private fun checkContinueButtonEnabled(enabled: Boolean) {
-        Espresso.onView(ViewMatchers.withId(R.id.sendButton))
-            .check(matches(if (enabled) isEnabled() else not(isEnabled())))
+    @Test
+    fun check() {
+        onView(withId(R.id.list_dialogs)).check(matches(isDisplayed()))
     }
+
 }

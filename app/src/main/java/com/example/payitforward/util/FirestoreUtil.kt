@@ -15,8 +15,12 @@ object FirestoreUtil {
     private val collectionsMessage = firestore.collection("message")
     private val collectionsTask = firestore.collection("task")
     private val collectionsDialog = firestore.collection("dialog")
-    private val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
+    private var currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
     private val collectionsUsers = firestore.collection("users")
+
+    fun setUserId(userId: String) {
+        currentUserId = userId
+    }
 
     fun sendMessage(message: Message) {
         collectionsMessage.add(message)
