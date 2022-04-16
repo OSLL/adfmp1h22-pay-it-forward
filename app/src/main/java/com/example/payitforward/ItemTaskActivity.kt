@@ -81,7 +81,7 @@ class ItemTaskActivity : AppCompatActivity() {
                     taskStatusBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
                     val imageUrl = getIntent().extras!!.getString("imageUrl")
-                    if (imageUrl != null) {
+                    if (imageUrl != null && imageUrl != "") {
                         val photoRef = StorageUtil.pathToReference(imageUrl.toString())
                         GlideApp.with(applicationContext).load(photoRef)
                             .into(taskStatusBinding.taskImageView)
@@ -158,7 +158,7 @@ class ItemTaskActivity : AppCompatActivity() {
                         getIntent().extras!!.getString("description")
 
                     val imageUrl = getIntent().extras!!.getString("imageUrl")
-                    if (imageUrl != null) {
+                    if (imageUrl != null && imageUrl != "") {
                         val photoRef = StorageUtil.pathToReference(imageUrl.toString())
                         GlideApp.with(applicationContext).load(photoRef)
                             .into(taskStatusBinding.taskImageView)
@@ -194,7 +194,7 @@ class ItemTaskActivity : AppCompatActivity() {
                     completedBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
                     val imageUrl = getIntent().extras!!.getString("imageUrl")
-                    if (imageUrl != null) {
+                    if (imageUrl != null && imageUrl != "") {
                         val photoRef = StorageUtil.pathToReference(imageUrl.toString())
                         GlideApp.with(applicationContext).load(photoRef)
                             .into(completedBinding.taskImageView)
@@ -220,7 +220,7 @@ class ItemTaskActivity : AppCompatActivity() {
                     getIntent().extras!!.getString("description")
 
                 val imageUrl = getIntent().extras!!.getString("imageUrl")
-                if (imageUrl != null) {
+                if (imageUrl != null && imageUrl != "") {
                     val photoRef = StorageUtil.pathToReference(imageUrl.toString())
                     GlideApp.with(applicationContext).load(photoRef)
                         .into(taskStatusBinding.taskImageView)
@@ -285,7 +285,7 @@ class ItemTaskActivity : AppCompatActivity() {
                     acceptRejectBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
                     val imageUrl = getIntent().extras!!.getString("imageUrl")
-                    if (imageUrl != null) {
+                    if (imageUrl != null && imageUrl != "") {
                         val photoRef = StorageUtil.pathToReference(imageUrl.toString())
                         GlideApp.with(applicationContext).load(photoRef)
                             .into(acceptRejectBinding.taskImageView)
@@ -326,7 +326,7 @@ class ItemTaskActivity : AppCompatActivity() {
                     taskStatusBinding.taskDescriptionTextView.text =
                         getIntent().extras!!.getString("description")
                     val imageUrl = getIntent().extras!!.getString("imageUrl")
-                    if (imageUrl != null) {
+                    if (imageUrl != null && imageUrl != "") {
                         val photoRef = StorageUtil.pathToReference(imageUrl.toString())
                         GlideApp.with(applicationContext).load(photoRef)
                             .into(taskStatusBinding.taskImageView)
@@ -349,7 +349,7 @@ class ItemTaskActivity : AppCompatActivity() {
                 taskStatusBinding.taskDescriptionTextView.text =
                     getIntent().extras!!.getString("description")
                 val imageUrl = getIntent().extras!!.getString("imageUrl")
-                if (imageUrl != null) {
+                if (imageUrl != null && imageUrl != "") {
                     val photoRef = StorageUtil.pathToReference(imageUrl.toString())
                     GlideApp.with(applicationContext).load(photoRef)
                         .into(taskStatusBinding.taskImageView)
@@ -400,7 +400,7 @@ class ItemTaskActivity : AppCompatActivity() {
                 taskStatusBinding.taskDescriptionTextView.text =
                     getIntent().extras!!.getString("description")
                 val imageUrl = getIntent().extras!!.getString("imageUrl")
-                if (imageUrl != null) {
+                if (imageUrl != null && imageUrl != "") {
                     val photoRef = StorageUtil.pathToReference(imageUrl.toString())
                     GlideApp.with(applicationContext).load(photoRef)
                         .into(taskStatusBinding.taskImageView)
