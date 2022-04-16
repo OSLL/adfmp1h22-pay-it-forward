@@ -6,10 +6,11 @@ import androidx.navigation.Navigation
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement
-import com.example.payitforward.ui.chat.ChatFragment
+import com.example.payitforward.ui.statistics.StatisticsFragment
 import com.example.payitforward.util.FirestoreUtil
 import org.junit.Before
 import org.junit.Test
@@ -17,7 +18,7 @@ import org.junit.runner.RunWith
 
 
 @RunWith(AndroidJUnit4::class)
-class ChatFragmentTest {
+class StatisticsFragmentTest {
 
     private lateinit var navController: TestNavHostController
 
@@ -27,10 +28,10 @@ class ChatFragmentTest {
         navController = TestNavHostController(ApplicationProvider.getApplicationContext())
         UiThreadStatement.runOnUiThread {
             navController.setGraph(R.navigation.mobile_navigation)
-            navController.setCurrentDestination(R.id.nav_chat)
+            navController.setCurrentDestination(R.id.nav_statistics)
         }.let {
             launchFragmentInContainer {
-                ChatFragment().also { fragment ->
+                StatisticsFragment().also { fragment ->
                     fragment.viewLifecycleOwnerLiveData.observeForever { viewLifecycleOwner ->
                         if (viewLifecycleOwner != null) {
                             Navigation.setViewNavController(fragment.requireView(), navController)
@@ -43,19 +44,29 @@ class ChatFragmentTest {
     }
 
     @Test
-    fun checkHintIsSearch() {
+    fun checkChartButtons() {
+        onView(withId(R.id.Week)).check(matches(withText("Last Week")))
+        onView(withId(R.id.Month)).check(matches(withText("Last Month")))
+        onView(withId(R.id.Month)).check(matches(isEnabled()))
+        onView(withId(R.id.Week)).check(matches(isEnabled()))
+        onView(withId(R.id.Month)).perform(ViewActions.click())
+    }
+
+    @Test
+    fun checkChart() {
+        onView(withId(R.id.barChart)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun checkSearch() {
         onView(withId(R.id.search)).check(matches(withHint("search")))
-        onView(withId(R.id.search)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun checkButton() {
         onView(withId(R.id.sendButton)).check(matches(isEnabled()))
+        onView(withId(R.id.search)).perform(ViewActions.typeText("find"))
     }
 
     @Test
-    fun checkListDialogs() {
-        onView(withId(R.id.list_dialogs)).check(matches(isDisplayed()))
+    fun checkHistory() {
+        onView(withId(R.id.history)).check(matches(isDisplayed()))
     }
 
 }
