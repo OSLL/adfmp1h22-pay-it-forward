@@ -10,13 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PayItForward">
         <service
-            android:name=".MessageNotificationService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
+            android:name=".MessageNotificationsService"
+            android:enabled="true"
+            android:exported="true">
         </service>
-
         <activity
             android:name=".FilterActivity"
             android:exported="false"

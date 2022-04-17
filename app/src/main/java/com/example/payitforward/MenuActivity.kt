@@ -1,5 +1,6 @@
 package com.example.payitforward
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -62,6 +63,7 @@ class MenuActivity : AppCompatActivity() {
                 }
             }
         }
+        startService(Intent(this, MessageNotificationsService::class.java))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

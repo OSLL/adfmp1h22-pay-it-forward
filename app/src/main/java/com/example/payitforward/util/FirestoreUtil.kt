@@ -42,6 +42,27 @@ object FirestoreUtil {
         }
     }
 
+    fun getNewMessages(myId: String, onSuccess: (messages: Message) -> Unit) {
+        collectionsMessage
+            .whereEqualTo("receiverId", myId)
+            .addSnapshotListener { snapshots, _ ->
+                if (snapshots != null) {
+                    val messages = mutableListOf<Message>()
+                    snapshots.documents.forEach {
+                        if (it["type"] == MessageType.TEXT) {
+                            messages.add(it.toObject(TextMessage::class.java)!!)
+                        } else {
+                            messages.add(it.toObject(ImageMessage::class.java)!!)
+                        }
+                    }
+                    val ans = messages.maxByOrNull { it.time }
+                    if (ans != null) {
+                        onSuccess(ans)
+                    }
+                }
+            }
+    }
+
     fun getLastMessage(dialogId: String, onSuccess: (message: Message?) -> Unit) {
         collectionsMessage
             .whereEqualTo("dialogId", dialogId)
