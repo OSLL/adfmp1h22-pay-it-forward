@@ -20,6 +20,7 @@ import org.junit.runner.RunWith
 class ChatFragmentTest {
 
     private lateinit var navController: TestNavHostController
+    private val theme = R.style.Theme_PayItForward
 
     @Before
     fun setUpTest() {
@@ -29,7 +30,7 @@ class ChatFragmentTest {
             navController.setGraph(R.navigation.mobile_navigation)
             navController.setCurrentDestination(R.id.nav_chat)
         }.let {
-            launchFragmentInContainer {
+            launchFragmentInContainer(themeResId = theme) {
                 ChatFragment().also { fragment ->
                     fragment.viewLifecycleOwnerLiveData.observeForever { viewLifecycleOwner ->
                         if (viewLifecycleOwner != null) {
@@ -44,7 +45,7 @@ class ChatFragmentTest {
 
     @Test
     fun checkHintIsSearch() {
-        onView(withId(R.id.search)).check(matches(withHint("search")))
+        onView(withId(R.id.searchText)).check(matches(withHint("search")))
         onView(withId(R.id.search)).check(matches(isDisplayed()))
     }
 

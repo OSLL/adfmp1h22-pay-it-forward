@@ -1,10 +1,12 @@
 package com.example.payitforward.ui.chat
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.payitforward.adapters.DialogsAdapter
@@ -13,27 +15,32 @@ import com.example.payitforward.pojo.Dialog
 import com.example.payitforward.util.FirestoreUtil
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import java.lang.Exception
 
 class ChatFragment : Fragment() {
 
     private lateinit var binding: FragmentChatBinding
     private lateinit var dialogsAdapter: DialogsAdapter
+    private var dialogs: List<Dialog> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentChatBinding.inflate(inflater, container, false)
+        try {
+            binding = FragmentChatBinding.inflate(inflater, container, false)
+        } catch (e: Exception) {
+            throw e
+        }
         val root: View = binding.root
 
         initRecyclerView()
         getDialogs()
 
         binding.sendButton.setOnClickListener {
-            val t = binding.search.text.toString()
+            val t = binding.searchText.text.toString()
             val ans = mutableListOf<Dialog>()
-            val dialogs = dialogsAdapter.getDialogs()
             val titles = mutableMapOf<Int, String>()
             var flag = 0
             for((i, dialog) in dialogs.withIndex()) {
@@ -50,13 +57,30 @@ class ChatFragment : Fragment() {
                         }
                         dialogsAdapter.clearItems()
                         dialogsAdapter.setItems(ans)
-                        binding.search.text.clear()
+                        hideKeyboard(requireActivity())
                     }
                 }
             }
         }
 
+        binding.search.setEndIconOnClickListener {
+            binding.searchText.text?.clear()
+            hideKeyboard(requireActivity())
+            dialogsAdapter.clearItems()
+            dialogsAdapter.setItems(dialogs)
+        }
+
         return root
+    }
+
+    private fun hideKeyboard(activity: Activity) {
+        val imm: InputMethodManager =
+            activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        var view = activity.currentFocus
+        if (view == null) {
+            view = View(activity)
+        }
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun getDialogs() {
@@ -74,6 +98,7 @@ class ChatFragment : Fragment() {
                         if (flag == d.size) {
                             d.sortedBy { times[it.id] }
                             dialogsAdapter.setItems(d)
+                            this.dialogs = d
                         }
                     }
                 }

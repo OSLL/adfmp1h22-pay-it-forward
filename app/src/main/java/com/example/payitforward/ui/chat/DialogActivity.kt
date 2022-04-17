@@ -18,6 +18,8 @@ import com.example.payitforward.util.FirestoreUtil
 import com.example.payitforward.util.StorageUtil
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.RemoteMessage
 
 
 class DialogActivity : AppCompatActivity() {
@@ -65,9 +67,17 @@ class DialogActivity : AppCompatActivity() {
 
         binding.sendButton.setOnClickListener {
             val time = Timestamp.now()
-            val message = TextMessage(binding.messageEditText.text.toString(), time, userId, receiverId, dialogId)
+            val text = binding.messageEditText.text.toString()
+            val message = TextMessage(text, time, userId, receiverId, dialogId)
             FirestoreUtil.sendMessage(message)
             binding.messageEditText.text.clear()
+
+            FirebaseMessaging.getInstance().send(
+                RemoteMessage.Builder("to")
+                    .setMessageId("id")
+                    .addData("key", text)
+                    .build()
+            )
         }
 
         binding.addMessageImageView.setOnClickListener {

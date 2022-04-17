@@ -21,6 +21,7 @@ import org.junit.runner.RunWith
 class StatisticsFragmentTest {
 
     private lateinit var navController: TestNavHostController
+    private val theme = R.style.Theme_PayItForward
 
     @Before
     fun setUpTest() {
@@ -30,7 +31,7 @@ class StatisticsFragmentTest {
             navController.setGraph(R.navigation.mobile_navigation)
             navController.setCurrentDestination(R.id.nav_statistics)
         }.let {
-            launchFragmentInContainer {
+            launchFragmentInContainer(themeResId = theme) {
                 StatisticsFragment().also { fragment ->
                     fragment.viewLifecycleOwnerLiveData.observeForever { viewLifecycleOwner ->
                         if (viewLifecycleOwner != null) {
@@ -59,9 +60,9 @@ class StatisticsFragmentTest {
 
     @Test
     fun checkSearch() {
-        onView(withId(R.id.search)).check(matches(withHint("search")))
+        onView(withId(R.id.searchText)).check(matches(withHint("search")))
         onView(withId(R.id.sendButton)).check(matches(isEnabled()))
-        onView(withId(R.id.search)).perform(ViewActions.typeText("find"))
+        onView(withId(R.id.searchText)).perform(ViewActions.typeText("find"))
     }
 
     @Test

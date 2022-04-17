@@ -17,7 +17,7 @@
         android:minHeight="50dp"
         android:orientation="horizontal">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -27,9 +27,17 @@
             android:background="@drawable/rounded_button_gray"
             android:hint="@string/search"
             android:paddingLeft="16dp"
-            android:paddingTop="5dp"
             android:paddingRight="16dp"
-            android:paddingBottom="5dp" />
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/searchText"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:inputType="text"
+                android:textSize="16sp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
             android:id="@+id/sendButton"

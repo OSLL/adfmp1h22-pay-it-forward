@@ -122,9 +122,14 @@ object FirestoreUtil {
         collectionsTask
             .whereEqualTo("type", "completed")
             .whereEqualTo("executorId", currentUserId)
-            .get()
-            .addOnSuccessListener { documents ->
-                onSuccess(documents.toObjects(Task::class.java))
+            .addSnapshotListener { snapshot, _ ->
+                val tasks = mutableListOf<Task>()
+                if (snapshot != null) {
+                    snapshot.documents.forEach {
+                        tasks.add(it.toObject(Task::class.java)!!)
+                    }
+                    onSuccess(tasks)
+                }
             }
     }
 

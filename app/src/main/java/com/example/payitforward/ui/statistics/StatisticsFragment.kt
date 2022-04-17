@@ -1,12 +1,14 @@
 package com.example.payitforward.ui.statistics
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,7 +28,7 @@ import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.firebase.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 class StatisticsFragment : Fragment() {
 
@@ -37,7 +39,7 @@ class StatisticsFragment : Fragment() {
 
     private lateinit var scoreList: MutableList<Score>
 
-    var tasksList: List<Task> = java.util.ArrayList()
+    private var tasksList: List<Task> = ArrayList()
     private lateinit var tasksAdapter: TasksAdapter
     private lateinit var binding: FragmentStatisticsBinding
 
@@ -54,7 +56,43 @@ class StatisticsFragment : Fragment() {
         initSelector()
         initBarChart()
 
+        binding.sendButton.setOnClickListener {
+            val t = binding.searchText.text.toString()
+            val ans = mutableListOf<Task>()
+            val titles = mutableMapOf<Int, String>()
+            var flag = 0
+            for((i, task) in tasksList.withIndex()) {
+                flag += 1
+                titles[i] = task.name
+                if (flag == tasksList.size) {
+                    for ((key, value) in titles) {
+                        if (value.contains(t, ignoreCase = true)) {
+                            ans.add(tasksList[key])
+                        }
+                    }
+                    tasksAdapter.setItems(ans)
+                    hideKeyboard(requireActivity())
+                }
+            }
+        }
+
+        binding.search.setEndIconOnClickListener {
+            binding.searchText.text?.clear()
+            hideKeyboard(requireActivity())
+            tasksAdapter.setItems(tasksList)
+        }
+
         return root
+    }
+
+    private fun hideKeyboard(activity: Activity) {
+        val imm: InputMethodManager =
+            activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        var view = activity.currentFocus
+        if (view == null) {
+            view = View(activity)
+        }
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun initSelector() {
