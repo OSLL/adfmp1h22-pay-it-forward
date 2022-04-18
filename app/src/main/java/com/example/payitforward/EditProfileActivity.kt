@@ -33,7 +33,7 @@ class EditProfileActivity : AppCompatActivity() {
         if (user != null) {
             FirestoreUtil.getUser(user.uid) { user ->
                 if (user != null) {
-                    if (user.photo != null) {
+                    if (user.photo != null && !user.photo.isEmpty()) {
                         GlideApp.with(this).load(StorageUtil.pathToReference(user.photo)).into(binding.imageView)
                     }
 

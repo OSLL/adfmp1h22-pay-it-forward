@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.payitforward.databinding.ActivityMenuBinding
 import com.example.payitforward.pojo.Task
 import com.example.payitforward.util.FirestoreUtil
+import com.example.payitforward.util.StorageUtil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -67,6 +69,8 @@ class MenuActivity : AppCompatActivity() {
         val headerView: View = navView.getHeaderView(0)
         val navUsername: TextView = headerView.findViewById(R.id.user_name_header)
         val navBalance: TextView = headerView.findViewById(R.id.num_of_coins)
+        val navPhoto: ImageView = headerView.findViewById(R.id.nav_image)
+
         val user = auth.currentUser
         if (user != null) {
             FirestoreUtil.getUser(user.uid) { user ->
@@ -75,6 +79,9 @@ class MenuActivity : AppCompatActivity() {
                         navUsername.text = user.username
                     } else {
                         navUsername.text = user.name
+                    }
+                    if (user.photo != null && !user.photo.isEmpty()) {
+                        GlideApp.with(this).load(StorageUtil.pathToReference(user.photo)).into(navPhoto)
                     }
                 }
             }
