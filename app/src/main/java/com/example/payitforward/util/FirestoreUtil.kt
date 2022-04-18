@@ -264,4 +264,8 @@ object FirestoreUtil {
     fun getCurrentUser(): String {
         return Firebase.auth.currentUser!!.uid
     }
+
+    fun changeUserPhoto(userId: String, editPhoto: String?) {
+        collectionsUsers.document(userId).update("photo", editPhoto)
+    }
 }
