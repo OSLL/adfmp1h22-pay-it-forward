@@ -83,12 +83,12 @@
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_below="@id/filterAccepted"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/filter_button"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/white"
         android:shape="oval"
         android:text="Cancel"
-        android:textAllCaps="false"
-        android:layout_marginBottom="10dp"/>
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/filterApply"
@@ -96,9 +96,9 @@
         android:layout_height="40dp"
         android:layout_below="@id/filterRejected"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_toEndOf="@id/filterCancel"
-        android:background="@drawable/filter_button"
+        android:backgroundTint="@color/purple_200"
         android:shape="oval"
         android:text="Apply"
         android:textAllCaps="false"
