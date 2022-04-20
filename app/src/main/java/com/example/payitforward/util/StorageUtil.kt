@@ -26,4 +26,11 @@ object StorageUtil {
             onSuccess(imagesRef.path)
         }
     }
+
+    fun uploadUserImage(photo: Uri, userId: String, onSuccess: (imagePath: String) -> Unit) {
+        val imagesRef: StorageReference = storageRef.child("userImages/$userId")
+        imagesRef.putFile(photo).addOnSuccessListener {
+            onSuccess(imagesRef.path)
+        }
+    }
 }
