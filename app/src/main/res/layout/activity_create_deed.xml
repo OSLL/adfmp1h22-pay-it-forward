@@ -26,6 +26,7 @@
             android:id="@+id/Title"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
+            android:maxHeight="50dp"
             android:gravity="center"
             android:textColor="@color/black"
             android:textSize="24sp"
