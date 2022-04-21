@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.payitforward.GlideApp
+import com.example.payitforward.R
 import com.example.payitforward.databinding.ItemDialogBinding
 import com.example.payitforward.pojo.Dialog
 import com.example.payitforward.pojo.TextMessage
@@ -81,6 +82,8 @@ class DialogsAdapter : RecyclerView.Adapter<DialogsAdapter.DialogViewHolder>() {
                     if (task.imageUrl != null) {
                         val photoRef = StorageUtil.pathToReference(task.imageUrl!!)
                         GlideApp.with(context).load(photoRef).into(binding.dialogImageView)
+                    } else {
+                        binding.dialogImageView.setImageResource(R.mipmap.ic_launcher_round)
                     }
                 }
             }
