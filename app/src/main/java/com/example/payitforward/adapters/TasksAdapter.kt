@@ -1,6 +1,7 @@
 package com.example.payitforward.adapters
 
 import android.content.Context
+import android.text.format.DateFormat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -54,16 +55,21 @@ class TasksAdapter(context: Context?) : RecyclerView.Adapter<TasksAdapter.TaskVi
          //   binding.taskImageView
             val sfd = SimpleDateFormat("HH:mm")
             binding.taskName.text = task.name
-            binding.deadlineDate.text = sfd.format(task.deadlineDate.toDate())
+            binding.deadlineDate.text = getDate(task.deadlineDate.seconds)
             binding.coinsTextView.text = task.coins.toString()
             if (task.imageUrl != null) {
                 val photoRef = StorageUtil.pathToReference(task.imageUrl.toString())
                 if (context != null) {
-                    Log.i("HAHAHA", photoRef.toString())
-                    Log.i("HAHAHA", task.imageUrl.toString())
                     GlideApp.with(context).load(photoRef).into(binding.taskImageView)
                 }
             }
+        }
+
+        fun getDate(timestamp: Long): String {
+            val calendar = Calendar.getInstance(Locale.ENGLISH)
+            calendar.timeInMillis = timestamp * 1000L
+            val date = DateFormat.format("dd-MM-yyyy", calendar).toString()
+            return date
         }
 
         init {
@@ -72,4 +78,6 @@ class TasksAdapter(context: Context?) : RecyclerView.Adapter<TasksAdapter.TaskVi
             }
         }
     }
+
+
 }
