@@ -205,8 +205,10 @@ class StatisticsFragment : Fragment() {
     private fun getCoinsFromRange(l: Timestamp, r: Timestamp) : Int {
         var sum = 0
         for (t in tasksList) {
-            if (t.completionDate!! < r && t.completionDate!! >= l) {
-                sum += t.coins
+            if (t.completionDate != null) {
+                if (t.completionDate!! < r && t.completionDate!! >= l) {
+                    sum += t.coins
+                }
             }
         }
         return sum
