@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#EAEAEA"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
+    android:padding="8dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/dialogImageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/dialogName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@id/dialogImageView"
+        android:maxLines="1"
+        android:text="@string/buy_cake_and_deliver"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/messageTextView"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialogName"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@id/dialogImageView"
+        android:maxLines="1"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/timeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp" />
+
+</RelativeLayout>

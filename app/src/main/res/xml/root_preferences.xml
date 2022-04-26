@@ -1,0 +1,58 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="">
+
+        <PreferenceScreen
+            app:icon="@drawable/edit_profile"
+            app:key="@string/edit_profile"
+            app:title="@string/edit_profile">
+
+            <intent
+                android:targetClass="com.example.payitforward.EditProfileActivity"
+                android:targetPackage="com.example.payitforward" />
+
+        </PreferenceScreen>
+
+
+        <SwitchPreferenceCompat
+            app:icon="@drawable/notifications"
+            app:key="@string/notifications"
+            app:title="@string/notifications" />
+
+        <PreferenceScreen
+            app:icon="@drawable/security"
+            app:key="@string/security"
+            app:title="@string/security">
+
+            <intent
+                android:targetClass="com.example.payitforward.ChangePasswordActivity"
+                android:targetPackage="com.example.payitforward" />
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            app:icon="@drawable/about"
+            app:key="about"
+            app:title="@string/about">
+
+            <intent
+                android:targetClass="com.example.payitforward.AboutActivity"
+                android:targetPackage="com.example.payitforward" />
+        </PreferenceScreen>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="">
+
+        <PreferenceScreen
+            app:icon="@drawable/log_out"
+            app:key="@string/log_out"
+            app:title="@string/log_out">
+
+            <intent
+                android:targetClass="com.example.payitforward.MainActivity"
+                android:targetPackage="com.example.payitforward" />
+        </PreferenceScreen>
+    </PreferenceCategory>
+
+</PreferenceScreen>

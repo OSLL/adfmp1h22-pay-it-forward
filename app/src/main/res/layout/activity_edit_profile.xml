@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditProfileActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.PayItForward.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_edit"
+            android:popupTheme="@style/Theme.PayItForward.PopupOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary">
+
+            <LinearLayout
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#A5A6F6"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button_cancel_edit_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_gravity="bottom"
+                    android:background="#00C4C4C4"
+                    android:textAllCaps="false"
+                    android:text="@string/cancel"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/Title"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:text="Change Password" />
+
+                <Button
+                    android:id="@+id/button_done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_gravity="bottom"
+                    android:background="#00C4C4C4"
+                    android:textAllCaps="false"
+                    android:text="@string/done"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/nav_header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical"
+        android:paddingTop="0dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/nav_header_desc"
+            android:gravity="center_horizontal"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:src="@drawable/icon_camera" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:drawablePadding="10dp"
+            android:text="Name"
+            android:textColor="#8F8686"
+            android:textSize="15sp" />
+
+
+        <EditText
+
+            android:id="@+id/name_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:drawablePadding="10dp"
+            android:hint="Dmitriy Pupkin"
+            android:paddingBottom="20dp">
+
+        </EditText>
+
+        <TextView
+
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name_input"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:drawablePadding="10dp"
+            android:text="Username"
+            android:textColor="#8F8686"
+            android:textSize="15sp" />
+
+        <EditText
+
+            android:id="@+id/username_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/username"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:drawablePadding="10dp"
+            android:hint="dpupkin"
+            android:paddingBottom="20dp" />
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:drawablePadding="10dp"
+            android:text="Email"
+            android:textColor="#8F8686"
+            android:textSize="15sp" />
+
+
+        <EditText
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/email"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:drawablePadding="10dp"
+            android:hint="example@mail.ru"
+            android:inputType="textEmailAddress"
+            android:paddingBottom="20dp"></EditText>
+
+        <TextView
+            android:id="@+id/bio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:drawablePadding="10dp"
+            android:text="Bio"
+            android:textColor="#8F8686"
+            android:textSize="15sp" />
+
+
+        <EditText
+            android:id="@+id/bio_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bio"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:drawablePadding="10dp"
+            android:paddingBottom="20dp"></EditText>
+
+    </LinearLayout>
+
+</RelativeLayout>

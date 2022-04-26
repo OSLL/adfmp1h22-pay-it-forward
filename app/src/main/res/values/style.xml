@@ -1,0 +1,8 @@
+<resources>
+    <style name="MyToolbarTheme" parent="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>
