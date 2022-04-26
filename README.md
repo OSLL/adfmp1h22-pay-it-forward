@@ -4,8 +4,10 @@
 
 1. [Краткое описание](#short_description)
 2. [Полное описание](#full_description)
-3. [Скриншоты приложения](#screens)
-4. [Тестовый аккаунт](#test_account)
+3. [Иконка](#icon)
+4. [Feature Graphic](#feature_graphic)
+5. [Скриншоты приложения](#screens)
+6. [Тестовый аккаунт](#test_account)
 
 <a name="short_description"></a>
 ### Краткое описание
@@ -53,6 +55,15 @@
 * Фильтрация списка добрых дел
 * Удобный и понятный пользовательский интерфейс
 * Возможность настройки профиля
+
+
+<a name="icon"></a>
+### Иконка
+<img src="https://github.com/OSLL/adfmp1h22-pay-it-forward/blob/main/screens/icon.png?raw=true"/>
+
+<a name="feature_graphic"></a>
+### Feature Graphic
+<img src="https://github.com/OSLL/adfmp1h22-pay-it-forward/blob/main/screens/feature_graphic.jpg?raw=true"/>
 
 <a name="screens"></a>
 ### Скриншоты приложения
