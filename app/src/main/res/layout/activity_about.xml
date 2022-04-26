@@ -86,15 +86,15 @@
             android:gravity="center"
             android:text="@string/chizhova_maria_npotryasaeva_anna_nshelukhinaekaterina"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/about_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/about_text"
             android:textColor="@color/black"
-            android:gravity="center"
             android:textSize="20sp" />
 
     </LinearLayout>
