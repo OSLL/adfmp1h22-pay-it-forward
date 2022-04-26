@@ -24,16 +24,15 @@
                 android:background="#A5A6F6"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/button_cancel_about"
+                <ImageButton
+                    android:id="@+id/back_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="7dp"
                     android:layout_gravity="bottom"
-                    android:layout_marginStart="20dp"
                     android:background="#00C4C4C4"
-                    android:text="@string/cancel"
-                    android:textAllCaps="false"
-                    android:textSize="18sp" />
+                    android:src="@drawable/icons_back_48" />
 
                 <TextView
                     android:id="@+id/Title"
@@ -53,7 +52,7 @@
                     android:layout_gravity="bottom"
                     android:layout_marginEnd="20dp"
                     android:background="#00C4C4C4"
-                    android:text="@string/done"
+                    android:text=""
                     android:textAllCaps="false"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -72,10 +71,32 @@
         android:paddingTop="0dp">
 
         <TextView
+            android:id="@+id/hello_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/hey_this_application_was_made_by_students_of_the_higher_school_of_economics"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/names_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/chizhova_maria_npotryasaeva_anna_nshelukhinaekaterina"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
             android:id="@+id/about_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/about_text" />
+            android:text="@string/about_text"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="20sp" />
+
     </LinearLayout>
 
 
