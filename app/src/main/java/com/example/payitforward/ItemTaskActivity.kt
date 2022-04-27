@@ -201,7 +201,7 @@ class ItemTaskActivity : AppCompatActivity() {
                     }
                     completedBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
                     completedBinding.buttonDone.setOnClickListener {
-                        FirestoreUtil.changeTaskType(taskId.toString(), "completed")
+                        FirestoreUtil.changeTaskType(taskId.toString(), "onReview")
                         finish()
                     }
                 }
