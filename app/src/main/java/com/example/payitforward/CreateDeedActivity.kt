@@ -7,11 +7,9 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.SparseArray
 import android.view.View
-import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.SeekBar
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -56,6 +54,8 @@ class CreateDeedActivity : AppCompatActivity() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val data: Intent? = result.data
                 chosenPhoto = ImageView(this)
+                val layoutParams = LinearLayout.LayoutParams(60, 60)
+                chosenPhoto!!.layoutParams = layoutParams
                 chosenPhoto!!.id = (0..1000000).random()
                 chosenPhoto!!.setImageURI(data?.data)
                 chosenPhoto!!.setOnClickListener {
