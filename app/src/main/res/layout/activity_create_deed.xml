@@ -17,8 +17,8 @@
             android:id="@+id/button_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_gravity="bottom"
+            android:layout_marginStart="16dp"
             android:background="#00C4C4C4"
             android:text="@string/cancel" />
 
@@ -26,19 +26,19 @@
             android:id="@+id/Title"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:maxHeight="50dp"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textSize="24sp"
             android:layout_weight="1"
-            android:text="@string/create_deed" />
+            android:gravity="center"
+            android:maxHeight="50dp"
+            android:text="@string/create_deed"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/button_done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:layout_gravity="bottom"
+            android:layout_marginEnd="16dp"
             android:background="#00C4C4C4"
             android:text="@string/done" />
 
@@ -161,7 +161,49 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp" />
 
+            <View
+                android:id="@+id/sep1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#8F8686" />
+
+            <TextView
+                android:id="@+id/additionalPhotosTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dp"
+                android:text="@string/additional_photos"
+                android:textColor="#8F8686"
+                android:textSize="16sp" />
+
+            <HorizontalScrollView
+                android:id="@+id/hscroll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/additionalPhotosLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    tools:ignore="MissingClass">
+
+                    <ImageView
+                        android:id="@+id/addAdditionalPhotos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/icons_add"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+
         </LinearLayout>
+
 
     </ScrollView>
 
