@@ -17,6 +17,7 @@ object FirestoreUtil {
     private val collectionsDialog = firestore.collection("dialog")
     private var currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
     private val collectionsUsers = firestore.collection("users")
+    private val collectionsAdditionalPhoto = firestore.collection("additionalPhoto")
 
     fun setUserId(userId: String) {
         currentUserId = userId
@@ -267,5 +268,18 @@ object FirestoreUtil {
 
     fun changeUserPhoto(userId: String, editPhoto: String?) {
         collectionsUsers.document(userId).update("photo", editPhoto)
+    }
+
+    fun addAdditionalPhoto(photo: AdditionalPhoto) {
+        collectionsAdditionalPhoto.add(photo)
+    }
+
+    fun getAdditionalPhoto(taskId: String, onSuccess: (photos: List<AdditionalPhoto>) -> Unit) {
+        collectionsAdditionalPhoto
+            .whereEqualTo("taskId", taskId)
+            .get()
+            .addOnSuccessListener { documents ->
+                onSuccess(documents.toObjects(AdditionalPhoto::class.java))
+            }
     }
 }

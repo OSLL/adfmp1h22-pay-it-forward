@@ -7,17 +7,22 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.SeekBar
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.payitforward.databinding.ActivityCreateDeedBinding
+import com.example.payitforward.pojo.AdditionalPhoto
 import com.example.payitforward.pojo.Task
 import com.example.payitforward.util.FirestoreUtil
 import com.example.payitforward.util.StorageUtil
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import java.util.*
+
 
 class CreateDeedActivity : AppCompatActivity() {
 
@@ -31,13 +36,39 @@ class CreateDeedActivity : AppCompatActivity() {
     private var imagePath: String? = null
     private var coins: Int = 50
     private var edit: Boolean = false
-    private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val data: Intent? = result.data
-            binding.changePhoto.setImageURI(data?.data)
-            photo = data?.data
+
+    val emptyMap = mutableMapOf<Int, Uri?>()
+
+    private var chosenPhoto: ImageView? = null
+    private var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                binding.changePhoto.setImageURI(data?.data)
+                photo = data?.data
+            }
         }
-    }
+
+    private var resultLauncherAdditionalPhotos =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                chosenPhoto = ImageView(this)
+                val layoutParams = LinearLayout.LayoutParams(60, 60)
+                chosenPhoto!!.layoutParams = layoutParams
+                chosenPhoto!!.id = (0..1000000).random()
+                chosenPhoto!!.setImageURI(data?.data)
+                chosenPhoto!!.setOnClickListener {
+                    chosenPhoto!!.visibility = View.GONE
+                    emptyMap[chosenPhoto!!.id] = null
+                }
+                binding.additionalPhotosLayout.addView(chosenPhoto)
+                while (emptyMap[chosenPhoto!!.id] != null) {
+                    chosenPhoto!!.id = (0..1000000).random()
+                }
+                emptyMap[chosenPhoto!!.id] = data?.data
+            }
+        }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +83,7 @@ class CreateDeedActivity : AppCompatActivity() {
         }
 
         binding.buttonCancel.setOnClickListener { cancelActivity() }
+        binding.addAdditionalPhotos.setOnClickListener { pickAdditionalPhotos() }
 
         binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val calendar = Calendar.getInstance()
@@ -87,6 +119,14 @@ class CreateDeedActivity : AppCompatActivity() {
         }
     }
 
+
+    private fun pickAdditionalPhotos() {
+        checkPermissionForImage()
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        resultLauncherAdditionalPhotos.launch(intent)
+    }
+
     private fun loadInfo(id: String) {
         FirestoreUtil.getTask(id) { task ->
             if (task != null) {
@@ -120,14 +160,58 @@ class CreateDeedActivity : AppCompatActivity() {
         if (edit) {
             FirestoreUtil.deleteTask(taskId!!)
         }
+        addAditionalPhotosToDB()
         if (photo != null) {
             StorageUtil.uploadTaskImage(photo!!, taskId!!) { imagePath ->
-                FirestoreUtil.addTask(Task(taskId!!, createdTime!!, deadline!!, null, userId, null, title, description, imagePath, coins, "new"))
+                FirestoreUtil.addTask(
+                    Task(
+                        taskId!!,
+                        createdTime!!,
+                        deadline!!,
+                        null,
+                        userId,
+                        null,
+                        title,
+                        description,
+                        imagePath,
+                        coins,
+                        "new"
+                    )
+                )
             }
         } else {
-            FirestoreUtil.addTask(Task(taskId!!, createdTime!!, deadline!!, null,  userId, null, title, description, imagePath, coins, "new"))
+            FirestoreUtil.addTask(
+                Task(
+                    taskId!!,
+                    createdTime!!,
+                    deadline!!,
+                    null,
+                    userId,
+                    null,
+                    title,
+                    description,
+                    imagePath,
+                    coins,
+                    "new"
+                )
+            )
         }
         finish()
+    }
+
+    private fun addAditionalPhotosToDB() {
+        for ((key, value) in emptyMap) {
+            if (value != null) {
+                StorageUtil.uploadAdditionalPhoto(value, key) { image ->
+                    FirestoreUtil.addAdditionalPhoto(
+                        AdditionalPhoto(
+                            taskId!!,
+                            image
+                        )
+                    )
+                }
+            }
+        }
     }
 
     private fun cancelActivity() {

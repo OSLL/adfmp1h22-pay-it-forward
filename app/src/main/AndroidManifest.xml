@@ -9,11 +9,15 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.PayItForward">
+        <activity
+            android:name=".LibraryPhotos"
+            android:exported="false" />
+
         <service
             android:name=".MessageNotificationsService"
             android:enabled="true"
-            android:exported="true">
-        </service>
+            android:exported="true"></service>
+
         <activity
             android:name=".FilterActivity"
             android:exported="false"
@@ -43,6 +47,9 @@
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity
             android:name=".ui.chat.DialogActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LogOutActivity"
             android:exported="false" />
         <activity
             android:name=".SignUpActivity"
