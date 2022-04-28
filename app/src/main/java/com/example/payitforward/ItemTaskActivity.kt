@@ -89,10 +89,20 @@ class ItemTaskActivity : AppCompatActivity() {
                     taskStatusBinding.coinsTextView.text = getIntent().extras!!.getString("coins")
                     taskStatusBinding.currentStatusValue.text =
                         "The task is created by you and waiting for the executor"
+                    taskStatusBinding.taskImageView.setOnClickListener {
+                        val intent = Intent(this, LibraryPhotos::class.java)
+                        intent.putExtra("taskId", taskId)
+                        startActivity(intent)
+                    }
                 } else {
                     val takeBinding: ActivityTaskTakeBinding =
                         ActivityTaskTakeBinding.inflate(layoutInflater)
                     setContentView(takeBinding.root)
+                    takeBinding.taskImageView.setOnClickListener {
+                        val intent = Intent(this, LibraryPhotos::class.java)
+                        intent.putExtra("taskId", taskId)
+                        startActivity(intent)
+                    }
                     FirestoreUtil.getUser(authorId.toString()) { user ->
                         if (user != null) {
                             takeBinding.authorNameTextView.text = user.name
@@ -135,6 +145,11 @@ class ItemTaskActivity : AppCompatActivity() {
                 if (currentUserId == authorId) {
                     val taskStatusBinding: ActivityTaskStatusBinding =
                         ActivityTaskStatusBinding.inflate(layoutInflater)
+                    taskStatusBinding.taskImageView.setOnClickListener {
+                        val intent = Intent(this, LibraryPhotos::class.java)
+                        intent.putExtra("taskId", taskId)
+                        startActivity(intent)
+                    }
                     setContentView(taskStatusBinding.root)
                     FirestoreUtil.getUser(authorId.toString()) { user ->
                         if (user != null) {
@@ -171,6 +186,11 @@ class ItemTaskActivity : AppCompatActivity() {
                     val completedBinding: ActivityTaskCompletedBinding =
                         ActivityTaskCompletedBinding.inflate(layoutInflater)
                     setContentView(completedBinding.root)
+                    completedBinding.taskImageView.setOnClickListener {
+                        val intent = Intent(this, LibraryPhotos::class.java)
+                        intent.putExtra("taskId", taskId)
+                        startActivity(intent)
+                    }
                     FirestoreUtil.getUser(authorId.toString()) { user ->
                         if (user != null) {
                             completedBinding.authorNameTextView.text = user.name
@@ -256,6 +276,11 @@ class ItemTaskActivity : AppCompatActivity() {
                     taskStatusBinding.buttonEdit.layoutParams.width = 0
                     taskStatusBinding.buttonEdit.visibility = View.INVISIBLE
                     taskStatusBinding.currentStatusValue.text = "The task was completed by you"
+                }
+                taskStatusBinding.taskImageView.setOnClickListener {
+                    val intent = Intent(this, LibraryPhotos::class.java)
+                    intent.putExtra("taskId", taskId)
+                    startActivity(intent)
                 }
             }
 

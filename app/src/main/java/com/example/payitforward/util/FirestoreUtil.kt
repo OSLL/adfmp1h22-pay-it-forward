@@ -273,4 +273,13 @@ object FirestoreUtil {
     fun addAdditionalPhoto(photo: AdditionalPhoto) {
         collectionsAdditionalPhoto.add(photo)
     }
+
+    fun getAdditionalPhoto(taskId: String, onSuccess: (photos: List<AdditionalPhoto>) -> Unit) {
+        collectionsAdditionalPhoto
+            .whereEqualTo("taskId", taskId)
+            .get()
+            .addOnSuccessListener { documents ->
+                onSuccess(documents.toObjects(AdditionalPhoto::class.java))
+            }
+    }
 }
