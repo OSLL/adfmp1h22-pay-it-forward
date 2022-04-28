@@ -78,12 +78,13 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
-    <string name="about_text">
-  <![CDATA[
-    Author: Your name<br/><br/>Your description text, changelog, licences etc… ]]>
-    </string>
+    <string name="about_text">\n\n\nThe idea is to take the idea from the film of the same name and use Firebase as a backend to implement something like a hybrid of duolingo and freelance.ru.</string>
+
     <string name="title_activity_task">TaskActivity</string>
     <string name="edit_task">Edit Task</string>
     <string name="task_name">Task name</string>
     <string name="_50">50</string>
+    <string name="hey_this_application_was_made_by_students_of_the_higher_school_of_economics">Hey! This application was made by students of the Higher School of Economics\n\n</string>
+    <string name="chizhova_maria_npotryasaeva_anna_nshelukhinaekaterina">Chizhova Maria\nPotryasaeva Anna\nShelukhina Ekaterina</string>
+    <string name="additional_photos">Additional Photos</string>
 </resources>

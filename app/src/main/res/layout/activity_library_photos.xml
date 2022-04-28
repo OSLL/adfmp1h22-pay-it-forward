@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AboutActivity">
+    tools:context=".LibraryPhotos">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.PayItForward.AppBarOverlay">
+        android:theme="@style/Theme.PayItForward.AppBarOverlay"
+        tools:ignore="MissingConstraints">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_edit"
@@ -40,7 +42,7 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/about"
+                    android:text="Additional photos"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
@@ -59,45 +61,20 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-
-    <LinearLayout
-        android:id="@+id/nav_header"
+    <HorizontalScrollView
+        android:id="@+id/hscroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center_horizontal|center_vertical"
-        android:orientation="vertical"
-        android:paddingTop="0dp">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/hello_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/hey_this_application_was_made_by_students_of_the_higher_school_of_economics"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+        <LinearLayout
+            android:id="@+id/additionalPhotosLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            tools:ignore="MissingClass">
 
-        <TextView
-            android:id="@+id/names_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/chizhova_maria_npotryasaeva_anna_nshelukhinaekaterina"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/about_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/about_text"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+    </HorizontalScrollView>
 
-    </LinearLayout>
-
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
